@@ -24,7 +24,7 @@ npm run build
 
 GitHub Actions validates, then deploys to Vercel Hobby. Vercel Git auto-deploy is off. See `docs/CI-CD.md`.
 
-Production updates only from green `main`. A human still approves editorial merges.
+Pull requests get a preview URL after `validate` passes. Production updates only from green `main`. A human still approves editorial merges. `main` requires a PR and a passing `validate` job.
 
 Hobby is **personal / non-commercial**. Sponsorship, paid newsletters, and other monetization require Vercel Pro.
 

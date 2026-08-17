@@ -483,7 +483,7 @@ Header, footer, nav, topic menu, search dialog, feature story, Signal item, topi
 ### S05.02 — GitHub repository hygiene
 
 - [x] Confirm GitHub remote and default branch (`main`)
-- [ ] Ruleset on `main`: PR required + passing `validate` job (once `ci.yml` exists)
+- [x] Ruleset on `main`: PR required + passing `validate` job (once `ci.yml` exists)
 - [ ] CODEOWNERS optional (single owner is fine)
 - [x] Issue templates later; PR template now (see S02.03)
 - [x] Do not commit `.env`, secrets, or newsletter provider API keys
@@ -507,7 +507,7 @@ Follow `docs/CI-CD.md`. Do **not** use Vercel’s default “deploy on every git
 - [x] Push to `main` → Vercel **production** only if validate passes
 - [x] Failed validate leaves the last good Vercel deploy unchanged
 - [x] Preview URL commented on the PR
-- [ ] Prove the gate with a deliberate failing push before relying on it
+- [x] Prove the gate with a deliberate failing PR before relying on it ([#1](https://github.com/moonseer/program-signal/pull/1))
 
 ### S05.04 — Local content pipeline spike
 
@@ -1725,9 +1725,6 @@ A story is done when:
 
 # 8. Immediate next session
 
-ID registry, license split, and the 15 launch opportunity cards are in-repo. Remaining P0:
+Phase 0 remaining work is optional design (component checklist, persona motifs) plus leftover schema items (public article references, source taxonomy).
 
-1. GitHub ruleset on `main` + a deliberate failing PR to prove `validate` blocks deploy
-2. Optional design: component checklist, persona motifs
-
-Do not start the 12–15 launch articles until the CI gate is proven. Then write from briefs, not from titles.
+Write launch articles from briefs, not from titles. One fixture article exists; the other 14 launch titles are opportunity cards only (`PS-O-0002`–`PS-O-0015` in `APPROVED`). `main` requires a PR and a passing `validate` job. Proven: [#1](https://github.com/moonseer/program-signal/pull/1) failed `validate` and skipped `deploy`.

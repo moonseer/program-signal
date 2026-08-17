@@ -92,7 +92,7 @@ Rules:
 
 1. Do not develop on `main`. Open a branch, push, get a preview, merge.
 2. Direct pushes to `main` are still gated: validate must pass or production stays on the last good deploy.
-3. Once GitHub branch protection / rulesets are enabled, `main` requires a PR plus a passing `validate` check. Prefer that as soon as the workflow exists.
+3. `main` requires a PR plus a passing `validate` check (ruleset `main`, squash merge only). There is no owner bypass except turning the ruleset off in GitHub settings.
 4. Preview URLs are `noindex`. Production is the only indexed site.
 
 Hobby note: **one concurrent Vercel build**. Sequential “validate then one deploy” is a better fit than Vercel auto-deploying every branch at once.
@@ -286,14 +286,14 @@ Do not commit `.env`, newsletter API keys, or the Vercel token.
 
 When the workflow is live:
 
-1. **Ruleset on `main`**
-   - Require a pull request (squash or merge commit — pick one and keep it)
+1. **Ruleset on `main`** (active)
+   - Pull request required; squash merge only
    - Require status check `validate` (the job name in `ci.yml`)
-   - Do not allow bypassing for the owner except as an emergency break-glass
+   - No bypass actors; emergency break-glass is disabling the ruleset in repo settings
 2. **PR template** includes opportunity id, Desk `editorial_decision`, Research Editor status, and human Editor-in-Chief approval. CI does not tick those; the human does.
 3. **Vercel Hobby** has no team RBAC. GitHub is where review happens.
 
-Until rulesets are on, the workflow still protects production: a failed `validate` means `deploy` does not run.
+A failed `validate` means `deploy` does not run. Proven on [#1](https://github.com/moonseer/program-signal/pull/1).
 
 ---
 
@@ -346,18 +346,18 @@ Rollback: revert on `main` (or `git revert`) and let CI deploy the previous good
 
 **With the first app scaffold (P0)**
 
-- [ ] `vercel.json` with Git auto-deploy disabled
-- [ ] GitHub secrets
-- [ ] `ci.yml` with validate → deploy
-- [ ] README section: how to get a preview
-- [ ] Confirm Hobby production URL updates only on green `main`
+- [x] `vercel.json` with Git auto-deploy disabled
+- [x] GitHub secrets
+- [x] `ci.yml` with validate → deploy
+- [x] README section: how to get a preview
+- [x] Confirm Hobby production URL updates only on green `main`
 
 **With the publishing system (P1)**
 
-- [ ] `npm run validate:content` in the validate job (articles **and** `editorial/opportunities`, `editorial/briefs`)
+- [x] `npm run validate:content` in the validate job (articles **and** `editorial/opportunities`, `editorial/briefs`)
 - [ ] ShellCheck + YAML/JSON
-- [ ] PR template for Desk + Evidence + human gates
-- [ ] `main` ruleset requiring `validate`
+- [x] PR template for Desk + Evidence + human gates
+- [x] `main` ruleset requiring `validate`
 
 **Public launch (P3)**
 
