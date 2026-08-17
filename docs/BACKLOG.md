@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 17 August 2026  
-**Phase:** Agent-harness cluster drafted. Human approval still open. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Phase:** Agent-harness cluster (**published** on `main`). MCP pillar `PS-000008` **published**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -46,15 +46,15 @@ Keep this section current. Detail lives in the epics below.
 | Schemas | Articles, opportunities, briefs, evidence ledger, public references, ID registry |
 | License | MIT for site software; editorial content all rights reserved |
 | Launch planning | 15 opportunity cards + 15 Desk briefs (`PS-000001`–`PS-000015`) |
-| Agent runtime Phase 1 | LangGraph workflow, persona packages, dry-run CLI, pytest — LLM nodes not wired yet |
-| MCP cluster start | `PS-000008` drafted with evidence, diagram `PS-D-0004`, research pass — **human approval open** |
+| Agent-harness cluster | `PS-000001`–`PS-000004` published ([#5](https://github.com/moonseer/program-signal/pull/5)) |
+| Agent runtime Phase 1 | LangGraph workflow, persona packages, dry-run CLI, pytest — LLM nodes not wired yet ([#7](https://github.com/moonseer/program-signal/pull/7)) |
+| MCP cluster start | `PS-000008` published with evidence and diagram `PS-D-0004` ([#7](https://github.com/moonseer/program-signal/pull/7)) |
 
 ### Do next (recommended order)
 
-1. **Human approval on the agent-harness cluster PR ([#5](https://github.com/moonseer/program-signal/pull/5))** — Evidence PASS + Desk ready + CI green are not enough. Tick the Editor-in-Chief box, then squash-merge.
-2. **Human approval on the runtime + MCP PR** — after #5 merges or in parallel on stacked branch; same four-part gate for `PS-000008`.
-3. **Wire LLM nodes into E37** — PydanticAI agents for Desk, Author, and Evidence; LiteLLM routing; PostgreSQL workflow state.
-4. **Next MCP cluster piece** — `PS-000009` remains deferred (Kubernetes not in scope) until reframed.
+1. **Wire LLM nodes into E37** — PydanticAI agents for Desk, Author, and Evidence; LiteLLM routing; PostgreSQL workflow state.
+2. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
+3. **Next MCP cluster piece** — `PS-000009` remains deferred (Kubernetes not in scope) until reframed as host-agnostic operator guide.
 
 ### Deferred (not now)
 
@@ -76,8 +76,8 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E07, E08, E09, E10 **In progress**. Homepage, search, and remaining trust pages are not started. |
-| P2 Launch inventory | E13–E21 | E13 agent-harness drafted, pending human approval. E14 **deferred** (Kubernetes not in scope). E15–E18 still briefs only. |
-| P-ind. Agent enablement | E37–E39 | E37 not started — Author Engine + workflow per agent architecture doc. |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15 S15.01 **Done**. E14 **deferred** (Kubernetes not in scope). |
+| P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
 ---
@@ -959,7 +959,7 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E13 — Launch cluster: AI agents / agent harness (4)
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P2  
 **Priority:** Critical
 
@@ -969,7 +969,7 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 - [x] Draft in Maya voice
 - [x] Evidence ledger + Research Editor review
 - [x] Architecture diagram(s)
-- [ ] Human approval
+- [x] Human approval
 - [x] ID assigned
 
 ### S13.02 — The Anatomy of a Production AI Agent
@@ -977,21 +977,21 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 - [x] Brief (Maya)
 - [x] Layer model diagram
 - [x] Research review
-- [ ] Human approval
+- [x] Human approval
 
 ### S13.03 — Agent Harness vs Agent Framework vs MCP
 
 - [x] Brief (Maya, Decision Guide)
 - [x] Comparison table
 - [x] Research review
-- [ ] Human approval
+- [x] Human approval
 
 ### S13.04 — What Actually Belongs Inside an Agent Harness?
 
 - [x] Brief (Maya)
 - [x] Responsibility-boundary diagram
 - [x] Research review
-- [ ] Human approval
+- [x] Human approval
 
 ---
 
@@ -1040,7 +1040,7 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 - [x] Brief (Maya)
 - [x] Protocol vs product diagram
 - [x] Research review
-- [ ] Human approval
+- [x] Human approval
 
 ### S15.02 — How to Run MCP Servers Safely on Kubernetes
 
