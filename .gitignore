@@ -42,3 +42,10 @@ docs/*.zip
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python editorial runtime
+editorial-runtime/.venv/
+editorial-runtime/runs/
+**/__pycache__/
+**/.pytest_cache/
+*.egg-info/

@@ -3,10 +3,11 @@
 **Version:** 1.0  
 **Purpose:** Define the detailed responsibilities, workflows, scoring models, schemas, guardrails, handoffs, and evaluation criteria for the two control-layer agents in the Platform Signal editorial system.  
 **Canonical for:** The Desk (Editorial Agent / Managing Editor) and The Radar (Topic Research / Opportunity / Content Intelligence Agent).  
-**Tracked in:** [`BACKLOG.md`](./BACKLOG.md) epics E02, E03, E26, E37.
+**Tracked in:** [`BACKLOG.md`](./BACKLOG.md) epics E02, E03, E26, E37, E39.
 
 Related:
 
+- **Agent implementation (Author Engine, persona packages, workflow, model routing):** [`PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](./PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md)
 - Technical evidence: [`PLATFORM-SIGNAL-TECHNICAL-RESEARCH-EDITOR.md`](./PLATFORM-SIGNAL-TECHNICAL-RESEARCH-EDITOR.md)
 - Voices: [`PLATFORM-SIGNAL-AUTHOR-PERSONAS.md`](./PLATFORM-SIGNAL-AUTHOR-PERSONAS.md)
 - Cadence: [`PLATFORM-SIGNAL-CONTENT-CADENCE.md`](./PLATFORM-SIGNAL-CONTENT-CADENCE.md)
@@ -34,6 +35,8 @@ Neither agent should replace the Technical Research Editor.
 Neither agent should publish autonomously.
 
 The two-agent model separates discovery, opportunity analysis, editorial judgment, author assignment, story framing, verification, and human accountability.
+
+> **Implementation note:** Marcus, Maya, Elias, and Nia are **persona packages** consumed by one shared Author Engine — not four separate agent runtimes. See [`PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](./PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md).
 
 ---
 

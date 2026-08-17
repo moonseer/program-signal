@@ -1,0 +1,53 @@
+article: mcp-for-platform-engineers
+reviewed: "2026-08-17"
+claims:
+  - id: C001
+    claim: MCP is an open protocol for connecting LLM applications to external data sources and tools.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C002
+    claim: MCP defines hosts, clients, and servers communicating over JSON-RPC; it is not a production agent runtime or architecture.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C003
+    claim: MCP states that the protocol cannot enforce its security principles at the protocol level; implementors must add consent, authorization, and access control.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification — Security and Trust & Safety
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C004
+    claim: MCP servers run as separate processes that expose tools; their credentials define blast radius independent of the host model.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: MEDIUM
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C005
+    claim: '"Platform team operates MCP" is Platform Signal vocabulary for lifecycle, identity, reachability, allow-lists, and audit — concerns outside the wire protocol.'
+    type: OPINION
+    status: SUPPORTED
+    confidence: HIGH
+    sources: []

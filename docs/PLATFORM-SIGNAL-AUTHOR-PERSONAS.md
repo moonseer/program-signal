@@ -6,6 +6,8 @@
 
 Persona **assignment** is owned by the Editorial Agent (The Desk). See [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) §7. This document remains canonical for voice, territory, and fingerprint.
 
+**Implementation:** Personas are **versioned writing configurations** loaded by one shared Author Engine — not four separate agent runtimes. Package layout and rubrics: [`PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](./PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md) §1, §11–§12. Tracked in [`BACKLOG.md`](./BACKLOG.md) E39.
+
 ---
 
 # 1. Editorial Model

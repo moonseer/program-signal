@@ -23,8 +23,10 @@ clusters:
       - PS-O-0007
   - id: mcp
     name: MCP / Agent Protocols
+    pillar: mcp-for-platform-engineers
     pillar_opportunity: PS-O-0008
-    articles: []
+    articles:
+      - PS-000008
     opportunities:
       - PS-O-0008
       - PS-O-0009

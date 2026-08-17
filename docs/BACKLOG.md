@@ -5,7 +5,8 @@
 **Status:** See [Now / Next](#now--next). Agent-harness cluster drafted; human Editor-in-Chief approval is still open. Site remains `noindex`.  
 **Source of truth for work:** this document  
 **Source of truth for product intent:** the docs in `/docs`  
-**Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)
+**Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)  
+**Canonical agent implementation:** [`PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](./PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md) (Author Engine, persona packages, workflow, model routing)
 
 ---
 
@@ -31,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 17 August 2026  
-**Phase:** Agent-harness cluster drafted. Human approval still open. Site remains `noindex`.
+**Phase:** Agent-harness cluster drafted. Human approval still open. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -40,25 +41,33 @@ Keep this section current. Detail lives in the epics below.
 | Area | What landed |
 |---|---|
 | Constitution | Editorial standards, AI process, human approval gate, persona disclosure |
-| Agents | Radar, Desk, and Evidence Editor specs in-repo. None of them can publish. |
+| Agents | Radar, Desk, and Evidence Editor specs in-repo. Implementation architecture defined (Author Engine + persona packages, LangGraph workflow). None can publish. |
 | Engine | Next.js site, CI validate-then-deploy, Vercel Hobby, `main` requires a PR + passing `validate` |
 | Schemas | Articles, opportunities, briefs, evidence ledger, public references, ID registry |
 | License | MIT for site software; editorial content all rights reserved |
 | Launch planning | 15 opportunity cards + 15 Desk briefs (`PS-000001`–`PS-000015`) |
-| Agent-harness cluster | Four drafted articles with evidence, diagrams/tables, related reads, and article-page TOC/recommendation. **Human Editor-in-Chief approval is still open.** |
+| Agent runtime Phase 1 | LangGraph workflow, persona packages, dry-run CLI, pytest — LLM nodes not wired yet |
+| MCP cluster start | `PS-000008` drafted with evidence, diagram `PS-D-0004`, research pass — **human approval open** |
 
 ### Do next (recommended order)
 
-1. **Human approval on the agent-harness cluster PR** — Evidence PASS + Desk ready + CI green are not enough. Tick the Editor-in-Chief box, then merge.
-2. **Then the Kubernetes + AI cluster, one cluster at a time** — start from briefs `PS-000005`–`PS-000007`. Same evidence + diagram + human gate.
-3. **Do not draft all remaining launch titles in parallel.**
+1. **Human approval on the agent-harness cluster PR ([#5](https://github.com/moonseer/program-signal/pull/5))** — Evidence PASS + Desk ready + CI green are not enough. Tick the Editor-in-Chief box, then squash-merge.
+2. **Human approval on the runtime + MCP PR** — after #5 merges or in parallel on stacked branch; same four-part gate for `PS-000008`.
+3. **Wire LLM nodes into E37** — PydanticAI agents for Desk, Author, and Evidence; LiteLLM routing; PostgreSQL workflow state.
+4. **Next MCP cluster piece** — `PS-000009` remains deferred (Kubernetes not in scope) until reframed.
+
+### Deferred (not now)
+
+- **Kubernetes + AI launch cluster** (`PS-000005`–`PS-000007`, E14) — briefs stay in-repo; articles wait until Kubernetes is back in editorial scope.
+- **MCP on Kubernetes operator guide** (`PS-000009`, S15.02) — reframe or hold until a K8s workload story is intentional, not default.
 
 ### Not next
 
 - Illustrated persona portraits, topic accent colors, or long-article comfort testing
 - Homepage magazine layout, search, RSS, newsletter vendor, custom domain
 - Public launch / turning off `noindex`
-- Running Radar or Desk as live jobs
+- Running Radar or Desk as live jobs **before Agent runtime Phase 1 is proven**
+- Kubernetes launch cluster (`PS-000005`–`000007`) or MCP-on-K8s operator guide (`PS-000009`)
 - Monetization (Hobby is non-commercial)
 
 ### How to see progress in this file
@@ -67,7 +76,8 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E07, E08, E09, E10 **In progress**. Homepage, search, and remaining trust pages are not started. |
-| P2 Launch inventory | E13–E21 | E13 agent-harness drafted, pending human approval. E14–E18 still briefs only. |
+| P2 Launch inventory | E13–E21 | E13 agent-harness drafted, pending human approval. E14 **deferred** (Kubernetes not in scope). E15–E18 still briefs only. |
+| P-ind. Agent enablement | E37–E39 | E37 not started — Author Engine + workflow per agent architecture doc. |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
 ---
@@ -127,7 +137,8 @@ Hobby is viable for launch if the architecture stays **mostly static**. It is no
 | Newsletter | External provider (Buttondown, Beehiiv, or equivalent) | Do not send email from Vercel functions |
 | Analytics | Search Console + GA4 + Vercel Web Analytics | Free / included; stay under 50k Vercel Analytics events initially |
 | CI/CD | GitHub Actions validate, then Vercel CLI deploy | Sequential gate; Vercel Git auto-deploy is off. See `docs/CI-CD.md` |
-| Database | None at launch | Frontmatter + YAML graphs generated at build |
+| Database | None on the public site | Frontmatter + YAML graphs generated at build |
+| Agent runtime state | PostgreSQL (when E37 ships) | Workflow stages, opportunity/brief state, eval runs — **not** on Vercel Hobby |
 | Auth | None on the public site | Preview protection via Vercel if needed |
 
 ### 2.2 Hobby limits that shape the backlog
@@ -162,7 +173,7 @@ Do **not** put these on Vercel Hobby:
 - Heavy ISR/on-demand regeneration for every article
 - A headless CMS as the canonical store
 
-Agents, labs, and code verification run **locally and in GitHub Actions**. Vercel only serves the built site.
+Agents, labs, and code verification run **locally, in GitHub Actions, or on a separate Python runtime** (LangGraph + PydanticAI + LiteLLM + PostgreSQL per the agent architecture doc). Vercel only serves the built site. **Platform Signal is not running on Kubernetes.**
 
 ### 2.4 When to leave Hobby
 
@@ -214,7 +225,9 @@ When we start coding, do this sequence — not all of P1 at once:
 5. Topics, Labs, authors, About, policy pages
 6. Search, RSS, sitemap, newsletter CTA
 7. GitHub Actions validate-then-deploy to Vercel (`docs/CI-CD.md`)
-8. Then write the remaining launch cluster
+8. Launch clusters one at a time (agent-harness first; **not** Kubernetes until in scope)
+9. **Editorial agent runtime Phase 1** (after the first cluster proves the human gate): Author Engine + persona packages → Desk → Evidence → LangGraph workflow → human approval — see E37 and the agent architecture doc §26
+10. Radar automation, eval suite, and distribution agent **after** Phase 1 workflow is trustworthy
 
 ---
 
@@ -333,6 +346,16 @@ Write `docs/agents/CONTENT-INTELLIGENCE.md` from the same agent doc.
 - [x] Editorial Agent returns editorial_decision YAML (reason, angle, type, persona, secondary reviewer, thesis, sections, evidence, visuals, length, research_review_level, priority, publish_window)
 - [x] The agents are expected to **disagree**: Radar may score search high; Desk may reject on fit. Fit wins.
 - [x] Neither Topic Agent, Desk, author, nor Research Editor can publish
+
+### S02.08 — Personas vs agents (implementation model)
+
+Canonical: [`PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](./PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md).
+
+- [x] Personas (Marcus, Maya, Elias, Nia) are **versioned writing configurations**, not four separate autonomous agent runtimes
+- [x] One shared **Author Engine** assembles context from base author instructions + editorial standards + persona package + content type + brief + approved evidence
+- [x] Model routing by **capability class** (research, reasoning, writer, fast, local) — not `marcus-model` / `maya-model`
+- [x] Structured typed outputs for Radar, Desk, and Evidence; prose generation only in the Author role
+- [ ] Persona package files in-repo (`persona.md`, `voice.md`, `patterns.md`, `examples.md`, `anti-patterns.md`, `review-rubric.md`) — see E39
 
 ### S02.02 — Technical Research Editor spec in-repo
 
@@ -974,9 +997,11 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E14 — Launch cluster: Kubernetes + AI infrastructure (3)
 
-**Status:** In progress  
+**Status:** Deferred  
 **Phase:** P2  
-**Priority:** Critical
+**Priority:** High (when Kubernetes is back in scope)
+
+**Parked:** Platform Signal is **not using Kubernetes** for runtime or as the next editorial cluster. Briefs `PS-000005`–`PS-000007` remain planning artifacts only.
 
 ### S14.01 — Kubernetes for AI: A Production Architecture Guide
 
@@ -1013,11 +1038,13 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 ### S15.01 — MCP for Platform Engineers
 
 - [x] Brief (Maya)
-- [ ] Protocol vs product distinction
-- [ ] Research review
+- [x] Protocol vs product diagram
+- [x] Research review
 - [ ] Human approval
 
 ### S15.02 — How to Run MCP Servers Safely on Kubernetes
+
+**Deferred** until Kubernetes is in editorial scope. Consider reframing as a host-agnostic privileged-workload guide (`PS-000009` brief title may change).
 
 - [x] Brief (Marcus, Operator Guide)
 - [ ] Identity, authz, blast radius, secrets, audit
@@ -1471,7 +1498,7 @@ Candidates from the cadence doc:
 
 ### S28.03 — Code verification levels 2–4 (labs and high-value manifests)
 
-- [ ] Level 2: schema / kubectl server-side dry-run **locally or in a disposable cluster**, never on Vercel
+- [ ] Level 2: schema validation always; kubectl server-side dry-run **only when Kubernetes content/labs are in scope** — locally or in a disposable cluster, never on Vercel
 - [ ] Level 3: execute high-value examples in disposable env; save evidence
 - [ ] Level 4: independent reproduction when possible
 - [ ] Public “validated on Kubernetes x.y” badge only when true
@@ -1648,60 +1675,135 @@ Possible: newsletter sponsorship, clearly labeled site sponsor, affiliate, works
 
 These are not a public-site phase. They make *you* faster without autonomous publishing.
 
+Canonical implementation spec: [`PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](./PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md).
+
+**Stack (v1):** Python · PydanticAI · LangGraph · LiteLLM · PostgreSQL workflow state · Git (MDX/YAML) as content source of truth · isolated Docker sandbox for code verification.
+
+**Build order:** Author Engine → persona packages → Desk → Evidence → human gate → Git workflow → structured schemas → version metadata → eval suite → **then** Radar → code verification → diagrams → distribution.
+
+Do not add Temporal or a second orchestration layer until operational load justifies it.
+
 ---
 
-## E37 — Agent prompts and workflow in Cursor
+## E37 — Editorial agent runtime (Author Engine + workflow)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P0–P4 (incremental)  
 **Priority:** High
 
-### S37.01 — Four author prompts
+Prove Phase 1 before Radar automation: manual topic in → Desk → Author → Evidence → revision → human approval.
 
-Dedicated prompts, not one template with the name swapped:
+### S37.01 — Common Author Agent (Author Engine)
 
-- [ ] Marcus: operational, failure-first, PRODUCTION NOTE / WATCH OUT
-- [ ] Maya: vocabulary, layers, reference architectures
-- [ ] Elias: Signal structure, anti-clickbait
-- [ ] Nia: situation → discovery → decision, no fake clients
+- [x] Single author runtime with persona selected at workflow time — **not** four separate agent implementations
+- [x] Context assembly: base author + editorial standards + persona package + content type + brief + approved evidence
+- [ ] Limit unrestricted web access initially; research requests route to Evidence Editor
+- [x] Drafting loop scaffold: brief → outline → draft → evidence → human gate (Desk outline review and revision loop stubbed)
+- [x] Output: MDX article / outline paths in dry-run
 
-Each includes prohibited phrases, prohibited fake experience, citation rules, and example openings.
+### S37.02 — Persona package system
 
-### S37.02 — Research Editor prompt
+See E39. Persona config example (voice sliders, preferred elements, avoid list) versioned like software (`maya-v1.0`, etc.).
 
-- [ ] Claim extraction
-- [ ] Primary-source rule
-- [ ] Production sanity and security checklists
-- [ ] Structured review output
-- [ ] Must refuse fabricated citations
+### S37.03 — Desk / Managing Editor agent
 
-### S37.03 — Editorial Agent (The Desk) prompt
-
-From agent doc §47.
-
+- [ ] PydanticAI agent returning typed `EditorialDecision` / `ArticleBrief` — not unstructured paragraphs
 - [ ] Protect mission; optimize reader value; preserve persona differences
 - [ ] Duplicate / commodity / portfolio-balance checks against opportunities, briefs, and published slugs
 - [ ] Assign type, primary persona, optional secondary perspective, visuals
-- [ ] Emit `editorial_decision` YAML; create brief only after APPROVE or APPROVE WITH REFRAMING
-- [ ] Enforce readability and anti-word-salad patterns
+- [ ] Emit structured decision; create brief only after APPROVE or APPROVE WITH REFRAMING
 - [ ] Cannot mark technical claims verified; cannot override Research Editor; cannot publish
 
-### S37.04 — Topic / Radar prompt
+### S37.04 — Evidence Editor agent
 
-From agent doc §46.
+- [ ] PydanticAI agent returning typed `EvidenceReview`, `ClaimReview`, `VerificationReport`
+- [ ] Claim extraction; primary-source rule; production sanity and security checklists
+- [ ] Must refuse fabricated citations
+- [ ] Permissions: read sources, write evidence ledger, request corrections — no publish, no policy changes
 
-- [ ] Ranked opportunity cards, not dumps
-- [ ] Four signal categories; search is one input
-- [ ] Classify, score, novelty/commodity check, cluster and lab potential
-- [ ] Never invent search volume or trend numbers
-- [ ] Never equate community excitement with production maturity
-- [ ] Submit to The Desk; do not skip to authoring
+### S37.05 — LangGraph workflow orchestration
 
-### S37.05 — Human-in-the-loop publishing
+- [x] Explicit stages: topic → Desk → brief → Author → Evidence → human gate (publish/analytics/Radar later)
+- [x] Conditional routing: Evidence CHANGES → revision (stub)
+- [x] Human approval as a **hard interruption** before publish
+- [ ] Workflow state schema persisted in PostgreSQL (JSON run files in Phase 1)
 
-- [ ] Cursor/agent may open the PR
-- [ ] GitHub Action may lint
+### S37.06 — LiteLLM model routing
+
+- [ ] Capability aliases: `research`, `reasoning`, `writer`, `fast`, `local` — not per-persona model names
+- [ ] Route Radar → research; Desk → reasoning; Author personas → writer/reasoning; metadata → fast
+- [ ] Tag every request: `article_id`, `agent`, `persona`, `workflow_stage`, `content_type`, `model_alias`
+- [ ] Provider independence: swap models without changing editorial architecture
+
+### S37.07 — Agent evaluation suite
+
+- [ ] `evals/radar`, `evals/desk`, `evals/evidence`, `evals/marcus`, `evals/maya`, `evals/elias`, `evals/nia`
+- [ ] Prompt regression tests before trusting automation (examples in agent architecture doc §15)
+- [ ] Capture `workflow_version`, agent versions, persona version on every run
+
+### S37.08 — Topic / Radar agent (Phase 2 — after core workflow)
+
+- [ ] Do **not** build before Phase 1 is trustworthy
+- [ ] PydanticAI agent returning typed `OpportunityCard`
+- [ ] Four signal categories; search is one input; never invent search volume
+- [ ] Submit to Desk; do not skip to authoring
+
+### S37.09 — Human-in-the-loop publishing
+
+- [x] Cursor/agent may open the PR
+- [x] GitHub Action may lint
 - [ ] Only the human merges to `main`
+- [ ] Four-part gate unchanged: Evidence PASS + Desk READY + CI PASS + Human Editor-in-Chief APPROVED
+
+### S37.10 — Cursor interim prompts (optional bridge)
+
+Until the Python runtime ships, Cursor rules/skills may approximate slices of E37. These are **not** the durable implementation.
+
+- [ ] Desk, Evidence, and Author Engine prompt slices aligned with structured output schemas
+- [ ] Do not treat four separate Cursor author chats as the long-term architecture
+
+---
+
+## E39 — Persona packages (Author Engine context)
+
+**Status:** In progress  
+**Phase:** P0–P1  
+**Priority:** High
+
+Personas are portable, versioned context — not separate code paths.
+
+### S39.01 — Repository layout
+
+```text
+agents/author/
+├── base-author.md
+└── personas/
+    ├── marcus/
+    │   ├── persona.md
+    │   ├── voice.md
+    │   ├── patterns.md
+    │   ├── examples.md
+    │   ├── anti-patterns.md
+    │   └── review-rubric.md
+    ├── maya/
+    ├── elias/
+    └── nia/
+```
+
+- [x] Create layout under `agents/author/` (or `docs/agents/author/` if preferred for docs-only first)
+- [x] Keep persona context separate from editorial policy, brief, evidence pack, article state, and model config
+
+### S39.02 — Persona rubrics (from architecture doc §12)
+
+- [x] Marcus: failure modes, observability, recovery, upgrades, blast radius, operational ownership
+- [x] Maya: boundaries, control/data plane, responsibilities, tradeoffs, protocol vs implementation
+- [x] Elias: what changed, why now, technical meaning, who cares, watch next — anti-clickbait
+- [x] Nia: problem first, real constraints, complexity cost, ownership, success criteria — no forced Kubernetes/AI
+
+### S39.03 — Persona versioning
+
+- [ ] Version tags (`maya-v1.0`, etc.) recorded on workflow runs
+- [ ] No fine-tuning four persona models at launch — prompt/context engineering first
 
 ---
 
@@ -1757,6 +1859,8 @@ A story is done when:
 - Fully autonomous publishing (Radar, Desk, authors, and Research Editor all cannot publish)
 - Letting SEO or Trends define what the publication believes is important
 - Merging The Radar and The Desk into one agent
+- Four separate persona agent runtimes or per-persona fine-tuned models at launch
+- Radar automation before the Desk → Author → Evidence → human loop is proven
 - One generic AI voice with four names
 - Pageview-maximizing titles
 - Vendor-written independent analysis
@@ -1771,4 +1875,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: human approval of the agent-harness cluster, then Kubernetes + AI from briefs `PS-000005`–`PS-000007`.
+Recommended next piece of work: human approval of the agent-harness cluster, then Agent runtime Phase 1 (E37) and MCP cluster `PS-000008`. Kubernetes cluster (`PS-000005`–`000007`) is deferred.

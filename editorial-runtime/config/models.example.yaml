@@ -1,0 +1,15 @@
+# Capability-based model routing (Phase 1 example — not wired to LiteLLM yet)
+research:
+  primary: strongest_reasoning_model
+  fallback: strong_reasoning_model
+reasoning:
+  primary: strong_reasoning_model
+  fallback: general_reasoning_model
+writer:
+  primary: best_long_form_model
+  fallback: strong_general_model
+fast:
+  primary: inexpensive_model
+  fallback: local_model
+local:
+  primary: ollama/local
