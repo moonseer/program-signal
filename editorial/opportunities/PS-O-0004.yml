@@ -1,0 +1,28 @@
+opportunity_id: PS-O-0004
+topic: What Actually Belongs Inside an Agent Harness?
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 84
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now: Harness is becoming a product category before anyone agrees which responsibilities it owns.
+audience:
+  - platform architects
+  - AI infrastructure engineers
+  - staff engineers
+reader_problem: Teams either stuff the harness with every concern or leave identity, policy, and blast radius to the model prompt.
+search_signals: Emerging queries for agent harness architecture and agent runtime responsibilities.
+technical_signals: Control-plane vs data-plane splits in AI platforms; MCP servers as sidecars; sandboxing and tool gateways.
+content_gap: Explainers define the word. They do not draw a responsibility boundary operators can enforce.
+unique_angle: In-scope vs out-of-scope for the harness, with explicit non-goals.
+evidence_starting_points:
+  - MCP specification
+  - Kubernetes security boundaries
+  - Platform engineering control-plane literature
+suggested_persona: maya
+suggested_format: deep_dive
+lab_potential: medium
+cluster_relationships:
+  - agent-harness
+confidence: HIGH
+recommendation: Approve as the architecture follow-on to the harness explainer.

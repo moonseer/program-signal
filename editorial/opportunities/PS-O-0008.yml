@@ -1,0 +1,29 @@
+opportunity_id: PS-O-0008
+topic: MCP for Platform Engineers
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 88
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now: MCP is being adopted as if it were a platform, while platform teams still have to host, identity-bind, and observe the servers.
+audience:
+  - platform engineers
+  - platform architects
+  - SRE
+reader_problem: MCP explainers are written for app developers. Operators need to know what they are running and what they are not.
+search_signals: Queries for MCP, Model Context Protocol, and MCP servers.
+technical_signals: MCP spec revisions, official SDKs, Kubernetes sidecars, and early gateway products.
+content_gap: Protocol tutorials do not translate MCP into workload identity, blast radius, or platform ownership.
+unique_angle: MCP as a tool-access protocol that a platform team has to operate, not as an agent architecture.
+evidence_starting_points:
+  - MCP specification
+  - MCP authorization and transport docs
+  - Kubernetes workload identity docs
+suggested_persona: maya
+suggested_format: explainer
+lab_potential: medium
+cluster_relationships:
+  - mcp
+  - agent-harness
+confidence: HIGH
+recommendation: Approve as the MCP cluster pillar for platform readers.

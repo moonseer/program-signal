@@ -1,0 +1,28 @@
+opportunity_id: PS-O-0006
+topic: Kubernetes GPU Scheduling and DRA Explained
+classification: EMERGING
+lifecycle: APPROVED
+opportunity_score: 85
+commodity_risk: MEDIUM
+horizon: NEXT
+why_now: Device plugins are still the default story while Dynamic Resource Allocation is becoming the path operators will have to run.
+audience:
+  - platform engineers
+  - SRE
+  - AI infrastructure engineers
+reader_problem: GPU scheduling advice still assumes exclusive device plugins and hides DRA, ResourceClaims, and maturity limits.
+search_signals: Queries for Kubernetes GPU scheduling, sharing, and Dynamic Resource Allocation.
+technical_signals: DRA GA trajectory, ResourceSlice/ResourceClaim APIs, MIG and time-slicing debates.
+content_gap: Explainers either hype utilization or ignore version and failure modes.
+unique_angle: What a platform team can actually schedule, observe, and roll back — with versions explicit.
+evidence_starting_points:
+  - Kubernetes DRA documentation and KEPs
+  - Device plugin and GPU operator docs
+  - Vendor MIG / sharing docs labeled as vendor claims
+suggested_persona: marcus
+suggested_format: operator_guide
+lab_potential: very_high
+cluster_relationships:
+  - k8s-ai
+confidence: HIGH
+recommendation: Approve as the operator companion to the Kubernetes-for-AI architecture piece.

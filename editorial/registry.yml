@@ -1,0 +1,7 @@
+# Next unused IDs. Allocate with: npm run allocate-id -- <kind>
+next:
+  article: 2
+  diagram: 1
+  lab: 1
+  opportunity: 16
+source_families: {}

@@ -1,0 +1,20 @@
+opportunity_id: PS-O-NNNN
+topic:
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 0
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now:
+audience:
+  - platform architects
+reader_problem:
+content_gap:
+unique_angle:
+evidence_starting_points: []
+suggested_persona: maya
+suggested_format: explainer
+lab_potential: none
+cluster_relationships: []
+confidence: MEDIUM
+recommendation:

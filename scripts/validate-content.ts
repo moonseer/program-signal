@@ -2,13 +2,17 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import yaml from "js-yaml";
+import { validateIdRegistry } from "../src/lib/id-registry";
 import {
   REQUIRED_RESEARCH_TYPES,
   articleBriefSchema,
   articleFrontmatterSchema,
+  calendarFileSchema,
+  clustersFileSchema,
   evidenceLedgerSchema,
   opportunityCardSchema,
   sourceLibrarySchema,
+  watchlistFileSchema,
 } from "../src/lib/schemas";
 
 const root = process.cwd();
@@ -112,21 +116,21 @@ validateYamlDir("editorial/briefs", (data, file) => {
   }
 });
 
-for (const relative of [
-  "editorial/calendar.yml",
-  "editorial/clusters.yml",
-  "editorial/watchlist.yml",
-]) {
-  const file = path.join(root, relative);
-  if (!fs.existsSync(file)) {
-    error(`missing ${relative}`);
-    continue;
-  }
-  try {
-    readYaml(file);
-    ok(relative);
-  } catch (err) {
-    error(`${relative}: ${(err as Error).message}`);
+{
+  const checks: Array<[string, (data: unknown) => { success: boolean; error?: { message: string } }]> = [
+    ["editorial/calendar.yml", (data) => calendarFileSchema.safeParse(data)],
+    ["editorial/clusters.yml", (data) => clustersFileSchema.safeParse(data)],
+    ["editorial/watchlist.yml", (data) => watchlistFileSchema.safeParse(data)],
+  ];
+  for (const [relative, parse] of checks) {
+    const file = path.join(root, relative);
+    if (!fs.existsSync(file)) {
+      error(`missing ${relative}`);
+      continue;
+    }
+    const result = parse(readYaml(file));
+    if (!result.success) error(`${relative}: ${result.error?.message}`);
+    else ok(relative);
   }
 }
 
@@ -140,6 +144,17 @@ for (const relative of [
     if (!result.success) error(`${relative}: ${result.error.message}`);
     else ok(relative);
   }
+}
+
+try {
+  const idErrors = validateIdRegistry(root);
+  if (idErrors.length === 0) {
+    ok("editorial/registry.yml");
+  } else {
+    for (const message of idErrors) error(message);
+  }
+} catch (err) {
+  error((err as Error).message);
 }
 
 if (failed > 0) {

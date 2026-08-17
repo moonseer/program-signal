@@ -1,0 +1,29 @@
+opportunity_id: PS-O-0009
+topic: How to Run MCP Servers Safely on Kubernetes
+classification: PAIN_POINT
+lifecycle: APPROVED
+opportunity_score: 91
+commodity_risk: LOW
+horizon: NOW
+why_now: MCP servers are being pointed at cluster APIs, secrets, and internal systems with more access than the agents that call them.
+audience:
+  - platform engineers
+  - SRE
+  - security engineers
+reader_problem: The default path is a container with a token and a tool list. Identity, authz, secrets, and blast radius are afterthoughts.
+search_signals: Queries for MCP Kubernetes, MCP security, and running MCP servers.
+technical_signals: MCP server packaging, sidecars, network policy, workload identity, and gateway patterns.
+content_gap: Security posts discuss prompt injection. Almost none treat the MCP server as a Kubernetes workload with a failure domain.
+unique_angle: An operator guide for identity, authz, secrets, audit, and blast radius — not a prompt-hardening checklist.
+evidence_starting_points:
+  - MCP specification
+  - Kubernetes RBAC, NetworkPolicy, and workload identity docs
+  - Secrets and admission controller docs
+suggested_persona: marcus
+suggested_format: operator_guide
+lab_potential: very_high
+cluster_relationships:
+  - mcp
+  - k8s-ai
+confidence: HIGH
+recommendation: Approve as the production-safety piece for the MCP launch cluster.

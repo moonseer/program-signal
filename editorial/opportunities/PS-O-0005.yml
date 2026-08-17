@@ -1,0 +1,29 @@
+opportunity_id: PS-O-0005
+topic: "Kubernetes for AI: A Production Architecture Guide"
+classification: EVERGREEN
+lifecycle: APPROVED
+opportunity_score: 87
+commodity_risk: HIGH
+horizon: FOUNDATIONAL
+why_now: AI platforms are landing on Kubernetes as the default host before GPU, identity, and serving patterns are designed as a system.
+audience:
+  - platform architects
+  - platform engineers
+  - AI infrastructure engineers
+reader_problem: Kubernetes-for-AI guides are either GPU tutorials or generic cluster diagrams that ignore serving, batch, and agent workloads.
+search_signals: Evergreen queries for Kubernetes AI architecture and running ML on Kubernetes.
+technical_signals: Dynamic Resource Allocation, Gateway API inference, serving stacks, and GPU operators in production clusters.
+competition: Cloud and vendor reference architectures that assume their stack.
+content_gap: A production architecture that names trade-offs, versions, and what Kubernetes should not own.
+unique_angle: Kubernetes as an AI runtime with explicit control-plane vs workload split, not a GPU how-to.
+evidence_starting_points:
+  - Kubernetes docs for workloads, scheduling, and DRA
+  - Gateway API inference extension
+  - GPU operator and device plugin docs
+suggested_persona: maya
+suggested_format: reference_architecture
+lab_potential: high
+cluster_relationships:
+  - k8s-ai
+confidence: HIGH
+recommendation: Approve as the pillar for the Kubernetes + AI launch cluster.

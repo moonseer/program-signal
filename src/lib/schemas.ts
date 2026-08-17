@@ -112,7 +112,7 @@ export const articleFrontmatterSchema = z.object({
       relatedArticles: z.array(z.string()).default([]),
       series: z.string().optional(),
       sources: z.array(z.string()).default([]),
-      diagrams: z.array(z.string()).default([]),
+      diagrams: z.array(z.string().regex(/^PS-D-\d{4}$/)).default([]),
     })
     .default({
       relatedArticles: [],
@@ -283,3 +283,48 @@ export const sourceRecordSchema = z.object({
 export const sourceLibrarySchema = z.object({
   sources: z.array(sourceRecordSchema).default([]),
 });
+
+export const sequentialKindSchema = z.enum([
+  "article",
+  "opportunity",
+  "diagram",
+  "lab",
+]);
+
+export const idRegistrySchema = z.object({
+  next: z.object({
+    article: z.number().int().positive(),
+    opportunity: z.number().int().positive(),
+    diagram: z.number().int().positive(),
+    lab: z.number().int().positive(),
+  }),
+  source_families: z.record(z.number().int().positive()).default({}),
+});
+
+export const clusterSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  pillar: z.string().optional(),
+  pillar_opportunity: z.string().regex(/^PS-O-\d{4}$/).optional(),
+  articles: z.array(z.string().regex(/^PS-\d{6}$/)).default([]),
+  opportunities: z.array(z.string().regex(/^PS-O-\d{4}$/)).default([]),
+});
+
+export const clustersFileSchema = z.object({
+  clusters: z.array(clusterSchema).default([]),
+});
+
+export const watchlistFileSchema = z.object({
+  items: z.array(z.unknown()).default([]),
+});
+
+export const calendarFileSchema = z.object({
+  week_of: z.string().min(1),
+  items: z.array(z.unknown()).default([]),
+  persona_workload: z.record(z.unknown()).default({}),
+  topic_mix: z.record(z.unknown()).default({}),
+  content_type_mix: z.record(z.unknown()).default({}),
+});
+
+export type SequentialKind = z.infer<typeof sequentialKindSchema>;
+export type IdRegistry = z.infer<typeof idRegistrySchema>;

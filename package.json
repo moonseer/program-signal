@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "validate:content": "tsx scripts/validate-content.ts",
-    "test": "tsx --test src/lib/schemas.test.ts"
+    "allocate-id": "tsx scripts/allocate-id.ts",
+    "test": "tsx --test src/lib/*.test.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

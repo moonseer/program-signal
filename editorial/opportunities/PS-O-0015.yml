@@ -1,0 +1,30 @@
+opportunity_id: PS-O-0015
+topic: The State of Platform Engineering in the Age of AI Agents
+classification: EMERGING
+lifecycle: APPROVED
+opportunity_score: 81
+commodity_risk: HIGH
+horizon: NOW
+why_now: Platform orgs are inheriting agent runtimes, GPU pools, and tool access without a clear change to the platform product.
+audience:
+  - platform architects
+  - engineering leaders
+  - staff engineers
+reader_problem: State-of-platform-engineering roundups still inventory IDP features while the new failure domain is unattended tool access.
+search_signals: Queries for platform engineering 2026, AI agents and platform engineering, and internal developer platform trends.
+technical_signals: IDP agents, MCP, GPU platforms, platform ROI debates, golden-path coverage vs agent coverage.
+competition: Annual platform-engineering reports that treat AI as a portal widget.
+content_gap: A current analysis that names what actually changed for platform teams, with uncertainty labeled.
+unique_angle: Agents change the blast radius of self-service. That is the state change, not another catalog of tools.
+evidence_starting_points:
+  - CNCF platform engineering materials
+  - Public platform-engineering surveys
+  - MCP specification
+suggested_persona: elias
+suggested_format: the_signal
+lab_potential: none
+cluster_relationships:
+  - the-signal
+  - platform-sre
+confidence: MEDIUM
+recommendation: Approve as the second Signal launch piece. Evidence Editor must challenge any industry-wide claims.

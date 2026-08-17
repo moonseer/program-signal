@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** August 17, 2026  
-**Status:** Phase 0 in progress — constitution and operating docs in-repo; site and CI live  
+**Status:** Phase 0 in progress — constitution, ID registry, launch opportunity cards, and license in-repo; site and CI live  
 **Source of truth for work:** this document  
 **Source of truth for product intent:** the docs in `/docs`  
 **Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)
@@ -371,7 +371,7 @@ platform-signal/
 
 - [x] Folders and README pointers
 - [x] `.gitignore` for Node, env, OS files
-- [ ] License decision (site code vs article copyright)
+- [x] License decision (site code vs article copyright)
 
 ### S03.02 — Article metadata schema
 
@@ -409,18 +409,18 @@ Canonical scoring and lifecycle: agent doc §§25–28. Do not implement the old
 - [x] Lifecycle states: DISCOVERED, QUALIFYING, WATCHING, REJECTED, OPPORTUNITY, EDITORIAL REVIEW, APPROVED, HOLD, BRIEF, ARTICLE, PUBLISHED, PERFORMANCE REVIEW
 - [x] Classification enum + commodity_risk (LOW/MEDIUM/HIGH) + horizon (NOW/NEXT/FOUNDATIONAL)
 - [x] `docs/standards/TOPIC-SCORING-RUBRIC.md` documents **both** the Radar opportunity score and the Desk editorial-fit score
-- [ ] Seed the 15 launch titles as opportunity cards in APPROVED / BRIEF
+- [x] Seed the 15 launch titles as opportunity cards in APPROVED / BRIEF
 - [x] `editorial/clusters.yml` and `editorial/watchlist.yml`
 
 ### S03.06 — Permanent IDs
 
 - [x] Article IDs: `PS-000001`
 - [x] Opportunity IDs: `PS-O-0001`
-- [ ] Diagram IDs: `PS-D-0001`
+- [x] Diagram IDs: `PS-D-0001`
 - [x] Claim IDs: `C001` per article
 - [x] Source IDs: `SRC-…`
-- [ ] Lab IDs: `LAB-0001`
-- [ ] ID registry file or generator script so IDs never collide
+- [x] Lab IDs: `LAB-0001`
+- [x] ID registry file or generator script so IDs never collide
 - [x] Slugs may change; IDs never do; redirects later
 
 ---
@@ -784,7 +784,7 @@ content/articles/<slug>/diagrams/
 
 ## E10 — Quality automation (CI)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P1  
 **Priority:** High
 
@@ -792,10 +792,10 @@ Content checks run in the GitHub Actions `validate` job from `docs/CI-CD.md`. Th
 
 ### S10.01 — Schema and content CI
 
-- [ ] Validate article frontmatter
-- [ ] Validate `editorial/opportunities/*.yml`, `editorial/briefs/*.yml`, `editorial/calendar.yml`, `editorial/clusters.yml`, `editorial/watchlist.yml`
-- [ ] Validate `brief.yml`, `evidence.yml`, `editorial/sources.yml`
-- [ ] Fail on missing required research status for Deep Dive / Operator / Lab
+- [x] Validate article frontmatter
+- [x] Validate `editorial/opportunities/*.yml`, `editorial/briefs/*.yml`, `editorial/calendar.yml`, `editorial/clusters.yml`, `editorial/watchlist.yml`
+- [x] Validate `brief.yml`, `evidence.yml`, `editorial/sources.yml`
+- [x] Fail on missing required research status for Deep Dive / Operator / Lab
 - [ ] Fail on `sponsored: true` without disclosure fields (even if unused)
 
 ### S10.02 — Code verification level 1 (always)
@@ -1725,12 +1725,9 @@ A story is done when:
 
 # 8. Immediate next session
 
-Phase 0 constitution is in-repo. Remaining P0:
+ID registry, license split, and the 15 launch opportunity cards are in-repo. Remaining P0:
 
-1. License decision
-2. ID registry (diagrams, labs, collision-safe generator)
-3. Seed the 15 launch titles as opportunity cards — still not the articles
-4. GitHub ruleset on `main` + a deliberate failing push to prove the CI gate
-5. Optional design: component checklist, persona motifs
+1. GitHub ruleset on `main` + a deliberate failing PR to prove `validate` blocks deploy
+2. Optional design: component checklist, persona motifs
 
-Do not start the 12–15 launch articles until those remaining P0 items are accepted, then write from briefs.
+Do not start the 12–15 launch articles until the CI gate is proven. Then write from briefs, not from titles.

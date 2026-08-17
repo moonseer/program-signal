@@ -1,0 +1,29 @@
+opportunity_id: PS-O-0011
+topic: Observability for AI Agents
+classification: PAIN_POINT
+lifecycle: APPROVED
+opportunity_score: 86
+commodity_risk: MEDIUM
+horizon: NOW
+why_now: Agent failures are being debugged from chat logs while the same teams already have traces, metrics, and audit for every other production system.
+audience:
+  - SRE
+  - platform engineers
+  - AI infrastructure engineers
+reader_problem: Multi-step tool use, retries, and model calls do not show up as one operable trace with identity and cost attached.
+search_signals: Queries for AI agent observability, tracing LLM calls, and OpenTelemetry for agents.
+technical_signals: OTel gen-AI semantic conventions, MCP logging, tracing of tool calls, evals vs production telemetry.
+content_gap: LLM observability products focus on prompts and tokens. Platform readers need traces across tools, cluster, and identity.
+unique_angle: Treat agent work as a distributed system. Trace the workflow, not only the prompt.
+evidence_starting_points:
+  - OpenTelemetry semantic conventions
+  - MCP logging and tracing guidance
+  - SRE observability literature
+suggested_persona: marcus
+suggested_format: operator_guide
+lab_potential: high
+cluster_relationships:
+  - platform-sre
+  - agent-harness
+confidence: HIGH
+recommendation: Approve as the SRE-facing launch article for agent operations.

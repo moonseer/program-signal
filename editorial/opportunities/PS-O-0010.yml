@@ -1,0 +1,30 @@
+opportunity_id: PS-O-0010
+topic: What Is Agentic Platform Engineering?
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 82
+commodity_risk: HIGH
+horizon: FOUNDATIONAL
+why_now: Platform engineering is being rebranded as agentic without a definition of what agents change in golden paths, self-service, and control planes.
+audience:
+  - platform architects
+  - platform engineers
+  - engineering leaders
+reader_problem: Agentic platform engineering currently means either a chatbot on the portal or a rewrite of the platform as autonomous agents.
+search_signals: Emerging queries for agentic platform engineering and AI platform engineering.
+technical_signals: Internal developer portals adding agents; MCP in golden paths; SRE agents; policy-as-code meeting tool access.
+competition: Vendor keynotes that equate a copilot with a platform.
+content_gap: Platform engineering definitions exist. Agentic variants do not say which platform jobs should never be autonomous.
+unique_angle: What agents may do inside a platform product, and which control-plane decisions stay human.
+evidence_starting_points:
+  - Team Topologies / platform-as-product literature
+  - CNCF platform engineering whitepaper
+  - MCP specification
+suggested_persona: maya
+suggested_format: explainer
+lab_potential: low
+cluster_relationships:
+  - platform-sre
+  - agent-harness
+confidence: HIGH
+recommendation: Approve as the conceptual bridge between platform engineering and agent infrastructure.

@@ -1,0 +1,28 @@
+opportunity_id: PS-O-0013
+topic: FDE vs Platform Engineer vs Solutions Architect
+classification: COMPARISON
+lifecycle: APPROVED
+opportunity_score: 78
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now: The same headcount request is being filled by three titles that own different failure modes.
+audience:
+  - engineering managers
+  - field engineers
+  - platform engineers
+reader_problem: Teams hire the wrong role, then blame the person when a POC cannot become a platform capability.
+search_signals: Comparison queries for FDE vs solutions architect vs platform engineer.
+technical_signals: AI implementation teams; platform golden paths; vendor SA motions colliding with internal platform orgs.
+content_gap: Career comparison charts exist. Almost none map the roles to production ownership and evidence standards.
+unique_angle: A decision guide for who owns discovery, productization, and ongoing operations.
+evidence_starting_points:
+  - Public role descriptions
+  - Platform-as-product literature
+suggested_persona: nia
+suggested_format: decision_guide
+lab_potential: none
+cluster_relationships:
+  - fde
+  - platform-sre
+confidence: HIGH
+recommendation: Approve as the FDE comparison piece with an explicit ownership table.

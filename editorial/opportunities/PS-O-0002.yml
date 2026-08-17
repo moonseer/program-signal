@@ -1,0 +1,28 @@
+opportunity_id: PS-O-0002
+topic: The Anatomy of a Production AI Agent
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 86
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now: Teams are assembling agents from models, tools, and prompts without a shared layer model for what must exist before production.
+audience:
+  - platform architects
+  - staff engineers
+  - AI infrastructure engineers
+reader_problem: Production agent stacks are described as frameworks or as chat UIs, not as a set of operable layers.
+search_signals: Definitional queries around production AI agents, agent runtime, and agent architecture.
+technical_signals: MCP, agent frameworks, Kubernetes workloads, identity, and tracing showing up in the same designs.
+content_gap: Most anatomies stop at model plus tools. They omit identity, policy, sandboxing, observability, and failure domains.
+unique_angle: A layer model a platform team can argue about, not a vendor product diagram.
+evidence_starting_points:
+  - MCP specification
+  - Kubernetes workload identity docs
+  - OpenTelemetry tracing semantic conventions
+suggested_persona: maya
+suggested_format: explainer
+lab_potential: medium
+cluster_relationships:
+  - agent-harness
+confidence: HIGH
+recommendation: Approve as a supporting explainer in the agent-harness launch cluster.

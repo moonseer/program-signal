@@ -1,0 +1,29 @@
+opportunity_id: PS-O-0007
+topic: Building an Internal AI Platform on Kubernetes
+classification: PAIN_POINT
+lifecycle: APPROVED
+opportunity_score: 83
+commodity_risk: MEDIUM
+horizon: NEXT
+why_now: Platform teams are being asked to productize model serving and agents on the same clusters they already operate.
+audience:
+  - platform architects
+  - platform engineers
+  - engineering directors
+reader_problem: Internal AI platforms are assembled from notebooks, a serving chart, and a chatbot, then treated as a product.
+search_signals: Queries for internal AI platform, ML platform on Kubernetes, and AI control plane.
+technical_signals: Feature stores vs serving; inference gateways; agent runtimes; self-service golden paths.
+content_gap: Build-an-ML-platform posts skip product boundaries, tenancy, and what the platform team owes vs what app teams own.
+unique_angle: Control plane, runtime, and golden paths as platform products — not a pile of open-source projects.
+evidence_starting_points:
+  - Platform engineering capability models
+  - Kubernetes multi-tenancy docs
+  - Inference and serving project docs
+suggested_persona: maya
+suggested_format: reference_architecture
+lab_potential: medium
+cluster_relationships:
+  - k8s-ai
+  - platform-sre
+confidence: HIGH
+recommendation: Approve as the internal-platform piece that links Kubernetes AI to platform engineering.

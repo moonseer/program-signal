@@ -1,0 +1,30 @@
+opportunity_id: PS-O-0003
+topic: Agent Harness vs Agent Framework vs MCP
+classification: COMPARISON
+lifecycle: APPROVED
+opportunity_score: 90
+commodity_risk: HIGH
+horizon: FOUNDATIONAL
+why_now: The three terms are being used interchangeably while teams grant agents infrastructure access.
+audience:
+  - platform architects
+  - staff engineers
+  - engineering managers
+reader_problem: Buyers and builders cannot tell which layer they are choosing, so they buy a protocol or a framework and expect a runtime.
+search_signals: Comparison queries for MCP vs agent framework vs agent runtime.
+technical_signals: MCP gateway products, framework lock-in debates, and harness language entering RFCs and vendor decks.
+competition: Vendor comparison pages that collapse protocol, SDK, and platform into one product story.
+content_gap: Decision guides exist for models and frameworks. Almost none separate protocol, framework, and operable harness.
+unique_angle: A responsibility-boundary comparison a platform team can use to reject the wrong purchase.
+evidence_starting_points:
+  - MCP specification
+  - Public agent framework docs
+  - Kubernetes admission and identity docs
+suggested_persona: maya
+suggested_format: decision_guide
+lab_potential: low
+cluster_relationships:
+  - agent-harness
+  - mcp
+confidence: HIGH
+recommendation: Approve as the decision guide that ties the agent-harness cluster to MCP.

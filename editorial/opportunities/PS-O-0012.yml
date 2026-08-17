@@ -1,0 +1,27 @@
+opportunity_id: PS-O-0012
+topic: What Is a Forward Deployed Engineer?
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 80
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now: FDE is spreading from a few AI labs into platform and infrastructure hiring without a shared definition of the job.
+audience:
+  - field engineers
+  - platform engineers
+  - engineering managers
+reader_problem: FDE is described as sales engineering, staff engineer, or implementation consultant depending on who is hiring.
+search_signals: Queries for forward deployed engineer, FDE role, and FDE vs solutions architect.
+technical_signals: AI vendors staffing FDEs; platform teams hiring implementation engineers; POC-to-production gaps.
+content_gap: Career posts mythologize the role. They do not describe discovery, evidence, and production handoff as engineering work.
+unique_angle: FDE as technical discovery and production enablement, with hypotheticals labeled and no invented war stories.
+evidence_starting_points:
+  - Public FDE job descriptions from multiple firms
+  - Platform adoption / implementation literature
+suggested_persona: nia
+suggested_format: field_note
+lab_potential: none
+cluster_relationships:
+  - fde
+confidence: HIGH
+recommendation: Approve as the FDE cluster explainer. Keep personal anecdotes hypothetical and labeled.

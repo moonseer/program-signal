@@ -2,5 +2,47 @@ clusters:
   - id: agent-harness
     name: AI Agents & Harnesses
     pillar: what-is-an-ai-agent-harness
+    pillar_opportunity: PS-O-0001
     articles:
       - PS-000001
+    opportunities:
+      - PS-O-0001
+      - PS-O-0002
+      - PS-O-0003
+      - PS-O-0004
+  - id: k8s-ai
+    name: Kubernetes + AI Infrastructure
+    pillar_opportunity: PS-O-0005
+    articles: []
+    opportunities:
+      - PS-O-0005
+      - PS-O-0006
+      - PS-O-0007
+  - id: mcp
+    name: MCP / Agent Protocols
+    pillar_opportunity: PS-O-0008
+    articles: []
+    opportunities:
+      - PS-O-0008
+      - PS-O-0009
+  - id: platform-sre
+    name: Platform Engineering / SRE
+    pillar_opportunity: PS-O-0010
+    articles: []
+    opportunities:
+      - PS-O-0010
+      - PS-O-0011
+  - id: fde
+    name: FDE / Engineering Growth
+    pillar_opportunity: PS-O-0012
+    articles: []
+    opportunities:
+      - PS-O-0012
+      - PS-O-0013
+  - id: the-signal
+    name: The Signal / Current Analysis
+    pillar_opportunity: PS-O-0014
+    articles: []
+    opportunities:
+      - PS-O-0014
+      - PS-O-0015
