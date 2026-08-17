@@ -1,0 +1,19 @@
+opportunity_id: PS-O-0099
+topic: Deliberate CI gate probe
+classification: CONCEPT
+lifecycle: APPROVED
+opportunity_score: 101
+commodity_risk: LOW
+horizon: NOW
+why_now: This card exists only to prove validate fails closed.
+audience:
+  - platform engineers
+reader_problem: Invalid score.
+content_gap: None.
+unique_angle: None.
+evidence_starting_points: []
+suggested_persona: maya
+suggested_format: explainer
+cluster_relationships: []
+confidence: LOW
+recommendation: Do not merge. Close after CI is red.
