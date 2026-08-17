@@ -1,0 +1,27 @@
+opportunity_id: PS-O-0001
+topic: What Is an AI Agent Harness?
+classification: CONCEPT
+lifecycle: ARTICLE
+opportunity_score: 88
+commodity_risk: MEDIUM
+horizon: FOUNDATIONAL
+why_now: Teams are collapsing models, frameworks, protocols, and runtime into one word — agent — while starting to grant those systems infrastructure access.
+audience:
+  - platform architects
+  - staff engineers
+  - AI infrastructure engineers
+reader_problem: There is no shared vocabulary for the production layer around an AI agent.
+search_signals: Emerging / definitional queries around agent harness, agent runtime, and MCP.
+technical_signals: MCP adoption, agent frameworks, Kubernetes as an agent host.
+content_gap: Most explainers describe frameworks or protocols, not the operable surrounding infrastructure.
+unique_angle: Define the harness as infrastructure architecture, not as another developer tool.
+evidence_starting_points:
+  - MCP specification
+  - Kubernetes workload identity docs
+suggested_persona: maya
+suggested_format: explainer
+lab_potential: medium
+cluster_relationships:
+  - agent-harness
+confidence: HIGH
+recommendation: Approve as a launch pillar explainer for the agent-harness cluster.

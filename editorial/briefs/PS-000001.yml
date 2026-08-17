@@ -1,0 +1,28 @@
+article_id: PS-000001
+opportunity_id: PS-O-0001
+working_title: What Is an AI Agent Harness?
+content_type: explainer
+author_persona: maya
+target_reader:
+  - platform architects
+  - staff engineers
+  - AI infrastructure engineers
+primary_question: What production responsibilities belong in an agent harness rather than in the model, a framework, or a protocol?
+reader_problem: Teams lack a shared vocabulary for the operable layer around an agent.
+central_thesis: The infrastructure surrounding an agent is often more important than the underlying model.
+why_now: Agent systems are being pointed at real infrastructure before the runtime layer is named.
+unique_angle: Treat the harness as a platform concern with explicit boundaries.
+required_sections:
+  - why this matters
+  - definition
+  - how it differs
+  - production considerations
+  - recommendation
+claims_to_verify:
+  - MCP is a protocol, not an agent architecture
+required_visuals:
+  - layer stack
+target_length: 1600
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 90

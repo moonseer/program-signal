@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f6f3ec;
+  --fg: #1b1916;
+  --muted: #5f5a53;
+  --border: #ddd6ca;
+  --accent: #215c4e;
+  --card: #fffdf8;
+  --code: #efe8db;
+}
+
+.dark {
+  --bg: #161513;
+  --fg: #ece7de;
+  --muted: #a8a196;
+  --border: #2f2c28;
+  --accent: #8fc4b3;
+  --card: #1d1b18;
+  --code: #241f1b;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body), ui-serif, Georgia, serif;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+.prose-signal {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.prose-signal h2 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 2.4rem 0 0.8rem;
+}
+
+.prose-signal h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.8rem 0 0.6rem;
+}
+
+.prose-signal p,
+.prose-signal ul,
+.prose-signal ol {
+  margin: 1rem 0;
+}
+
+.prose-signal ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+}
+
+.prose-signal a {
+  color: var(--accent);
+}
+
+.prose-signal code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.86em;
+  background: var(--code);
+  padding: 0.1em 0.35em;
+}
+
+.prose-signal pre {
+  background: var(--code);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  padding: 1rem 1.1rem;
+  margin: 1.4rem 0;
+  font-size: 0.9rem;
+}
+
+.prose-signal pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose-signal table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4rem 0;
+  font-size: 0.95rem;
+}
+
+.prose-signal th,
+.prose-signal td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.callout-signal {
+  border-color: var(--accent);
+}
+
+.callout-production {
+  border-color: #8a6a2f;
+}
+
+.callout-watch {
+  border-color: #9b3d32;
+}
+
+.callout-field {
+  border-color: #3c5f8a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,6 @@
+clusters:
+  - id: agent-harness
+    name: AI Agents & Harnesses
+    pillar: what-is-an-ai-agent-harness
+    articles:
+      - PS-000001

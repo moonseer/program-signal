@@ -1,0 +1,164 @@
+---
+id: PS-000001
+title: What Is an AI Agent Harness?
+slug: what-is-an-ai-agent-harness
+description: The production infrastructure surrounding an agent is often more important than the underlying model.
+subtitle: The production infrastructure surrounding an agent is often more important than the underlying model.
+contentType: explainer
+authorPersona: maya
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-17"
+updatedAt: "2026-08-17"
+lastReviewedAt: "2026-08-17"
+reviewAfter: "2026-11-15"
+category: AI Agents
+tags:
+  - agent-harness
+  - mcp
+  - architecture
+concepts:
+  - agent-harness
+  - mcp
+  - agent-runtime
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0001
+seo:
+  title: What Is an AI Agent Harness?
+  description: A production-oriented definition of the agent harness, and how it differs from a model, a framework, and MCP.
+  primaryQuery: AI agent harness
+  searchIntent: informational
+research:
+  editorStatus: pending
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles: []
+  sources: []
+  diagrams: []
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| Topic | Agent harness architecture |
+| Why it matters | Teams keep confusing models, frameworks, protocols, and runtime infrastructure |
+| Audience | Architects and platform engineers building agent systems |
+| Maturity | Emerging vocabulary; production patterns still forming |
+| Read time | About 8 minutes |
+
+## Why This Matters
+
+When people say they are “building an agent,” they often mean four different things at once: a model, a prompt, a tool loop, and the production machinery that keeps that loop alive.
+
+That collapse is becoming expensive. Platform teams are being asked to run agents against Kubernetes, internal APIs, and privileged tools. If the harness is unnamed, identity, observability, and failure handling get improvised around the model instead of designed as infrastructure.
+
+<Callout type="signal">
+The useful question is not whether Kubernetes can run agents. It can. The question is which responsibilities belong in the harness rather than in the model, the framework, or the cluster.
+</Callout>
+
+## The Problem
+
+A language model generates tokens. That is not an agent system.
+
+An agent system has to:
+
+- keep task state across steps
+- choose and invoke tools
+- bound what those tools are allowed to do
+- recover when a tool call fails
+- record what happened
+- stop
+
+Most of that work is not “the model.” It is surrounding infrastructure. Platform Signal calls that surrounding layer an **agent harness**.
+
+## A Working Definition
+
+An agent harness is the runtime and control layer that sits around a model and turns a token generator into an operable system.
+
+It typically owns:
+
+1. Session and task context
+2. Tool invocation and result handling
+3. Policy at the point of action
+4. Memory and retrieval boundaries
+5. Tracing, logs, and evaluation hooks
+6. Lifecycle: start, pause, retry, terminate
+
+It should not own every concern in the stack. Kubernetes can schedule processes. MCP can expose tools. A framework can provide abstractions. The harness is the layer that makes those pieces behave like a production system.
+
+## How It Differs
+
+| Layer | Job |
+|---|---|
+| Model | Generate the next action or utterance |
+| Framework | Provide developer abstractions for loops and tools |
+| Protocol (for example MCP) | Standardize how tools are described and called |
+| **Harness** | Operate the agent: context, policy, recovery, observability |
+| Infrastructure | Compute, identity, networking, secrets, capacity |
+
+<Callout type="watch">
+MCP is not an agent architecture. It is a tool-access protocol. Treating it as the whole platform leaves identity, blast radius, and recovery unspecified.
+</Callout>
+
+## Where It Belongs
+
+A useful first split:
+
+```text
+Experience
+      │
+Agent runtime / harness
+      │
+Tool / protocol layer
+      │
+Infrastructure
+```
+
+The harness should remain replaceable. If the model changes, the harness should still know how to start a run, call a tool, and emit a trace. If the cluster changes, the harness should still enforce the same tool policy.
+
+## Production Considerations
+
+<Callout type="production">
+If you cannot name the identity the agent uses, the tools it may call, and how you observe a failed step, you do not operate a harness yet. You have a demo loop.
+</Callout>
+
+Before calling a design production-ready, Platform Signal expects the article — and the system — to address failure, authorization, secrets, and upgrade behavior. This fixture does not yet complete that evidence review.
+
+## Platform Signal Recommendation
+
+Use the term **agent harness** when you need to talk about the operable layer around a model: context, tools, policy, and recovery.
+
+Do not use it as a synonym for:
+
+- the model
+- an agent framework
+- MCP
+- “we wrapped kubectl in a prompt”
+
+### Use this framing when
+
+- You are designing an internal agent platform
+- You need to assign ownership between app teams and platform teams
+- You need to explain why a protocol is not a runtime
+
+### Wait when
+
+- You only need a single-task chatbot with no tools
+- You have not yet identified a privileged action the agent might take
+
+## References
+
+This fixture establishes the page template. Authoritative sources and an evidence ledger will be attached before this piece is treated as launch-ready.
+
+## Related Reading
+
+Launch cluster pieces on harness vs framework vs MCP, production agent anatomy, and MCP on Kubernetes will link here once they exist.

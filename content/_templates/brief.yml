@@ -1,0 +1,18 @@
+article_id: PS-000000
+opportunity_id: PS-O-0000
+working_title: ""
+content_type: explainer
+author_persona: maya
+target_reader:
+  - platform architects
+primary_question: ""
+reader_problem: ""
+central_thesis: ""
+why_now: ""
+unique_angle: ""
+required_sections:
+  - why this matters
+claims_to_verify: []
+required_visuals: []
+target_length: 1500
+research_review: mandatory
