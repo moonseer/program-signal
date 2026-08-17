@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** August 17, 2026  
-**Status:** Phase 0 schemas and launch briefs in-repo; site and CI live; illustrated portraits still open  
+**Status:** See [Now / Next](#now--next). P0 foundation is in-repo; launch briefs exist; one fixture article is not launch-ready.  
 **Source of truth for work:** this document  
 **Source of truth for product intent:** the docs in `/docs`  
 **Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)
@@ -25,6 +25,51 @@ Work is organized as **Phases → Epics → Stories → Tasks**.
 **Priority:** `P0` must exist before writing launch articles at scale. Later phases can start only when the previous phase’s exit criteria are met, unless a story is explicitly marked *can start in parallel*.
 
 When a story is completed, check its tasks and change the story status. Do not skip Phase 0 editorial gates just because the site scaffold is ready.
+
+---
+
+## Now / Next
+
+**Updated:** 17 August 2026  
+**Phase:** P0 mostly done. Launch briefs exist. Do not treat the site as publicly launched (`noindex` is still on).
+
+Keep this section current. Detail lives in the epics below.
+
+### Done
+
+| Area | What landed |
+|---|---|
+| Constitution | Editorial standards, AI process, human approval gate, persona disclosure |
+| Agents | Radar, Desk, and Evidence Editor specs in-repo. None of them can publish. |
+| Engine | Next.js site, CI validate-then-deploy, Vercel Hobby, `main` requires a PR + passing `validate` |
+| Schemas | Articles, opportunities, briefs, evidence ledger, public references, ID registry |
+| License | MIT for site software; editorial content all rights reserved |
+| Launch planning | 15 opportunity cards + 15 Desk briefs (`PS-000001`–`PS-000015`) |
+| Fixture | One published template article: [What Is an AI Agent Harness?](../content/articles/what-is-an-ai-agent-harness/) (`PS-000001`). Evidence review is still pending. |
+
+### Do next (recommended order)
+
+1. **Bring `PS-000001` up to launch quality** — evidence ledger with real claims, Research Editor pass, harness layer diagram (`PS-D-0001`), human approval. It is the cluster pillar and already drafted.
+2. **Draft the rest of the agent-harness cluster from briefs** — `PS-000002` anatomy, `PS-000003` harness vs framework vs MCP, `PS-000004` what belongs in the harness. Same evidence + diagram + human gate. Do not draft all 15 at once.
+3. **Harden the article page while those drafts exist** — TOC, recommendation block, related reads. Enough reading experience that new drafts are not fighting the template.
+4. **Then the other launch clusters, one cluster at a time** — Kubernetes + AI, MCP, platform/SRE, FDE, The Signal.
+
+### Not next
+
+- Illustrated persona portraits, topic accent colors, or long-article comfort testing
+- Homepage magazine layout, search, RSS, newsletter vendor, custom domain
+- Public launch / turning off `noindex`
+- Running Radar or Desk as live jobs
+- Monetization (Hobby is non-commercial)
+
+### How to see progress in this file
+
+| Phase | Epics | How it looks right now |
+|---|---|---|
+| P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
+| P1 Publishing system | E06–E12 | Mostly not started. E08 and E10 are **In progress** (references list + content CI). |
+| P2 Launch inventory | E13–E21 | E13–E18 **In progress** (briefs only). No new launch articles yet. |
+| P3–P5 | E22–E38 | Not started, except deferred items. |
 
 ---
 
@@ -1725,6 +1770,6 @@ A story is done when:
 
 # 8. Immediate next session
 
-Phase 0 leftovers: optional topic accent colors, long-article reading comfort, illustrated (not photorealistic) portraits.
+This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Launch briefs `PS-000002`–`PS-000015` exist. Next is drafting from those briefs — starting with the agent-harness cluster — not from titles. Evidence review and human approval still gate publication.
+Recommended next piece of work: launch-quality the fixture (`PS-000001`), then draft `PS-000002`–`PS-000004` from their briefs.
