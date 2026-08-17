@@ -1,0 +1,168 @@
+---
+id: PS-000008
+title: MCP for Platform Engineers
+slug: mcp-for-platform-engineers
+description: MCP is a tool-access protocol. Platform teams still have to operate the servers, bind identity, and bound blast radius.
+subtitle: Translate the protocol into workloads you host, credentials you issue, and failures you own.
+contentType: explainer
+authorPersona: maya
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-17"
+updatedAt: "2026-08-17"
+lastReviewedAt: "2026-08-17"
+reviewAfter: "2026-11-15"
+category: AI Agents
+tags:
+  - mcp
+  - platform-engineering
+  - security
+concepts:
+  - mcp
+  - agent-harness
+  - platform-operations
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0008
+seo:
+  title: MCP for Platform Engineers
+  description: What Model Context Protocol means as a workload platform teams operate — not as an agent architecture.
+  primaryQuery: MCP for platform engineers
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 83
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-an-ai-agent-harness
+    - agent-harness-vs-agent-framework-vs-mcp
+    - the-anatomy-of-a-production-ai-agent
+  sources:
+    - SRC-MCP-001
+  diagrams:
+    - PS-D-0004
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| Topic | MCP as a platform workload |
+| Why it matters | Teams are adopting MCP as if it were a platform; operators still own servers, identity, and blast radius |
+| Audience | Platform engineers, architects, and SRE responsible for internal AI tooling |
+| Maturity | Protocol is stable enough to implement; operational patterns are still forming |
+| Read time | About 7 minutes |
+
+## Why This Matters
+
+Most MCP explainers are written for application developers wiring a host to a server. That is necessary, but incomplete.
+
+Platform engineers are being asked to **host**, **approve**, and **observe** MCP servers that reach internal APIs, databases, and automation systems. When the protocol is treated as the whole platform, three operational questions go unanswered:
+
+- Which process is allowed to start which server?
+- Which credential does each server hold?
+- What happens when a tool call fails or over-reaches?
+
+MCP answers how tools are described and invoked over JSON-RPC. It does not answer those operations questions. Your platform does — or nobody does.
+
+<Callout type="signal">
+Platform Signal treats MCP as a **tool-access protocol**, not an agent harness and not a substitute for platform policy. See [What Is an AI Agent Harness?](/articles/what-is-an-ai-agent-harness) for where the harness sits relative to the protocol.
+</Callout>
+
+## Protocol vs Product
+
+The Model Context Protocol defines roles:
+
+| Role | Responsibility |
+|---|---|
+| **Host** | The application that runs the user-facing agent loop and embeds an MCP **client** |
+| **Client** | Speaks MCP to one or more servers on behalf of the host |
+| **Server** | Exposes tools, resources, and prompts over MCP |
+
+That is a wire contract. It is not:
+
+- an agent runtime
+- a policy engine
+- an identity provider
+- a observability stack
+
+Products may bundle MCP with those concerns. When evaluating a vendor, separate what is **protocol-compliant** from what is **platform operations**.
+
+<Figure id="PS-D-0004" caption="PS-D-0004 — MCP defines the client/server contract. The platform team still operates server processes, credentials, and reachability." />
+
+<Callout type="watch">
+The MCP specification states that the protocol **cannot enforce** its security principles at the protocol level. Implementors must add consent, authorization, and access control. Prompt hardening is not a substitute.
+</Callout>
+
+## What a Platform Team Operates
+
+When MCP enters your environment, expect to own at least five operational surfaces:
+
+1. **Server lifecycle** — How MCP servers are built, versioned, deployed, and retired in your host environment (VM, container, or managed service — the protocol is host-agnostic).
+2. **Credentials** — Each server typically holds credentials distinct from the calling model. Those credentials define real blast radius.
+3. **Reachability** — Which hosts may call which servers, over which network paths, from which environments (dev/stage/prod).
+4. **Allow-lists** — Which tools exist, which parameters are permitted, and who approves expansions.
+5. **Audit and traces** — Correlating a user request → host → MCP call → downstream API change.
+
+None of those are defined by MCP messages. They are platform decisions you document and enforce outside the JSON-RPC payload.
+
+### Host vs server identity
+
+Confusing host identity with server identity is a common early failure mode.
+
+- The **host** (your agent application) decides which servers to attach and when to invoke tools.
+- Each **server** may run as a separate process with its own service account, API token, or cloud role.
+
+If the server credential can do more than the host will allow the model to request, the effective policy is the server token — not the prompt.
+
+## Production Considerations
+
+<Callout type="production">
+Before approving an MCP server for a production host, require: named owner, named credential, named tool allow-list, audit path, and a documented failure behavior when a tool errors or times out.
+</Callout>
+
+**Consent and authorization** belong in the host and surrounding control plane. MCP messages do not replace RBAC reviews.
+
+**Blast radius** is bounded by server credentials and network policy, not by model politeness. Start with read-only tools; expand deliberately.
+
+**Observability** should tie MCP tool calls into the same traces you use for the agent harness — request id, tool name, latency, error, and downstream idempotency keys where applicable.
+
+**Multi-tenant hosts** need isolation between tenants’ server catalogs and secrets. Sharing one super-powered MCP server across teams is a policy shortcut that does not scale.
+
+Marcus’s operator lens applies here: if you cannot show a failed tool call in a trace and stop the run without redeploying the host, you are not done.
+
+## How This Relates to Harness and Framework
+
+| Layer | Platform question |
+|---|---|
+| Framework | How do developers express loops and tool wiring? |
+| MCP | How are tools described and called on the wire? |
+| Harness | Who starts runs, enforces policy, recovers, and emits traces? |
+
+Platform engineers are often asked to “enable MCP” when the real request is **host a privileged tool surface**. Name the layer before buying or building.
+
+For a responsibility comparison across framework, MCP, and harness, see [Agent Harness vs Agent Framework vs MCP](/articles/agent-harness-vs-agent-framework-vs-mcp).
+
+<Recommendation>
+Treat MCP as a protocol your platform **operates**, not as an architecture you purchased.
+
+**Use when**
+
+- Application teams want a shared tool contract across services
+- You are standardizing how internal APIs are exposed to agent hosts
+- You need a checklist for approving MCP servers in production
+
+**Wait when**
+
+- The team has no privileged tools yet — protocol choice is premature
+- A vendor equates “MCP compatible” with “production agent platform” without naming identity and policy
+- You have not assigned an owner for server credentials and audit
+</Recommendation>

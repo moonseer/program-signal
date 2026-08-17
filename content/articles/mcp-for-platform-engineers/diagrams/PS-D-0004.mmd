@@ -1,0 +1,5 @@
+flowchart LR
+  Host[Agent host] --> Client[MCP client]
+  Client -->|JSON-RPC| Server[MCP server]
+  Server --> Tools[Tools and credentials]
+  Platform[Platform team operates lifecycle audit allow-list]

@@ -1,0 +1,5 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: Canonical MCP roles (host, client, server) and JSON-RPC transport. Not an agent architecture.
+    version: "2025-06-18"
