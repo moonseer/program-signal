@@ -33,7 +33,6 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_SCOPE: moonseers-projects
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -55,16 +54,16 @@ jobs:
           print(f"linked org_prefix={org[:5]} project_prefix={project[:4]}")
           PY
       - name: Pull Vercel env
-        run: vercel pull --yes --environment=${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && 'production' || 'preview' }} --scope "$VERCEL_SCOPE"
+        run: vercel pull --yes --environment=${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && 'production' || 'preview' }}
       - name: Build
-        run: vercel build ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && '--prod' || '' }} --scope "$VERCEL_SCOPE"
+        run: vercel build ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && '--prod' || '' }}
       - name: Deploy
         id: deploy
         run: |
           if [ "${GITHUB_REF}" = "refs/heads/main" ] && [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            url=$(vercel deploy --prebuilt --prod --scope "$VERCEL_SCOPE")
+            url=$(vercel deploy --prebuilt --prod)
           else
-            url=$(vercel deploy --prebuilt --scope "$VERCEL_SCOPE")
+            url=$(vercel deploy --prebuilt)
           fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Comment preview URL on PR
