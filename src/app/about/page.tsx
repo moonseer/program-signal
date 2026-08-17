@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = { title: "About" };
 
 export default function AboutPage() {
@@ -21,6 +23,11 @@ export default function AboutPage() {
           Discovery (The Radar) is separate from editorial judgment (The Desk),
           which is separate from evidence review (the Technical Research Editor).
           No agent publishes autonomously.
+        </p>
+        <p>
+          <Link href="/editorial-standards">Editorial standards</Link>
+          {" · "}
+          <Link href="/ai-and-editorial-process">AI and editorial process</Link>
         </p>
       </div>
     </div>

@@ -3,6 +3,7 @@ opportunity_id: PS-O-0000
 working_title: ""
 content_type: explainer
 author_persona: maya
+secondary_perspective: marcus
 target_reader:
   - platform architects
 primary_question: ""
@@ -16,3 +17,7 @@ claims_to_verify: []
 required_visuals: []
 target_length: 1500
 research_review: mandatory
+editorial_decision: APPROVE
+primary_keyword: ""
+secondary_keywords: []
+refresh_cycle: 90

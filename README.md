@@ -30,4 +30,4 @@ Hobby is **personal / non-commercial**. Sponsorship, paid newsletters, and other
 
 ## Docs
 
-Start with `docs/BACKLOG.md`. Control-layer agents: `docs/PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`.
+Start with `docs/BACKLOG.md`. Control-layer agents: `docs/PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`. Constitution: `docs/editorial/EDITORIAL-STANDARDS.md`.

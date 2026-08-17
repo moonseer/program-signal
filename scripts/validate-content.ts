@@ -6,7 +6,9 @@ import {
   REQUIRED_RESEARCH_TYPES,
   articleBriefSchema,
   articleFrontmatterSchema,
+  evidenceLedgerSchema,
   opportunityCardSchema,
+  sourceLibrarySchema,
 } from "../src/lib/schemas";
 
 const root = process.cwd();
@@ -57,6 +59,17 @@ function validateArticles() {
     if (article.sponsorship.sponsored && !article.sponsorship) {
       error(`${slug}: sponsored content missing disclosure fields`);
     }
+    const evidenceFile = path.join(articlesDir, slug, "evidence.yml");
+    if (fs.existsSync(evidenceFile)) {
+      const ledger = evidenceLedgerSchema.safeParse(readYaml(evidenceFile));
+      if (!ledger.success) {
+        error(`${slug}/evidence.yml: ${ledger.error.message}`);
+      } else {
+        ok(`${slug}/evidence.yml`);
+      }
+    } else if (REQUIRED_RESEARCH_TYPES.includes(article.contentType)) {
+      error(`${slug}: ${article.contentType} requires evidence.yml`);
+    }
     ok(`${article.id} ${slug}`);
   }
 }
@@ -103,7 +116,6 @@ for (const relative of [
   "editorial/calendar.yml",
   "editorial/clusters.yml",
   "editorial/watchlist.yml",
-  "editorial/sources.yml",
 ]) {
   const file = path.join(root, relative);
   if (!fs.existsSync(file)) {
@@ -115,6 +127,18 @@ for (const relative of [
     ok(relative);
   } catch (err) {
     error(`${relative}: ${(err as Error).message}`);
+  }
+}
+
+{
+  const relative = "editorial/sources.yml";
+  const file = path.join(root, relative);
+  if (!fs.existsSync(file)) {
+    error(`missing ${relative}`);
+  } else {
+    const result = sourceLibrarySchema.safeParse(readYaml(file));
+    if (!result.success) error(`${relative}: ${result.error.message}`);
+    else ok(relative);
   }
 }
 

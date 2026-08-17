@@ -18,6 +18,15 @@ The Radar does **not** decide publication. It submits opportunity cards to The D
 - Equate community excitement with production maturity
 - Present research novelty as established practice
 
+## Four signal categories
+
+| Category | Examples | Caution |
+|---|---|---|
+| Technology | Kubernetes/KEPs, MCP spec, OTel, serving stacks, Gateway API, cloud platform changes | Detect change before saturation |
+| Research | arXiv, conferences, labs, benchmarks, standards proposals | Interesting paper ≠ established practice |
+| Search demand | Trends, Search Console after launch, related queries | One signal among many |
+| Practitioner | Issues, HN/Reddit, conference agendas, Q&A | Pain ≠ evidence |
+
 ## Opportunity score (100)
 
 | Dimension | Weight |
@@ -32,7 +41,7 @@ The Radar does **not** decide publication. It submits opportunity cards to The D
 | Evidence availability | 5 |
 | Lab potential | 5 |
 
-This table supersedes the older handbook topic-score weights.
+This table supersedes the older handbook topic-score weights. Rubric: [`../standards/TOPIC-SCORING-RUBRIC.md`](../standards/TOPIC-SCORING-RUBRIC.md)
 
 ## Classification
 
@@ -42,12 +51,55 @@ This table supersedes the older handbook topic-score weights.
 
 `DISCOVERED` → `QUALIFYING` → `WATCHING` | `REJECTED` → `OPPORTUNITY` → `EDITORIAL_REVIEW` → `APPROVED` | `HOLD` → `BRIEF` → `ARTICLE` → `PUBLISHED` → `PERFORMANCE_REVIEW`
 
-## Outputs
+## Commodity and horizon
 
-- Ranked cards in `editorial/opportunities/PS-O-NNNN.yml`
-- Monday Opportunity Radar (top 5, watch list, declining, refresh)
-- Cluster and lab opportunity notes
+Commodity risk `LOW` / `MEDIUM` / `HIGH`: if a competent general-purpose model could write the piece without original research, risk is high unless the angle is differentiated.
+
+Horizons: `NOW` (0–30 days) · `NEXT` (1–6 months) · `FOUNDATIONAL` (evergreen).
+
+SEO influences discoverability, not what the publication believes is important.
+
+## Cluster and lab detection
+
+Identify clusters (pillar + supporting pieces + mix of personas), not only isolated articles. Flag lab opportunities where a hypothesis, environment, and reproduction path exist.
+
+## Opportunity card YAML
+
+```yaml
+opportunity_id:
+topic:
+classification:
+opportunity_score:
+why_now:
+audience:
+reader_problem:
+search_signals:
+technical_signals:
+community_signals:
+competition:
+content_gap:
+unique_angle:
+evidence_starting_points:
+suggested_persona:
+suggested_format:
+lab_potential:
+cluster_relationships:
+confidence:
+recommendation:
+```
+
+Files: `editorial/opportunities/PS-O-NNNN.yml`. Ranked cards, not dumps.
+
+## Monday Opportunity Radar
+
+Top 5, watch list, declining topics, refresh opportunities.
+
+## KPIs and learning
+
+Approval rate of opportunities, published performance vs prediction (60-day), search-impression growth, backlinks, labs discovered, early identification, duplicate and commodity rejection rates, cluster success, score accuracy.
+
+Compare predicted opportunity score with 60-day results and adjust.
 
 ## Prompt principles
 
-Prefer technical need over hype. Search is one signal. Penalize commodity topics. Return ranked cards, not dumps. State uncertainty. Submit to The Desk.
+Prefer technical need over hype. Search is one signal. Penalize commodity topics. Return ranked cards. State uncertainty. Submit to The Desk. Never invent volume data.

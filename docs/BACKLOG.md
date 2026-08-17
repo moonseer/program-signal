@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** August 17, 2026  
-**Status:** Phase 0 in progress — site scaffold, schemas, fixture article, and CI/CD files are in-repo  
+**Status:** Phase 0 in progress — constitution and operating docs in-repo; site and CI live  
 **Source of truth for work:** this document  
 **Source of truth for product intent:** the docs in `/docs`  
 **Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)
@@ -193,7 +193,7 @@ When we start coding, do this sequence — not all of P1 at once:
 
 ## E01 — Editorial constitution
 
-**Status:** Not started  
+**Status:** Done  
 **Phase:** P0  
 **Priority:** Critical
 
@@ -203,37 +203,37 @@ The publication needs one non-negotiable standard for truth, disclosure, sourcin
 
 Write `docs/editorial/EDITORIAL-STANDARDS.md` as the publication constitution.
 
-- [ ] Mission statement
-- [ ] Accuracy rules (versioned claims, benchmarks, predictions vs facts)
-- [ ] Primary-source preference
-- [ ] AI transparency (personas are not real people; AI may assist; human remains accountable)
-- [ ] Independence (conclusions cannot be purchased)
-- [ ] Corrections principle
-- [ ] Conflicts of interest
-- [ ] Human publication approval
-- [ ] Public summary suitable for `/editorial-standards`
+- [x] Mission statement
+- [x] Accuracy rules (versioned claims, benchmarks, predictions vs facts)
+- [x] Primary-source preference
+- [x] AI transparency (personas are not real people; AI may assist; human remains accountable)
+- [x] Independence (conclusions cannot be purchased)
+- [x] Corrections principle
+- [x] Conflicts of interest
+- [x] Human publication approval
+- [x] Public summary suitable for `/editorial-standards`
 
 ### S01.02 — AI and editorial process page copy
 
 Write `docs/editorial/AI-EDITORIAL-PROCESS.md`.
 
-- [ ] What AI may do (research, draft, summarize, edit, diagrams, metadata)
-- [ ] What AI may not do (autonomous publish, invent sources, fake experience)
-- [ ] How personas are disclosed
-- [ ] How Research Editor review works
-- [ ] Public copy for `/ai-and-editorial-process`
+- [x] What AI may do (research, draft, summarize, edit, diagrams, metadata)
+- [x] What AI may not do (autonomous publish, invent sources, fake experience)
+- [x] How personas are disclosed
+- [x] How Research Editor review works
+- [x] Public copy for `/ai-and-editorial-process`
 
 ### S01.03 — Persona disclosure language
 
-- [ ] Site-wide disclosure text from the author-personas doc
-- [ ] Article byline pattern: “Written in the [Persona] editorial voice / Reviewed by Platform Signal Editorial”
-- [ ] Rule: real human name for personal experience, labs the founder ran, editorial positions
+- [x] Site-wide disclosure text from the author-personas doc
+- [x] Article byline pattern: “Written in the [Persona] editorial voice / Reviewed by Platform Signal Editorial”
+- [x] Rule: real human name for personal experience, labs the founder ran, editorial positions
 
 ---
 
 ## E02 — Editorial operating roles
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P0  
 **Priority:** Critical
 
@@ -255,15 +255,15 @@ Write `docs/agents/MANAGING-EDITOR.md` from the agent doc (do not invent a thinn
 
 - [x] Formal name: Platform Signal Managing Editor; functional name: Editorial Agent
 - [x] Mission: portfolio quality, story selection, voice/format assignment, standards — not technical truth
-- [ ] Nine ownership areas: portfolio mix, story selection, editorial-fit scoring, persona assignment (incl. secondary perspective), content-type selection, article briefs, anti-word-salad / readability / visual review, duplicate detection, final editorial review
+- [x] Nine ownership areas: portfolio mix, story selection, editorial-fit scoring, persona assignment (incl. secondary perspective), content-type selection, article briefs, anti-word-salad / readability / visual review, duplicate detection, final editorial review
 - [x] Editorial-fit score (100): reader value 20, Platform Signal fit 20, originality 15, technical depth 15, timeliness 10, evergreen 10, evidence 5, internal-link 5
 - [x] Decision statuses: APPROVE / APPROVE WITH REFRAMING / HOLD / MERGE / REJECT / WATCH
 - [x] Persona assignment tree: architecture → Maya, operate → Marcus, why now → Elias, apply → Nia
-- [ ] Same subject may sequence Signal → Operator Guide → Lab over time
+- [x] Same subject may sequence Signal → Operator Guide → Lab over time
 - [x] Hard guardrails: never invent facts/experience/citations, never override Research Editor, never chase keywords alone, never publish, never collapse personas, never hide uncertainty
-- [ ] Weekly Monday **Editorial Desk** report
-- [ ] Desk KPIs (rejection rate is not the goal; decision quality is)
-- [ ] Desk persistent state: inventory, calendar, persona workload, topic/type mix, research-review status, corrections, reader questions, quality scores
+- [x] Weekly Monday **Editorial Desk** report
+- [x] Desk KPIs (rejection rate is not the goal; decision quality is)
+- [x] Desk persistent state: inventory, calendar, persona workload, topic/type mix, research-review status, corrections, reader questions, quality scores
 
 ### S02.06 — Topic Research / Opportunity Agent (The Radar) spec
 
@@ -271,41 +271,41 @@ Write `docs/agents/CONTENT-INTELLIGENCE.md` from the same agent doc.
 
 - [x] Formal name: Platform Signal Content Intelligence Agent; functional name: Topic Research / Opportunity Agent
 - [x] Mission: identify, research, score, prioritize — does **not** decide publication
-- [ ] Four signal categories: technology, research, search demand, practitioner (pain ≠ evidence)
+- [x] Four signal categories: technology, research, search demand, practitioner (pain ≠ evidence)
 - [x] Classifications: BREAKING / EMERGING / EVERGREEN / PAIN POINT / COMPARISON / CONCEPT / LAB OPPORTUNITY
 - [x] Opportunity score (100): audience pain 20, fit 15, momentum 15, originality gap 15, search 10, authority 10, evergreen 5, evidence 5, lab potential 5 — **this supersedes the handbook’s older topic-score weights**
 - [x] Opportunity card output (`PS-O-NNNN`), not unprioritized dumps
 - [x] Lifecycle: DISCOVERED → QUALIFYING → WATCHING|REJECTED → OPPORTUNITY → EDITORIAL REVIEW → APPROVED|HOLD → BRIEF → ARTICLE → PUBLISHED → PERFORMANCE REVIEW
 - [x] SEO influences discoverability, not what we believe is important
 - [x] Commodity / novelty check; horizons NOW / NEXT / FOUNDATIONAL
-- [ ] Cluster detection and lab-opportunity detection
-- [ ] Weekly Monday **Opportunity Radar** (top 5, watch list, declining, refresh)
-- [ ] Radar KPIs and outcome learning (prediction vs 60-day result)
-- [ ] Prompt principles: never invent search volume or trend data; never equate hype with production maturity
+- [x] Cluster detection and lab-opportunity detection
+- [x] Weekly Monday **Opportunity Radar** (top 5, watch list, declining, refresh)
+- [x] Radar KPIs and outcome learning (prediction vs 60-day result)
+- [x] Prompt principles: never invent search volume or trend data; never equate hype with production maturity
 
 ### S02.07 — Agent-to-agent contract
 
-- [ ] Topic Agent emits opportunity YAML (fields in agent doc §38)
-- [ ] Editorial Agent returns editorial_decision YAML (reason, angle, type, persona, secondary reviewer, thesis, sections, evidence, visuals, length, research_review_level, priority, publish_window)
-- [ ] The agents are expected to **disagree**: Radar may score search high; Desk may reject on fit. Fit wins.
-- [ ] Neither Topic Agent, Desk, author, nor Research Editor can publish
+- [x] Topic Agent emits opportunity YAML (fields in agent doc §38)
+- [x] Editorial Agent returns editorial_decision YAML (reason, angle, type, persona, secondary reviewer, thesis, sections, evidence, visuals, length, research_review_level, priority, publish_window)
+- [x] The agents are expected to **disagree**: Radar may score search high; Desk may reject on fit. Fit wins.
+- [x] Neither Topic Agent, Desk, author, nor Research Editor can publish
 
 ### S02.02 — Technical Research Editor spec in-repo
 
 Promote the existing research-editor doc into the agent path.
 
-- [ ] Copy/adapt `docs/PLATFORM-SIGNAL-TECHNICAL-RESEARCH-EDITOR.md` → `docs/agents/TECHNICAL-RESEARCH-EDITOR.md`
-- [ ] Claim status model: VERIFIED / SUPPORTED / CONTESTED / UNSUPPORTED / INCORRECT
-- [ ] Statement classes: FACT / ANALYSIS / INFERENCE / OPINION / PREDICTION
-- [ ] Review outcomes: PASS / PASS WITH CHANGES / HOLD / FAIL
-- [ ] Mandatory vs strongly-recommended review by content type
-- [ ] Behavioral rules and non-goals
-- [ ] Explicit: The Desk does not override evidence findings
+- [x] Copy/adapt `docs/PLATFORM-SIGNAL-TECHNICAL-RESEARCH-EDITOR.md` → `docs/agents/TECHNICAL-RESEARCH-EDITOR.md`
+- [x] Claim status model: VERIFIED / SUPPORTED / CONTESTED / UNSUPPORTED / INCORRECT
+- [x] Statement classes: FACT / ANALYSIS / INFERENCE / OPINION / PREDICTION
+- [x] Review outcomes: PASS / PASS WITH CHANGES / HOLD / FAIL
+- [x] Mandatory vs strongly-recommended review by content type
+- [x] Behavioral rules and non-goals
+- [x] Explicit: The Desk does not override evidence findings
 
 ### S02.03 — Human approval gate
 
-- [ ] Four-part gate: Research Editor PASS (or PASS WITH CHANGES completed) + Desk READY FOR HUMAN APPROVAL + automated checks PASS + Human Editor-in-Chief APPROVED
-- [ ] No merge to production content without the human checkbox
+- [x] Four-part gate: Research Editor PASS (or PASS WITH CHANGES completed) + Desk READY FOR HUMAN APPROVAL + automated checks PASS + Human Editor-in-Chief APPROVED
+- [x] No merge to production content without the human checkbox
 - [x] PR template that captures opportunity id, editorial_decision, research status, human approval
 
 ### S02.04 — Article brief template
@@ -314,27 +314,27 @@ Write `docs/standards/ARTICLE-BRIEF.md`, `editorial/briefs/` schema, and `conten
 
 Canonical brief lives in `editorial/briefs/PS-NNNNNN.yml` (Desk output). Copy into the article folder when drafting starts.
 
-- [ ] Fields from the agent doc brief (article_id, working_title, content_type, author_persona, secondary_perspective, target_reader, primary_question, reader_problem, central_thesis, why_now, unique_angle, required_sections, claims_to_verify, required_visuals, target_length, research_review)
-- [ ] Keep handbook extras that still help: keywords, competing content, production/security questions, internal_links, refresh_cycle, target_publish_date
-- [ ] No drafting until audience, thesis, unique value, evidence, cluster, persona, and type are set
-- [ ] Keyword-first and thesis-free briefs are explicit failure modes
+- [x] Fields from the agent doc brief (article_id, working_title, content_type, author_persona, secondary_perspective, target_reader, primary_question, reader_problem, central_thesis, why_now, unique_angle, required_sections, claims_to_verify, required_visuals, target_length, research_review)
+- [x] Keep handbook extras that still help: keywords, competing content, production/security questions, internal_links, refresh_cycle, target_publish_date
+- [x] No drafting until audience, thesis, unique value, evidence, cluster, persona, and type are set
+- [x] Keyword-first and thesis-free briefs are explicit failure modes
 
 ### S02.05 — Content types
 
 Write `docs/standards/CONTENT-TYPES.md`.
 
-- [ ] Deep Dive
-- [ ] Operator Guide
-- [ ] The Signal
-- [ ] Field Note
-- [ ] Platform Signal Lab
-- [ ] Explainer
-- [ ] Decision Guide
-- [ ] Roundtable
-- [ ] Reference Architecture
-- [ ] Required sections and primary persona for each type
-- [ ] Length bands
-- [ ] Note that The Desk may sequence multiple types on the same subject over time
+- [x] Deep Dive
+- [x] Operator Guide
+- [x] The Signal
+- [x] Field Note
+- [x] Platform Signal Lab
+- [x] Explainer
+- [x] Decision Guide
+- [x] Roundtable
+- [x] Reference Architecture
+- [x] Required sections and primary persona for each type
+- [x] Length bands
+- [x] Note that The Desk may sequence multiple types on the same subject over time
 
 ---
 
@@ -390,14 +390,14 @@ Implement the handbook schema as a Zod (or equivalent) validator.
 ### S03.03 — Evidence ledger schema
 
 - [x] `evidence.yml` per article
-- [ ] Claim id, text, type, status, confidence, sources (title, org, url, date, tier)
+- [x] Claim id, text, type, status, confidence, sources (title, org, url, date, tier)
 - [x] Ledger is **internal** — not dumped onto the public page
 - [ ] Public references are a curated subset
 
 ### S03.04 — Source library schema
 
 - [x] `editorial/sources.yml` with source_id, title, org, url, type, tier, topics, dates, license, doi, notes
-- [ ] Tiers 1–4 as defined by the Research Editor
+- [x] Tiers 1–4 as defined by the Research Editor
 - [ ] Taxonomy folders conceptually: Kubernetes, platform engineering, AI agents, observability, AI infrastructure, security, research
 
 ### S03.05 — Topic opportunity schema
@@ -408,7 +408,7 @@ Canonical scoring and lifecycle: agent doc §§25–28. Do not implement the old
 - [x] Zod schema matching the Topic Agent output contract (§38)
 - [x] Lifecycle states: DISCOVERED, QUALIFYING, WATCHING, REJECTED, OPPORTUNITY, EDITORIAL REVIEW, APPROVED, HOLD, BRIEF, ARTICLE, PUBLISHED, PERFORMANCE REVIEW
 - [x] Classification enum + commodity_risk (LOW/MEDIUM/HIGH) + horizon (NOW/NEXT/FOUNDATIONAL)
-- [ ] `docs/standards/TOPIC-SCORING-RUBRIC.md` documents **both** the Radar opportunity score and the Desk editorial-fit score
+- [x] `docs/standards/TOPIC-SCORING-RUBRIC.md` documents **both** the Radar opportunity score and the Desk editorial-fit score
 - [ ] Seed the 15 launch titles as opportunity cards in APPROVED / BRIEF
 - [x] `editorial/clusters.yml` and `editorial/watchlist.yml`
 
@@ -417,8 +417,8 @@ Canonical scoring and lifecycle: agent doc §§25–28. Do not implement the old
 - [x] Article IDs: `PS-000001`
 - [x] Opportunity IDs: `PS-O-0001`
 - [ ] Diagram IDs: `PS-D-0001`
-- [ ] Claim IDs: `C001` per article
-- [ ] Source IDs: `SRC-…`
+- [x] Claim IDs: `C001` per article
+- [x] Source IDs: `SRC-…`
 - [ ] Lab IDs: `LAB-0001`
 - [ ] ID registry file or generator script so IDs never collide
 - [x] Slugs may change; IDs never do; redirects later
@@ -1725,9 +1725,12 @@ A story is done when:
 
 # 8. Immediate next session
 
-Phase 0 scaffold is in-repo (Next.js, schemas, fixture article, Desk/Radar extracts, CI/CD). Next:
+Phase 0 constitution is in-repo. Remaining P0:
 
-1. Confirm GitHub Actions validate → Vercel production on `main`
-2. Write Editorial Standards + Article Brief + Content Types (blocking for P2 writing)
-3. Finish remaining P0 docs: Research Editor extract, scoring rubric, license
-4. Then write the remaining launch cluster — not before P0 editorial gates exist
+1. License decision
+2. ID registry (diagrams, labs, collision-safe generator)
+3. Seed the 15 launch titles as opportunity cards — still not the articles
+4. GitHub ruleset on `main` + a deliberate failing push to prove the CI gate
+5. Optional design: component checklist, persona motifs
+
+Do not start the 12–15 launch articles until those remaining P0 items are accepted, then write from briefs.

@@ -219,3 +219,67 @@ export const REQUIRED_RESEARCH_TYPES: ArticleFrontmatter["contentType"][] = [
   "lab",
   "reference_architecture",
 ];
+
+export const claimTypeSchema = z.enum([
+  "FACT",
+  "ANALYSIS",
+  "INFERENCE",
+  "OPINION",
+  "PREDICTION",
+]);
+
+export const claimStatusSchema = z.enum([
+  "VERIFIED",
+  "SUPPORTED",
+  "CONTESTED",
+  "UNSUPPORTED",
+  "INCORRECT",
+]);
+
+export const evidenceClaimSchema = z.object({
+  id: z.string().regex(/^C\d{3}$/),
+  claim: z.string().min(1),
+  type: claimTypeSchema,
+  status: claimStatusSchema,
+  confidence: z.enum(["HIGH", "MEDIUM", "LOW"]),
+  sources: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        org: z.string().optional(),
+        url: z.string().url().optional(),
+        date: z.string().optional(),
+        tier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+      }),
+    )
+    .default([]),
+});
+
+export const evidenceLedgerSchema = z.object({
+  article: z.string().min(1),
+  reviewed: z.preprocess(
+    (value) =>
+      value instanceof Date ? value.toISOString().slice(0, 10) : value,
+    z.string().optional(),
+  ),
+  claims: z.array(evidenceClaimSchema).default([]),
+});
+
+export const sourceRecordSchema = z.object({
+  source_id: z.string().regex(/^SRC-/),
+  title: z.string().min(1),
+  organization: z.string().optional(),
+  url: z.string().url().optional(),
+  type: z.string().optional(),
+  tier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+  topics: z.array(z.string()).default([]),
+  published_at: z.string().optional(),
+  updated_at: z.string().optional(),
+  license: z.string().optional(),
+  doi: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export const sourceLibrarySchema = z.object({
+  sources: z.array(sourceRecordSchema).default([]),
+});

@@ -10,7 +10,7 @@
 - Research Editor status:
 - Human Editor-in-Chief: [ ] approved
 
-CI passing is not publication approval.
+Four-part gate: Evidence PASS (or PASS WITH CHANGES completed) + Desk READY FOR HUMAN APPROVAL + CI PASS + human checkbox. CI passing is not publication approval.
 
 ## Checklist
 

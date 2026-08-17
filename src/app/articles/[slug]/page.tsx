@@ -7,8 +7,6 @@ import {
   getArticleBySlug,
   getArticleSlugs,
   personaNames,
-  personaRoles,
-  personaSlugs,
 } from "@/lib/content";
 import { difficultyDots, formatDate } from "@/lib/format";
 
@@ -58,11 +56,11 @@ export default async function ArticlePage({ params }: Props) {
           <p className="mt-4 text-xl text-[var(--muted)]">{frontmatter.subtitle}</p>
         ) : null}
         <p className="mt-6 font-mono text-[12px] text-[var(--muted)]">
-          Written in the {personaNames[frontmatter.authorPersona]} editorial voice
+          {frontmatter.authorPersona === "founder"
+            ? personaNames.founder
+            : `Written in the ${personaNames[frontmatter.authorPersona]} editorial voice`}
           {" · "}
-          <a href={`/authors/${personaSlugs[frontmatter.authorPersona]}`}>
-            {personaRoles[frontmatter.authorPersona]}
-          </a>
+          Reviewed by Platform Signal Editorial
         </p>
         <p className="mt-2 font-mono text-[12px] text-[var(--muted)]">
           {formatDate(frontmatter.publishedAt)}
