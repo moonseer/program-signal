@@ -1,7 +1,11 @@
 references:
   - source_id: SRC-MCP-001
     label: SPECIFICATION
-    note: MCP standardizes tool access. It is not an agent harness.
+    note: MCP standardizes tool and context access over JSON-RPC. It is not an agent harness.
+    version: "2025-06-18"
   - source_id: SRC-K8S-001
     label: PRIMARY_SOURCE
-    note: Kubernetes can schedule the process. Identity still has to be named.
+    note: Kubernetes can identify a process. The harness still has to decide which tools that identity may call.
+  - source_id: SRC-K8S-002
+    label: PRIMARY_SOURCE
+    note: A Pod is schedulable compute. It does not bound tool policy.

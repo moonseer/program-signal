@@ -1,0 +1,5 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: Use this to check any claim that MCP is a platform or a runtime.
+    version: "2025-06-18"

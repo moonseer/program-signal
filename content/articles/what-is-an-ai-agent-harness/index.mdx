@@ -3,7 +3,7 @@ id: PS-000001
 title: What Is an AI Agent Harness?
 slug: what-is-an-ai-agent-harness
 description: The production infrastructure surrounding an agent is often more important than the underlying model.
-subtitle: The production infrastructure surrounding an agent is often more important than the underlying model.
+subtitle: Name the operable layer around the model before you grant it tools.
 contentType: explainer
 authorPersona: maya
 editorialStatus: published
@@ -31,17 +31,23 @@ seo:
   primaryQuery: AI agent harness
   searchIntent: informational
 research:
-  editorStatus: pending
+  editorStatus: pass
+  confidence: 82
   evidenceLedger: evidence.yml
 codeVerification:
   status: unverified
 corrections: []
 relationships:
-  relatedArticles: []
+  relatedArticles:
+    - the-anatomy-of-a-production-ai-agent
+    - agent-harness-vs-agent-framework-vs-mcp
+    - what-actually-belongs-inside-an-agent-harness
   sources:
     - SRC-MCP-001
     - SRC-K8S-001
-  diagrams: []
+    - SRC-K8S-002
+  diagrams:
+    - PS-D-0001
 sponsorship:
   sponsored: false
   affiliateLinks: false
@@ -52,7 +58,7 @@ sponsorship:
 | Attribute | Value |
 |---|---|
 | Topic | Agent harness architecture |
-| Why it matters | Teams keep confusing models, frameworks, protocols, and runtime infrastructure |
+| Why it matters | Teams keep collapsing models, frameworks, protocols, and runtime into one word |
 | Audience | Architects and platform engineers building agent systems |
 | Maturity | Emerging vocabulary; production patterns still forming |
 | Read time | About 8 minutes |
@@ -82,6 +88,8 @@ An agent system has to:
 
 Most of that work is not “the model.” It is surrounding infrastructure. Platform Signal calls that surrounding layer an **agent harness**.
 
+The term is ours. The MCP specification does not define a harness. It defines a protocol. Kubernetes does not define a harness. It defines how to schedule a process and how that process identifies itself. The gap between those two facts is the design problem.
+
 ## A Working Definition
 
 An agent harness is the runtime and control layer that sits around a model and turns a token generator into an operable system.
@@ -108,24 +116,16 @@ It should not own every concern in the stack. Kubernetes can schedule processes.
 | Infrastructure | Compute, identity, networking, secrets, capacity |
 
 <Callout type="watch">
-MCP is not an agent architecture. It is a tool-access protocol. Treating it as the whole platform leaves identity, blast radius, and recovery unspecified.
+MCP is not an agent architecture. It is a tool-access protocol. The specification itself says the protocol cannot enforce its security principles; implementors must add consent, authorization, and access control. Treating MCP as the whole platform leaves identity, blast radius, and recovery unspecified.
 </Callout>
 
 ## Where It Belongs
 
-A useful first split:
-
-```text
-Experience
-      │
-Agent runtime / harness
-      │
-Tool / protocol layer
-      │
-Infrastructure
-```
+<Figure id="PS-D-0001" caption="PS-D-0001 — The harness sits between experience and infrastructure. The model is a dependency, not a substitute for operations." />
 
 The harness should remain replaceable. If the model changes, the harness should still know how to start a run, call a tool, and emit a trace. If the cluster changes, the harness should still enforce the same tool policy.
+
+A Kubernetes service account can identify the process. It does not decide which MCP server that process may call, or what happens when the call fails. Those decisions belong in the harness, or they belong nowhere.
 
 ## Production Considerations
 
@@ -133,30 +133,21 @@ The harness should remain replaceable. If the model changes, the harness should 
 If you cannot name the identity the agent uses, the tools it may call, and how you observe a failed step, you do not operate a harness yet. You have a demo loop.
 </Callout>
 
-Before calling a design production-ready, Platform Signal expects the article — and the system — to address failure, authorization, secrets, and upgrade behavior. This fixture does not yet complete that evidence review.
+Before calling a design production-ready, address failure, authorization, secrets, and upgrade behavior as harness concerns — or name the other layer that owns them. Do not leave them in the prompt.
 
-## Platform Signal Recommendation
-
+<Recommendation>
 Use the term **agent harness** when you need to talk about the operable layer around a model: context, tools, policy, and recovery.
 
-Do not use it as a synonym for:
+Do not use it as a synonym for the model, an agent framework, MCP, or “we wrapped kubectl in a prompt.”
 
-- the model
-- an agent framework
-- MCP
-- “we wrapped kubectl in a prompt”
-
-### Use this framing when
+**Use when**
 
 - You are designing an internal agent platform
 - You need to assign ownership between app teams and platform teams
 - You need to explain why a protocol is not a runtime
 
-### Wait when
+**Wait when**
 
 - You only need a single-task chatbot with no tools
 - You have not yet identified a privileged action the agent might take
-
-## Related Reading
-
-Launch cluster pieces on harness vs framework vs MCP, production agent anatomy, and MCP on Kubernetes will link here once they exist.
+</Recommendation>

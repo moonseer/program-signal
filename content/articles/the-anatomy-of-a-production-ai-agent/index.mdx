@@ -1,0 +1,132 @@
+---
+id: PS-000002
+title: The Anatomy of a Production AI Agent
+slug: the-anatomy-of-a-production-ai-agent
+description: A production agent is a layered system. Identity, policy, and traces are not optional add-ons to the model.
+subtitle: Six layers a platform team can argue about before the first privileged tool call.
+contentType: explainer
+authorPersona: maya
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-17"
+updatedAt: "2026-08-17"
+lastReviewedAt: "2026-08-17"
+reviewAfter: "2026-11-15"
+category: AI Agents
+tags:
+  - agent-harness
+  - architecture
+  - identity
+concepts:
+  - agent-harness
+  - agent-runtime
+  - workload-identity
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0002
+seo:
+  title: The Anatomy of a Production AI Agent
+  description: A layer model for production agents that includes identity, policy, tools, and observability — not only the model.
+  primaryQuery: production AI agent architecture
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 80
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-an-ai-agent-harness
+    - agent-harness-vs-agent-framework-vs-mcp
+    - what-actually-belongs-inside-an-agent-harness
+  sources:
+    - SRC-MCP-001
+    - SRC-K8S-001
+  diagrams:
+    - PS-D-0002
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| Topic | Production agent architecture |
+| Why it matters | Demo loops are being pointed at real infrastructure |
+| Audience | Architects and platform engineers |
+| Maturity | Patterns forming; vocabulary is not settled |
+| Read time | About 9 minutes |
+
+## Why This Matters
+
+There are actually three different problems hiding inside what we casually call a production agent: generating the next action, invoking a tool, and remaining an operable system after the tool fails.
+
+Most published anatomies stop at the first two. They show a model, a planner, and a list of tools. That is a developer diagram. It is not a platform diagram. The missing bands are identity, policy, sandboxing, and a trace you can hand to an on-call engineer.
+
+<Callout type="signal">
+A model plus a tool loop can look complete in a notebook and still have no answer for who acted, what was allowed, or how the run stopped.
+</Callout>
+
+## The Layer Model
+
+<Figure id="PS-D-0002" caption="PS-D-0002 — Six bands of a production agent. The harness is the operable center, not the largest box on a vendor slide." />
+
+Read the bands as ownership, not as products.
+
+**Interface.** The task enters. A chat UI, a ticket, a CI job, an IDP action. The interface is not the agent.
+
+**Model.** Token generation. It proposes an action or an utterance. It does not own credentials.
+
+**Harness.** Session and task state, tool invocation, policy at the point of action, retry, pause, terminate, traces. This is the layer Platform Signal calls the agent harness.
+
+**Tools.** The actual side effects. MCP servers are one way to expose them. A Kubernetes API is another. A tool is not a policy engine.
+
+**Identity.** Who the run is, in infrastructure terms. A Kubernetes service account can name a process. The harness still has to bind that name to a tool allow-list.
+
+**Observe.** A trace of the workflow, not a chat log. If you cannot find the failed step, you cannot operate the system.
+
+## What Most Anatomies Omit
+
+Vendor pictures usually omit failure domains. They also omit the difference between a protocol and a runtime.
+
+MCP standardizes how a host talks to a server that exposes tools, resources, and prompts. It does not schedule the server, issue its credentials, or decide what happens when the server hangs. The specification is explicit that security principles are not enforced at the protocol level.
+
+So an anatomy that ends at “we added MCP” has described a connector, not a production agent.
+
+The other common omission is identity. Teams wrap a cluster token in the tool process and call it done. That is a credential, not a design. A production anatomy has to say whether the agent, the harness, and each tool share one identity or three.
+
+<Callout type="watch">
+If the model, the harness, and the MCP server share a token, you do not have three layers. You have one blast radius with extra boxes on the diagram.
+</Callout>
+
+## Production Considerations
+
+From an operator’s chair, the anatomy is a test.
+
+Can you name the identity for this run? Can you name the tools it may call? Can you show a trace of a failed step? Can you stop it without deleting the namespace?
+
+If the answer is no, you still have a demo loop. The model quality is not the missing piece.
+
+<Callout type="production">
+Treat the harness as the layer that must survive a model swap. If changing the model requires rewriting identity and traces, those concerns were never extracted.
+</Callout>
+
+<Recommendation>
+A production agent is a layered system. Identity, policy, sandboxing, and observability are not optional add-ons to the model. If a diagram cannot show those bands, it is not yet a production anatomy.
+
+**Use when**
+
+- You are reviewing an agent design before it receives infrastructure access
+- You need a shared picture between app teams and the platform team
+- You are deciding what to observe first
+
+**Wait when**
+
+- The system has no tools and no privileged data
+- You are still choosing a model and have no runtime questions
+</Recommendation>

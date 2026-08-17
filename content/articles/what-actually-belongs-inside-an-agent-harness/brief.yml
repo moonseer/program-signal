@@ -1,0 +1,31 @@
+article_id: PS-000004
+opportunity_id: PS-O-0004
+working_title: What Actually Belongs Inside an Agent Harness?
+content_type: deep_dive
+author_persona: maya
+secondary_perspective: marcus
+target_reader:
+  - platform architects
+  - AI infrastructure engineers
+  - staff engineers
+primary_question: Which responsibilities belong in the harness, and which must stay out?
+reader_problem: Teams either stuff the harness with every concern or leave identity and blast radius to the prompt.
+central_thesis: The harness owns context, tool invocation, policy at the point of action, and recovery. It should not own the cluster, the model, or unbounded memory.
+why_now: Harness is becoming a product category before anyone agrees which responsibilities it owns.
+unique_angle: In-scope vs out-of-scope for the harness, with explicit non-goals.
+required_sections:
+  - why this matters
+  - architecture
+  - in scope
+  - out of scope
+  - tradeoffs
+  - recommendation
+claims_to_verify:
+  - Policy at tool invocation is a harness concern, not only a model-prompt concern
+  - Kubernetes scheduling is infrastructure, not harness
+required_visuals:
+  - responsibility-boundary diagram
+target_length: 2800
+research_review: mandatory
+editorial_decision: APPROVE
+refresh_cycle: 90

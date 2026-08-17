@@ -1,0 +1,45 @@
+article: what-actually-belongs-inside-an-agent-harness
+reviewed: "2026-08-17"
+claims:
+  - id: C001
+    claim: MCP treats tools as arbitrary code execution and requires hosts to obtain consent before invoking them.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification — Security and Trust & Safety
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C002
+    claim: Policy at tool invocation is a harness concern, not only a model-prompt concern.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification — Security and Trust & Safety
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C003
+    claim: Kubernetes scheduling of Pods is infrastructure, not harness responsibility.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Pods
+        org: Kubernetes
+        url: https://kubernetes.io/docs/concepts/workloads/pods/
+        tier: 1
+  - id: C004
+    claim: A Kubernetes service account identifies in-cluster processes; it is not a tool allow-list.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Service accounts
+        org: Kubernetes
+        url: https://kubernetes.io/docs/concepts/security/service-accounts/
+        tier: 1

@@ -1,0 +1,12 @@
+flowchart LR
+  interface[Interface]
+  model[Model]
+  harness[Harness]
+  tools[Tools]
+  identity[Identity]
+  observe[Observe]
+  interface --> harness
+  model --> harness
+  harness --> tools
+  identity --> harness
+  harness --> observe

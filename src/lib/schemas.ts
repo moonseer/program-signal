@@ -314,6 +314,32 @@ export const publicReferencesFileSchema = z.object({
   references: z.array(publicReferenceSchema).default([]),
 });
 
+export const diagramTypeSchema = z.enum([
+  "architecture",
+  "sequence",
+  "decision_tree",
+  "failure_flow",
+  "data_flow",
+  "control_plane",
+  "dependency_map",
+  "incident_timeline",
+]);
+
+export const diagramMetadataSchema = z.object({
+  id: z.string().regex(/^PS-D-\d{4}$/),
+  title: z.string().min(1),
+  article_id: z.string().regex(/^PS-\d{6}$/),
+  type: diagramTypeSchema,
+  created_at: z.string().min(1),
+  updated_at: z.string().min(1),
+  source_format: z.enum(["mermaid", "svg"]),
+  license: z.string().min(1),
+  alt_text: z.string().min(1),
+  question: z.string().min(1),
+  omissions: z.string().optional(),
+  technology_versions: z.record(z.string()).default({}),
+});
+
 export const sequentialKindSchema = z.enum([
   "article",
   "opportunity",

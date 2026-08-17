@@ -1,0 +1,8 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: MCP standardizes host, client, and server roles. It does not define a production anatomy.
+    version: "2025-06-18"
+  - source_id: SRC-K8S-001
+    label: PRIMARY_SOURCE
+    note: Process identity in the cluster is not the same as tool policy in the harness.
