@@ -1,0 +1,7 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: MCP standardizes tool access. It is not an agent harness.
+  - source_id: SRC-K8S-001
+    label: PRIMARY_SOURCE
+    note: Kubernetes can schedule the process. Identity still has to be named.

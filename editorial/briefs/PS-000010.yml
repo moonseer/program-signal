@@ -1,0 +1,29 @@
+article_id: PS-000010
+opportunity_id: PS-O-0010
+working_title: What Is Agentic Platform Engineering?
+content_type: explainer
+author_persona: maya
+secondary_perspective: elias
+target_reader:
+  - platform architects
+  - platform engineers
+  - engineering leaders
+primary_question: What do agents change in golden paths, self-service, and control planes — and which platform jobs must stay human?
+reader_problem: Agentic platform engineering currently means either a chatbot on the portal or a rewrite of the platform as autonomous agents.
+central_thesis: Agents may assist platform products. They must not autonomously own control-plane decisions that define blast radius.
+why_now: Platform engineering is being rebranded as agentic without a definition of what agents change.
+unique_angle: What agents may do inside a platform product, and which control-plane decisions stay human.
+required_sections:
+  - why this matters
+  - definition
+  - what may be agent-assisted
+  - what must stay human
+  - recommendation
+claims_to_verify:
+  - Platform-as-product literature treats golden paths as product surfaces, not as autonomous agents
+required_visuals:
+  - deferred
+target_length: 1600
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 90

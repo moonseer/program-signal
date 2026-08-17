@@ -1,0 +1,30 @@
+article_id: PS-000008
+opportunity_id: PS-O-0008
+working_title: MCP for Platform Engineers
+content_type: explainer
+author_persona: maya
+secondary_perspective: marcus
+target_reader:
+  - platform engineers
+  - platform architects
+  - SRE
+primary_question: What is MCP as a workload a platform team has to host, identity-bind, and observe?
+reader_problem: MCP explainers are written for app developers. Operators need to know what they are running and what they are not.
+central_thesis: MCP is a tool-access protocol. A platform team still has to operate the servers, bind identity, and bound blast radius.
+why_now: MCP is being adopted as if it were a platform.
+unique_angle: Translate the protocol into workload identity, blast radius, and platform ownership.
+required_sections:
+  - why this matters
+  - protocol vs product
+  - what a platform team operates
+  - production considerations
+  - recommendation
+claims_to_verify:
+  - MCP is a protocol, not an agent architecture
+  - MCP servers are separate processes with their own credentials
+required_visuals:
+  - protocol vs product diagram
+target_length: 1800
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 90

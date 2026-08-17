@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PersonaMark } from "@/components/PersonaMark";
 import {
   getPublishedArticles,
   personaNames,
@@ -70,12 +71,17 @@ export default async function AuthorPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
-        {personaRoles[persona]}
-      </p>
-      <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl tracking-[-0.03em]">
-        {personaNames[persona]}
-      </h1>
+      <div className="flex items-start gap-4">
+        <PersonaMark persona={persona} />
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
+            {personaRoles[persona]}
+          </p>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl tracking-[-0.03em]">
+            {personaNames[persona]}
+          </h1>
+        </div>
+      </div>
       <p className="mt-4 text-lg text-[var(--muted)]">{copy[persona].perspective}</p>
       <p className="mt-6 text-sm text-[var(--muted)]">
         Platform Signal uses named editorial personas. They are not presented as

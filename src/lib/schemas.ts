@@ -284,6 +284,36 @@ export const sourceLibrarySchema = z.object({
   sources: z.array(sourceRecordSchema).default([]),
 });
 
+export const sourceCollectionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  name: z.string().min(1),
+  description: z.string().optional(),
+});
+
+export const sourceTaxonomySchema = z.object({
+  collections: z.array(sourceCollectionSchema).min(1),
+});
+
+export const publicReferenceLabelSchema = z.enum([
+  "PRIMARY_SOURCE",
+  "SPECIFICATION",
+  "RESEARCH",
+  "VENDOR_DOCUMENTATION",
+  "SECONDARY_ANALYSIS",
+]);
+
+export const publicReferenceSchema = z.object({
+  source_id: z.string().regex(/^SRC-/),
+  label: publicReferenceLabelSchema,
+  note: z.string().optional(),
+  section: z.string().optional(),
+  version: z.string().optional(),
+});
+
+export const publicReferencesFileSchema = z.object({
+  references: z.array(publicReferenceSchema).default([]),
+});
+
 export const sequentialKindSchema = z.enum([
   "article",
   "opportunity",
@@ -328,3 +358,5 @@ export const calendarFileSchema = z.object({
 
 export type SequentialKind = z.infer<typeof sequentialKindSchema>;
 export type IdRegistry = z.infer<typeof idRegistrySchema>;
+export type SourceRecord = z.infer<typeof sourceRecordSchema>;
+export type PublicReference = z.infer<typeof publicReferenceSchema>;

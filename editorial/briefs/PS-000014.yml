@@ -1,0 +1,28 @@
+article_id: PS-000014
+opportunity_id: PS-O-0014
+working_title: Why Everyone Suddenly Wants an MCP Gateway
+content_type: the_signal
+author_persona: elias
+target_reader:
+  - platform engineers
+  - staff engineers
+  - security engineers
+primary_question: Why did MCP gateway demand appear now, what does a gateway actually centralize, and what can it not?
+reader_problem: MCP gateway is being treated as a category you must buy, not as a set of functions that may already live in the harness or the mesh.
+central_thesis: The demand is real. A gateway is not automatically the right control point.
+why_now: Gateway products are appearing as the default answer to MCP security before the failure modes of a proxy layer are named.
+unique_angle: Signal-shaped analysis of demand vs control point, dated and uncertain where the landscape is moving.
+required_sections:
+  - what happened
+  - why it matters
+  - what changed technically
+  - who should care
+  - what we are watching next
+claims_to_verify:
+  - Public MCP gateway announcements must be dated and attributed
+  - Kubernetes Gateway API is a separate, existing control point
+required_visuals: []
+target_length: 1100
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 30

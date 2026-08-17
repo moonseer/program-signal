@@ -1,0 +1,29 @@
+article_id: PS-000007
+opportunity_id: PS-O-0007
+working_title: Building an Internal AI Platform on Kubernetes
+content_type: reference_architecture
+author_persona: maya
+target_reader:
+  - platform architects
+  - platform engineers
+  - engineering directors
+primary_question: What product boundaries does an internal AI platform owe its users, and what must app teams still own?
+reader_problem: Internal AI platforms are assembled from notebooks, a serving chart, and a chatbot, then treated as a product.
+central_thesis: An internal AI platform is a control plane, a runtime, and golden paths. A pile of open-source projects is not a platform product.
+why_now: Platform teams are being asked to productize model serving and agents on clusters they already operate.
+unique_angle: Control plane, runtime, and golden paths as platform products — including tenancy and what the platform team does not own.
+required_sections:
+  - why this matters
+  - control plane vs runtime
+  - golden paths
+  - tenancy and identity
+  - assumptions and failure boundaries
+  - recommendation
+claims_to_verify:
+  - Multi-tenancy on Kubernetes has explicit isolation tradeoffs that must be named
+required_visuals:
+  - control-plane vs runtime diagram
+target_length: 3200
+research_review: mandatory
+editorial_decision: APPROVE
+refresh_cycle: 90

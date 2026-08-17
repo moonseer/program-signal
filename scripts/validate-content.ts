@@ -11,7 +11,9 @@ import {
   clustersFileSchema,
   evidenceLedgerSchema,
   opportunityCardSchema,
+  publicReferencesFileSchema,
   sourceLibrarySchema,
+  sourceTaxonomySchema,
   watchlistFileSchema,
 } from "../src/lib/schemas";
 
@@ -74,6 +76,15 @@ function validateArticles() {
     } else if (REQUIRED_RESEARCH_TYPES.includes(article.contentType)) {
       error(`${slug}: ${article.contentType} requires evidence.yml`);
     }
+    const referencesFile = path.join(articlesDir, slug, "references.yml");
+    if (fs.existsSync(referencesFile)) {
+      const refs = publicReferencesFileSchema.safeParse(readYaml(referencesFile));
+      if (!refs.success) {
+        error(`${slug}/references.yml: ${refs.error.message}`);
+      } else {
+        ok(`${slug}/references.yml`);
+      }
+    }
     ok(`${article.id} ${slug}`);
   }
 }
@@ -135,14 +146,61 @@ validateYamlDir("editorial/briefs", (data, file) => {
 }
 
 {
+  const taxonomyFile = path.join(root, "editorial/sources/taxonomy.yml");
+  const taxonomy = sourceTaxonomySchema.safeParse(readYaml(taxonomyFile));
+  if (!fs.existsSync(taxonomyFile) || !taxonomy.success) {
+    error(
+      `editorial/sources/taxonomy.yml: ${taxonomy.success === false ? taxonomy.error.message : "missing"}`,
+    );
+  } else {
+    ok("editorial/sources/taxonomy.yml");
+  }
+
   const relative = "editorial/sources.yml";
   const file = path.join(root, relative);
   if (!fs.existsSync(file)) {
     error(`missing ${relative}`);
   } else {
     const result = sourceLibrarySchema.safeParse(readYaml(file));
-    if (!result.success) error(`${relative}: ${result.error.message}`);
-    else ok(relative);
+    if (!result.success) {
+      error(`${relative}: ${result.error.message}`);
+    } else {
+      const collectionIds = new Set(
+        taxonomy.success ? taxonomy.data.collections.map((item) => item.id) : [],
+      );
+      const sourceIds = new Set<string>();
+      for (const source of result.data.sources) {
+        if (sourceIds.has(source.source_id)) {
+          error(`${relative}: duplicate ${source.source_id}`);
+        }
+        sourceIds.add(source.source_id);
+        for (const topic of source.topics) {
+          if (taxonomy.success && !collectionIds.has(topic)) {
+            error(`${source.source_id}: topic ${topic} is not in the source taxonomy`);
+          }
+        }
+      }
+      ok(relative);
+
+      const articlesDir = path.join(root, "content/articles");
+      if (fs.existsSync(articlesDir)) {
+        for (const slug of fs.readdirSync(articlesDir, { withFileTypes: true })
+          .filter((entry) => entry.isDirectory())
+          .map((entry) => entry.name)) {
+          const referencesFile = path.join(articlesDir, slug, "references.yml");
+          if (!fs.existsSync(referencesFile)) continue;
+          const refs = publicReferencesFileSchema.safeParse(readYaml(referencesFile));
+          if (!refs.success) continue;
+          for (const entry of refs.data.references) {
+            if (!sourceIds.has(entry.source_id)) {
+              error(
+                `${slug}/references.yml: ${entry.source_id} is not in editorial/sources.yml`,
+              );
+            }
+          }
+        }
+      }
+    }
   }
 }
 
