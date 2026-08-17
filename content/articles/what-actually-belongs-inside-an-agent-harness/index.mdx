@@ -1,0 +1,145 @@
+---
+id: PS-000004
+title: What Actually Belongs Inside an Agent Harness?
+slug: what-actually-belongs-inside-an-agent-harness
+description: The harness owns context, tool invocation, policy at the point of action, and recovery. It should not own the cluster, the model, or unbounded memory.
+subtitle: Draw the boundary before the product category draws it for you.
+contentType: deep_dive
+authorPersona: maya
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-17"
+updatedAt: "2026-08-17"
+lastReviewedAt: "2026-08-17"
+reviewAfter: "2026-11-15"
+category: AI Agents
+tags:
+  - agent-harness
+  - architecture
+  - policy
+concepts:
+  - agent-harness
+  - tool-policy
+  - control-plane
+technologyVersions: {}
+difficulty: advanced
+opportunityId: PS-O-0004
+seo:
+  title: What Actually Belongs Inside an Agent Harness?
+  description: In-scope and out-of-scope responsibilities for an agent harness, with explicit non-goals for platform teams.
+  primaryQuery: agent harness responsibilities
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 81
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-an-ai-agent-harness
+    - the-anatomy-of-a-production-ai-agent
+    - agent-harness-vs-agent-framework-vs-mcp
+  sources:
+    - SRC-MCP-001
+    - SRC-K8S-001
+    - SRC-K8S-002
+  diagrams:
+    - PS-D-0003
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| Topic | Harness responsibility boundary |
+| Why it matters | “Harness” is becoming a product category before anyone agrees what it owns |
+| Audience | Platform architects and AI infrastructure engineers |
+| Non-goals | Model training, cluster scheduling, unbounded memory |
+| Read time | About 12 minutes |
+
+## Why This Matters
+
+The word harness is useful only if it excludes something.
+
+If it includes the model, the cluster, the UI, and the data lake, it is a synonym for “our platform” and you are back to an unnamed pile. If it includes nothing but a prompt loop, it is a synonym for “framework” and you still have no place to put policy.
+
+The design job is to put a boundary on the page and keep it there when a vendor tries to move it.
+
+## Architecture
+
+Think of the harness as a control loop with a small, stable interface.
+
+On one side: a task, a model, and a policy. On the other: tools that can change the world. In the middle: state for this run, a decision to invoke or refuse a tool, and a record of what happened.
+
+That is closer to an admission controller plus a workflow engine than it is to a chatbot. The chatbot can sit above it. Kubernetes can sit below it. MCP can sit beside it as the way tools are described.
+
+<Figure id="PS-D-0003" caption="PS-D-0003 — In-scope versus out-of-scope. If a concern is not on the left, name the other layer that owns it." />
+
+The interface that should remain stable is the run: start, pause, resume, terminate, and “here is the trace.” Models, tool servers, and clusters should be swappable behind that interface.
+
+## In Scope
+
+**Session and task context.** The harness remembers where this run is. Not every fact the organization knows — the facts required to continue or to stop.
+
+**Tool invocation and results.** The harness is the caller. It parses the model’s proposed action, matches it to a tool, and handles the result. A framework may help express that loop. The harness is the process that is allowed to make the call.
+
+**Policy at the point of action.** Not a paragraph in a system prompt. An allow-list, an identity, a budget, a refusal. MCP tells implementors that tools are arbitrary code execution and that hosts must obtain consent before invoking them. Mapping that duty onto a named layer is the harness decision.
+
+**Lifecycle.** Start, pause, retry, terminate. If you cannot stop a run without deleting a namespace, the lifecycle leaked into infrastructure.
+
+**Traces and evaluation hooks.** A span for the workflow, including tool calls. Chat logs are not this.
+
+## Out of Scope
+
+**Model weights and training.** The harness consumes a model. It does not train one. If the model is fine-tuned every week, that is a different product.
+
+**Cluster scheduling.** Kubernetes schedules Pods. That is infrastructure. The harness may request a Pod. It should not become a second scheduler.
+
+**Product experience.** Tickets, chat, IDP buttons. Those are clients of the harness.
+
+**Unbounded memory.** A retrieval store or a data lake is a dependency. If the harness owns “all memory,” it will absorb every data problem in the company.
+
+**The organization identity provider.** The harness binds a workload identity to a run. It should not replace SSO.
+
+<Callout type="watch">
+A common failure is to shove policy into the prompt because the harness has no place to put it. Prompts are not an authorization layer. They are not auditable in the way a refused tool call can be.
+</Callout>
+
+## Tradeoffs
+
+A narrow harness is easier to reason about and easier to replace. It forces other layers to exist. Teams that wanted one box will feel that as friction.
+
+A wide harness ships faster and then becomes impossible to change. Identity, memory, and UI get welded to the loop. Model swaps become platform migrations.
+
+Platform Signal prefers the narrow harness. The cost is that you must name the other layers. The benefit is that a protocol, a framework, and a cluster can each do the job they already know how to do.
+
+There is a second tradeoff around policy location. Policy in the harness is close to the action and can refuse a call. Policy only in the mesh or the IDP is farther away and may not understand tool semantics. You probably want both. You do not want neither.
+
+<Callout type="production">
+If the MCP server’s credentials can do more than the harness will allow the model to request, the real policy is the server’s token. Fix that before you decorate the loop.
+</Callout>
+
+## What Should Stay Human
+
+Some decisions should not be autonomous even inside a well-bounded harness: expanding the tool allow-list, minting a new identity, and connecting a server to a production API. Those are control-plane changes. The harness executes policy. It should not silently rewrite it.
+
+<Recommendation>
+The harness owns context, tool invocation, policy at the point of action, and recovery. It should not own the cluster, the model, or unbounded memory. If you cannot draw that boundary, you do not have a harness yet. You have a product name.
+
+**Use when**
+
+- You are writing an internal RFC for an agent platform
+- A vendor is selling a harness that appears to include the cluster and the model
+- You need a non-goals list before implementation starts
+
+**Wait when**
+
+- You do not yet have a privileged tool
+- You are still defining what an agent is allowed to do in business terms
+</Recommendation>

@@ -1,0 +1,42 @@
+article: agent-harness-vs-agent-framework-vs-mcp
+reviewed: "2026-08-17"
+claims:
+  - id: C001
+    claim: MCP is an open protocol for connecting LLM applications to external data sources and tools.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C002
+    claim: MCP is not a production runtime. It defines hosts, clients, and servers, not a harness.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C003
+    claim: Agent frameworks provide developer abstractions for loops and tools; they are not, by themselves, a production control plane.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: MEDIUM
+    sources: []
+  - id: C004
+    claim: MCP cannot enforce its security principles at the protocol level.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification — Security and Trust & Safety
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1

@@ -1,0 +1,128 @@
+---
+id: PS-000003
+title: Agent Harness vs Agent Framework vs MCP
+slug: agent-harness-vs-agent-framework-vs-mcp
+description: MCP, frameworks, and harnesses own different responsibilities. Choosing the wrong layer produces a purchase that cannot operate.
+subtitle: Decide which problem you are buying before you buy a product.
+contentType: decision_guide
+authorPersona: maya
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-17"
+updatedAt: "2026-08-17"
+lastReviewedAt: "2026-08-17"
+reviewAfter: "2026-11-15"
+category: AI Agents
+tags:
+  - agent-harness
+  - mcp
+  - decision-guide
+concepts:
+  - agent-harness
+  - mcp
+  - agent-framework
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0003
+seo:
+  title: Agent Harness vs Agent Framework vs MCP
+  description: A responsibility-boundary comparison of agent harnesses, agent frameworks, and MCP for platform teams.
+  primaryQuery: agent harness vs MCP vs framework
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 84
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-an-ai-agent-harness
+    - the-anatomy-of-a-production-ai-agent
+    - what-actually-belongs-inside-an-agent-harness
+  sources:
+    - SRC-MCP-001
+  diagrams: []
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| Topic | Layer choice |
+| Why it matters | The three terms are being used as synonyms while agents get infrastructure access |
+| Audience | Architects, staff engineers, engineering managers |
+| Decision | Which layer you are actually choosing |
+| Read time | About 10 minutes |
+
+## Why This Matters
+
+Before choosing a product, separate the protocol problem from the framework problem from the runtime problem.
+
+Teams currently buy one of those three and expect the other two. A protocol does not operate a run. A framework does not issue cluster identity. A harness that cannot speak a tool contract still has to invent one.
+
+The cost of the mix-up is not semantic. It is a privileged process with an unclear owner.
+
+## Decision Criteria
+
+Ask four questions of any candidate:
+
+1. Does it define a wire contract for tools, or a programming model, or a running control loop?
+2. What does it own when a tool call fails?
+3. Where does identity live?
+4. What remains if you swap the model?
+
+If a vendor deck answers “all of the above,” treat that as a claim to unpack, not as an architecture.
+
+## Comparison
+
+| Concern | Agent framework | MCP | Agent harness |
+|---|---|---|---|
+| Primary job | Developer abstractions for loops, state, and tools | Standardize how tools and context are exposed | Operate the run: context, policy, recovery, traces |
+| You are buying | An SDK and a way of writing agents | A protocol and, usually, servers that implement it | A runtime / control layer |
+| Failure owner | Often the application author | The host and server implementors; the protocol cannot enforce security | The harness, if you designed it that way |
+| Identity | Rarely a cluster identity | Not defined as Kubernetes identity | Must bind a workload identity to an allow-list |
+| Swap the model | Sometimes | Irrelevant; MCP is not the model | Should still start, call tools, and emit traces |
+| Platform Signal take | Necessary for developers; not a production control plane by itself | Necessary as a contract; not a harness | The missing named layer in most purchases |
+
+<Callout type="watch">
+MCP is an open protocol for connecting LLM applications to external data sources and tools. That sentence is from the specification. It is not a runtime. Stretching it into an architecture leaves blast radius to whoever happened to start the server.
+</Callout>
+
+## Tradeoffs
+
+Choosing a framework first is reasonable when the problem is still “can we express the loop.” It becomes a trap when the loop is then given a cluster token.
+
+Choosing MCP first is reasonable when multiple tools must be described the same way. It becomes a trap when “we speak MCP” is treated as policy.
+
+Choosing a harness first is reasonable when the agent will take privileged actions. It becomes a trap if the harness secretly becomes the model, the UI, and the data store.
+
+The useful split: let the framework help authors write loops. Let MCP (or another contract) describe tools. Let the harness be the thing that is allowed to call them.
+
+## Recommendation by Use Case
+
+**You need a shared tool contract across teams.** Start with MCP, then say which process is the host and which identity each server gets.
+
+**You need developers to ship loops this quarter.** Start with a framework, and write down what the framework will never own: cluster identity, tool allow-lists, traces.
+
+**You need to grant an agent infrastructure access.** Start with the harness. Do not skip the protocol or the framework; just do not pretend they are the runtime.
+
+<Recommendation>
+MCP, frameworks, and harnesses own different responsibilities. Choosing the wrong layer produces a purchase that cannot operate. Name the layer first. Then name the product.
+
+**Use when**
+
+- A purchase or design review is collapsing protocol, SDK, and runtime into one product
+- You need a table a platform team can use to reject the wrong layer
+- Agents are about to receive tools that can change production state
+
+**Wait when**
+
+- You are comparing two models, not two layers
+- The system has no tools yet and no plan to add them
+</Recommendation>

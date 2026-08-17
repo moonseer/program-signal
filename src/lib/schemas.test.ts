@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   clustersFileSchema,
+  diagramMetadataSchema,
   evidenceLedgerSchema,
   idRegistrySchema,
   publicReferencesFileSchema,
@@ -144,6 +145,38 @@ test("accepts the conceptual source taxonomy", () => {
 test("rejects a taxonomy collection id with spaces", () => {
   const result = sourceTaxonomySchema.safeParse({
     collections: [{ id: "AI Agents", name: "AI agents" }],
+  });
+  assert.equal(result.success, false);
+});
+
+test("accepts diagram metadata with alt text and a question", () => {
+  const result = diagramMetadataSchema.safeParse({
+    id: "PS-D-0001",
+    title: "Layers",
+    article_id: "PS-000001",
+    type: "architecture",
+    created_at: "2026-08-17",
+    updated_at: "2026-08-17",
+    source_format: "svg",
+    license: "All rights reserved",
+    alt_text: "Five stacked layers with the harness emphasized.",
+    question: "Where does the harness sit?",
+  });
+  assert.equal(result.success, true);
+});
+
+test("rejects a diagram id that is not PS-D-NNNN", () => {
+  const result = diagramMetadataSchema.safeParse({
+    id: "D-1",
+    title: "Layers",
+    article_id: "PS-000001",
+    type: "architecture",
+    created_at: "2026-08-17",
+    updated_at: "2026-08-17",
+    source_format: "svg",
+    license: "All rights reserved",
+    alt_text: "x",
+    question: "y",
   });
   assert.equal(result.success, false);
 });

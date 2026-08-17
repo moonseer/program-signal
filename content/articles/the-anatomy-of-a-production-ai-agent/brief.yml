@@ -1,0 +1,30 @@
+article_id: PS-000002
+opportunity_id: PS-O-0002
+working_title: The Anatomy of a Production AI Agent
+content_type: explainer
+author_persona: maya
+secondary_perspective: marcus
+target_reader:
+  - platform architects
+  - staff engineers
+  - AI infrastructure engineers
+primary_question: What layers must exist before an agent is a production system rather than a demo loop?
+reader_problem: Production agent stacks are described as frameworks or chat UIs, not as operable layers.
+central_thesis: A production agent is a layered system. Identity, policy, sandboxing, observability, and failure domains are not optional add-ons to the model.
+why_now: Teams are assembling agents from models, tools, and prompts without a shared layer model.
+unique_angle: A layer model a platform team can argue about, not a vendor product diagram.
+required_sections:
+  - why this matters
+  - layer model
+  - what most anatomies omit
+  - production considerations
+  - recommendation
+claims_to_verify:
+  - MCP is a tool-access protocol, not an agent architecture
+  - A model plus a tool loop is not sufficient for production operation
+required_visuals:
+  - layer model diagram
+target_length: 1800
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 90

@@ -1,0 +1,29 @@
+article_id: PS-000003
+opportunity_id: PS-O-0003
+working_title: Agent Harness vs Agent Framework vs MCP
+content_type: decision_guide
+author_persona: maya
+target_reader:
+  - platform architects
+  - staff engineers
+  - engineering managers
+primary_question: Which layer are you actually choosing when you pick a harness, a framework, or MCP?
+reader_problem: Buyers and builders collapse protocol, SDK, and runtime into one product story.
+central_thesis: MCP, frameworks, and harnesses own different responsibilities. Choosing the wrong layer produces a purchase that cannot operate.
+why_now: The three terms are used interchangeably while teams grant agents infrastructure access.
+unique_angle: A responsibility-boundary comparison a platform team can use to reject the wrong purchase.
+required_sections:
+  - why this matters
+  - decision criteria
+  - comparison
+  - tradeoffs
+  - recommendation by use case
+claims_to_verify:
+  - MCP is a protocol for tool access, not a runtime
+  - Agent frameworks provide developer abstractions, not a complete production control plane
+required_visuals:
+  - comparison table
+target_length: 2000
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 90

@@ -1,0 +1,12 @@
+id: PS-D-0002
+title: Production agent layer model
+article_id: PS-000002
+type: architecture
+created_at: "2026-08-17"
+updated_at: "2026-08-17"
+source_format: svg
+license: All rights reserved
+alt_text: "A production agent shown as six labeled bands: interface, model, harness, tools, identity, and observability."
+question: "Which layers must exist before an agent is a production system rather than a demo loop?"
+omissions: Vendor products and specific model names are omitted.
+technology_versions: {}

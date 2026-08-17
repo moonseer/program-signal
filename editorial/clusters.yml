@@ -5,6 +5,9 @@ clusters:
     pillar_opportunity: PS-O-0001
     articles:
       - PS-000001
+      - PS-000002
+      - PS-000003
+      - PS-000004
     opportunities:
       - PS-O-0001
       - PS-O-0002

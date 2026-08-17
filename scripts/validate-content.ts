@@ -9,6 +9,7 @@ import {
   articleFrontmatterSchema,
   calendarFileSchema,
   clustersFileSchema,
+  diagramMetadataSchema,
   evidenceLedgerSchema,
   opportunityCardSchema,
   publicReferencesFileSchema,
@@ -64,6 +65,20 @@ function validateArticles() {
     }
     if (article.sponsorship.sponsored && !article.sponsorship) {
       error(`${slug}: sponsored content missing disclosure fields`);
+    }
+    for (const related of article.relationships.relatedArticles) {
+      if (!fs.existsSync(path.join(articlesDir, related, "index.mdx"))) {
+        error(`${slug}: related article ${related} does not exist`);
+      }
+    }
+    for (const diagramId of article.relationships.diagrams) {
+      if (
+        !fs.existsSync(
+          path.join(articlesDir, slug, "diagrams", `${diagramId}.yml`),
+        )
+      ) {
+        error(`${slug}: diagram ${diagramId} is missing metadata`);
+      }
     }
     const evidenceFile = path.join(articlesDir, slug, "evidence.yml");
     if (fs.existsSync(evidenceFile)) {
@@ -126,6 +141,46 @@ validateYamlDir("editorial/briefs", (data, file) => {
     throw new Error(`filename must match ${result.data.article_id}.yml`);
   }
 });
+
+function walk(dir: string, match: (name: string) => boolean): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...walk(full, match));
+    else if (match(entry.name)) out.push(full);
+  }
+  return out;
+}
+
+for (const file of walk(path.join(root, "content"), (name) => /^PS-D-\d{4}\.yml$/.test(name))) {
+  let data: unknown;
+  try {
+    data = readYaml(file);
+  } catch (err) {
+    error(`${path.relative(root, file)}: ${(err as Error).message}`);
+    continue;
+  }
+  const result = diagramMetadataSchema.safeParse(data);
+  if (!result.success) {
+    error(`${path.relative(root, file)}: ${result.error.message}`);
+    continue;
+  }
+  if (path.basename(file) !== `${result.data.id}.yml`) {
+    error(`${path.relative(root, file)}: filename must match ${result.data.id}.yml`);
+    continue;
+  }
+  const svg = file.replace(/\.yml$/, ".svg");
+  if (!fs.existsSync(svg)) {
+    error(`${result.data.id}: missing ${path.relative(root, svg)}`);
+    continue;
+  }
+  if (!result.data.alt_text.trim()) {
+    error(`${result.data.id}: alt_text is required`);
+    continue;
+  }
+  ok(path.relative(root, file));
+}
 
 {
   const checks: Array<[string, (data: unknown) => { success: boolean; error?: { message: string } }]> = [

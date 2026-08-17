@@ -1,0 +1,46 @@
+article: the-anatomy-of-a-production-ai-agent
+reviewed: "2026-08-17"
+claims:
+  - id: C001
+    claim: MCP is a protocol for connecting LLM applications to tools and context, not a production agent architecture.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C002
+    claim: MCP cannot enforce its security principles at the protocol level.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification — Security and Trust & Safety
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C003
+    claim: A Kubernetes service account identifies a process in the cluster; it does not by itself define which tools an agent may call.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Service accounts
+        org: Kubernetes
+        url: https://kubernetes.io/docs/concepts/security/service-accounts/
+        tier: 1
+  - id: C004
+    claim: A model plus a tool loop is not a complete production agent because identity, policy, recovery, and traces still have to be designed.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification — Security and Trust & Safety
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1

@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** August 17, 2026  
-**Status:** See [Now / Next](#now--next). P0 foundation is in-repo; launch briefs exist; one fixture article is not launch-ready.  
+**Status:** See [Now / Next](#now--next). Agent-harness cluster drafted; human Editor-in-Chief approval is still open. Site remains `noindex`.  
 **Source of truth for work:** this document  
 **Source of truth for product intent:** the docs in `/docs`  
 **Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)
@@ -31,7 +31,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 17 August 2026  
-**Phase:** P0 mostly done. Launch briefs exist. Do not treat the site as publicly launched (`noindex` is still on).
+**Phase:** Agent-harness cluster drafted. Human approval still open. Site remains `noindex`.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -45,14 +45,13 @@ Keep this section current. Detail lives in the epics below.
 | Schemas | Articles, opportunities, briefs, evidence ledger, public references, ID registry |
 | License | MIT for site software; editorial content all rights reserved |
 | Launch planning | 15 opportunity cards + 15 Desk briefs (`PS-000001`–`PS-000015`) |
-| Fixture | One published template article: [What Is an AI Agent Harness?](../content/articles/what-is-an-ai-agent-harness/) (`PS-000001`). Evidence review is still pending. |
+| Agent-harness cluster | Four drafted articles with evidence, diagrams/tables, related reads, and article-page TOC/recommendation. **Human Editor-in-Chief approval is still open.** |
 
 ### Do next (recommended order)
 
-1. **Bring `PS-000001` up to launch quality** — evidence ledger with real claims, Research Editor pass, harness layer diagram (`PS-D-0001`), human approval. It is the cluster pillar and already drafted.
-2. **Draft the rest of the agent-harness cluster from briefs** — `PS-000002` anatomy, `PS-000003` harness vs framework vs MCP, `PS-000004` what belongs in the harness. Same evidence + diagram + human gate. Do not draft all 15 at once.
-3. **Harden the article page while those drafts exist** — TOC, recommendation block, related reads. Enough reading experience that new drafts are not fighting the template.
-4. **Then the other launch clusters, one cluster at a time** — Kubernetes + AI, MCP, platform/SRE, FDE, The Signal.
+1. **Human approval on the agent-harness cluster PR** — Evidence PASS + Desk ready + CI green are not enough. Tick the Editor-in-Chief box, then merge.
+2. **Then the Kubernetes + AI cluster, one cluster at a time** — start from briefs `PS-000005`–`PS-000007`. Same evidence + diagram + human gate.
+3. **Do not draft all remaining launch titles in parallel.**
 
 ### Not next
 
@@ -67,8 +66,8 @@ Keep this section current. Detail lives in the epics below.
 | Phase | Epics | How it looks right now |
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
-| P1 Publishing system | E06–E12 | Mostly not started. E08 and E10 are **In progress** (references list + content CI). |
-| P2 Launch inventory | E13–E21 | E13–E18 **In progress** (briefs only). No new launch articles yet. |
+| P1 Publishing system | E06–E12 | E07, E08, E10 **In progress**. Homepage, search, and remaining trust pages are not started. |
+| P2 Launch inventory | E13–E21 | E13 agent-harness drafted, pending human approval. E14–E18 still briefs only. |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
 ---
@@ -664,7 +663,7 @@ Launch clusters:
 
 ## E07 — Article reading experience
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P1  
 **Priority:** Critical
 
@@ -672,25 +671,25 @@ This is the most important design surface.
 
 ### S07.01 — Article header
 
-- [ ] Category · title · thesis/subtitle
-- [ ] Persona voice attribution (and human name when applicable)
-- [ ] Published, updated, last reviewed
-- [ ] Reading time, difficulty (`●●●○○`), optional series
+- [x] Category · title · thesis/subtitle
+- [x] Persona voice attribution (and human name when applicable)
+- [x] Published, updated, last reviewed
+- [x] Reading time, difficulty (`●●●○○`), optional series
 - [ ] Optional hero diagram
-- [ ] Technology versions / “Applies to” when present
+- [x] Technology versions / “Applies to” when present
 
 ### S07.02 — Three-zone desktop layout
 
-- [ ] Left: table of contents
-- [ ] Center: ~720px prose
+- [x] Left: table of contents
+- [x] Center: ~720px prose
 - [ ] Right: quiet article info (difficulty, updated, sources, related)
-- [ ] Mobile: TOC and info collapse into disclosures
-- [ ] Diagrams/tables may break out to ~1000–1100px
+- [x] Mobile: TOC and info collapse into disclosures
+- [x] Diagrams/tables may break out to ~1000–1100px
 
 ### S07.03 — At a Glance + Why This Matters
 
-- [ ] Metadata table for long articles
-- [ ] Short “Why This Matters” section as a first-class MDX component or convention
+- [x] Metadata table for long articles
+- [x] Short “Why This Matters” section as a first-class MDX component or convention
 
 ### S07.04 — Quick Read / Deep Dive
 
@@ -701,12 +700,12 @@ This is the most important design surface.
 
 ### S07.05 — Callout components
 
-- [ ] SIGNAL
-- [ ] PRODUCTION NOTE
-- [ ] WATCH OUT
-- [ ] FIELD NOTE
-- [ ] Accessible names, not color-only meaning
-- [ ] Work in light and dark
+- [x] SIGNAL
+- [x] PRODUCTION NOTE
+- [x] WATCH OUT
+- [x] FIELD NOTE
+- [x] Accessible names, not color-only meaning
+- [x] Work in light and dark
 
 ### S07.06 — Code blocks
 
@@ -718,23 +717,23 @@ This is the most important design surface.
 
 ### S07.07 — Tables
 
-- [ ] Comparison tables as a first-class pattern
-- [ ] Scroll on mobile
-- [ ] “Platform Signal take” column allowed
+- [x] Comparison tables as a first-class pattern
+- [x] Scroll on mobile
+- [x] “Platform Signal take” column allowed
 
 ### S07.08 — Recommendation block
 
-- [ ] “Use when / wait when” (or equivalent)
+- [x] “Use when / wait when” (or equivalent)
 - [ ] Required for Deep Dive, Operator Guide, Decision Guide, Lab
-- [ ] Distinct visual ending before references
+- [x] Distinct visual ending before references
 
 ### S07.09 — Article end state
 
 No infinite scroll.
 
-- [ ] Recommendation
-- [ ] References
-- [ ] ~3 related reads
+- [x] Recommendation
+- [x] References
+- [x] ~3 related reads
 - [ ] Get the Signal CTA
 - [ ] Optional series navigation
 
@@ -788,7 +787,7 @@ Published · Updated · Last Reviewed · Applies to · Status
 
 ## E09 — Diagram pipeline
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P1  
 **Priority:** High
 
@@ -810,20 +809,20 @@ content/articles/<slug>/diagrams/
   PS-D-0042.yml
 ```
 
-- [ ] Metadata: id, title, article_id, type, dates, source_format, license, alt_text, technology_versions
-- [ ] Alt text required
+- [x] Metadata: id, title, article_id, type, dates, source_format, license, alt_text, technology_versions
+- [x] Alt text required
 
 ### S09.03 — Build/CI render
 
 - [ ] Render Mermaid to SVG in GitHub Actions or local script
-- [ ] Commit SVG (preferred on Hobby so Vercel build stays simple) **or** generate during Next build if fast enough
+- [x] Commit SVG (preferred on Hobby so Vercel build stays simple) **or** generate during Next build if fast enough
 - [ ] Article figure component: caption, expand, download SVG (copy Mermaid can wait until P4)
 
 ### S09.04 — Figure component
 
-- [ ] Full-width breakout
+- [x] Full-width breakout
 - [ ] Full-screen on mobile
-- [ ] No unreadable tiny SVGs
+- [x] No unreadable tiny SVGs
 
 ---
 
@@ -944,31 +943,31 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 ### S13.01 — What Is an AI Agent Harness?
 
 - [x] Brief approved (Maya, Deep Dive / Explainer)
-- [ ] Draft in Maya voice
-- [ ] Evidence ledger + Research Editor review
-- [ ] Architecture diagram(s)
+- [x] Draft in Maya voice
+- [x] Evidence ledger + Research Editor review
+- [x] Architecture diagram(s)
 - [ ] Human approval
 - [x] ID assigned
 
 ### S13.02 — The Anatomy of a Production AI Agent
 
 - [x] Brief (Maya)
-- [ ] Layer model diagram
-- [ ] Research review
+- [x] Layer model diagram
+- [x] Research review
 - [ ] Human approval
 
 ### S13.03 — Agent Harness vs Agent Framework vs MCP
 
 - [x] Brief (Maya, Decision Guide)
-- [ ] Comparison table
-- [ ] Research review
+- [x] Comparison table
+- [x] Research review
 - [ ] Human approval
 
 ### S13.04 — What Actually Belongs Inside an Agent Harness?
 
 - [x] Brief (Maya)
-- [ ] Responsibility-boundary diagram
-- [ ] Research review
+- [x] Responsibility-boundary diagram
+- [x] Research review
 - [ ] Human approval
 
 ---
@@ -1772,4 +1771,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: launch-quality the fixture (`PS-000001`), then draft `PS-000002`–`PS-000004` from their briefs.
+Recommended next piece of work: human approval of the agent-harness cluster, then Kubernetes + AI from briefs `PS-000005`–`PS-000007`.

@@ -1,0 +1,10 @@
+flowchart TB
+  experience[Experience]
+  harness[Agent harness / runtime]
+  protocol[Tool / protocol layer]
+  model[Model]
+  infra[Infrastructure]
+  experience --> harness
+  harness --> protocol
+  harness --> model
+  protocol --> infra

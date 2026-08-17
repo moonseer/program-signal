@@ -1,0 +1,11 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: Tool invocation requires implementor consent and access control. The protocol will not do it for you.
+    version: "2025-06-18"
+  - source_id: SRC-K8S-002
+    label: PRIMARY_SOURCE
+    note: Pods are scheduled compute. That job stays in Kubernetes.
+  - source_id: SRC-K8S-001
+    label: PRIMARY_SOURCE
+    note: Service accounts name a process. They do not replace harness policy.
