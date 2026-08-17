@@ -4,6 +4,8 @@ import {
   clustersFileSchema,
   evidenceLedgerSchema,
   idRegistrySchema,
+  publicReferencesFileSchema,
+  sourceTaxonomySchema,
 } from "./schemas";
 
 test("accepts a verified claim with a tier-1 source", () => {
@@ -105,4 +107,43 @@ test("accepts a registry cursor and rejects a zero next value", () => {
     next: { article: 0, opportunity: 1, diagram: 1, lab: 1 },
   });
   assert.equal(bad.success, false);
+});
+
+test("accepts a curated public reference list", () => {
+  const result = publicReferencesFileSchema.safeParse({
+    references: [
+      {
+        source_id: "SRC-MCP-001",
+        label: "SPECIFICATION",
+        note: "Protocol, not architecture.",
+      },
+    ],
+  });
+  assert.equal(result.success, true);
+});
+
+test("allows an empty public reference list before sources are attached", () => {
+  const result = publicReferencesFileSchema.safeParse({ references: [] });
+  assert.equal(result.success, true);
+});
+
+test("rejects a public reference with an unknown label", () => {
+  const result = publicReferencesFileSchema.safeParse({
+    references: [{ source_id: "SRC-MCP-001", label: "BLOG_POST" }],
+  });
+  assert.equal(result.success, false);
+});
+
+test("accepts the conceptual source taxonomy", () => {
+  const result = sourceTaxonomySchema.safeParse({
+    collections: [{ id: "ai-agents", name: "AI agents" }],
+  });
+  assert.equal(result.success, true);
+});
+
+test("rejects a taxonomy collection id with spaces", () => {
+  const result = sourceTaxonomySchema.safeParse({
+    collections: [{ id: "AI Agents", name: "AI agents" }],
+  });
+  assert.equal(result.success, false);
 });

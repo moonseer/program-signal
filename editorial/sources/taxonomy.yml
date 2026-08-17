@@ -1,0 +1,22 @@
+collections:
+  - id: kubernetes
+    name: Kubernetes
+    description: Kubernetes APIs, KEPs, operators, and cluster runtime.
+  - id: platform-engineering
+    name: Platform engineering
+    description: Internal platforms, golden paths, and platform-as-product.
+  - id: ai-agents
+    name: AI agents
+    description: Agent harnesses, frameworks, protocols, and runtime.
+  - id: observability
+    name: Observability
+    description: Tracing, metrics, logs, and evaluation of production systems.
+  - id: ai-infrastructure
+    name: AI infrastructure
+    description: Serving, GPUs, scheduling, and inference platforms.
+  - id: security
+    name: Security
+    description: Identity, authorization, secrets, and blast radius.
+  - id: research
+    name: Research
+    description: Papers, surveys, and laboratory results.

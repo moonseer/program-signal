@@ -1,0 +1,31 @@
+article_id: PS-000006
+opportunity_id: PS-O-0006
+working_title: Kubernetes GPU Scheduling and DRA Explained
+content_type: operator_guide
+author_persona: marcus
+secondary_perspective: maya
+target_reader:
+  - platform engineers
+  - SRE
+  - AI infrastructure engineers
+primary_question: What can a platform team actually schedule, observe, and roll back with device plugins versus Dynamic Resource Allocation?
+reader_problem: GPU scheduling advice still assumes exclusive device plugins and hides DRA maturity limits.
+central_thesis: DRA changes the resource contract between workloads and specialized hardware. Utilization claims are not evidence. Version and failure mode are the story.
+why_now: Device plugins remain the default path while DRA is becoming the path operators will have to run.
+unique_angle: What a platform team can schedule, observe, and roll back — with versions explicit. No unsupported “better utilization” claims.
+required_sections:
+  - why this matters
+  - current device-plugin path
+  - DRA and ResourceClaims
+  - failure modes and observability
+  - maturity and versions
+  - recommendation
+claims_to_verify:
+  - DRA API objects and maturity must be pinned to a Kubernetes version
+  - GPU sharing features are vendor- and hardware-specific
+required_visuals:
+  - DRA / ResourceClaim diagram
+target_length: 2500
+research_review: mandatory
+editorial_decision: APPROVE
+refresh_cycle: 45

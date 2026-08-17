@@ -1,0 +1,31 @@
+article_id: PS-000005
+opportunity_id: PS-O-0005
+working_title: "Kubernetes for AI: A Production Architecture Guide"
+content_type: reference_architecture
+author_persona: maya
+secondary_perspective: marcus
+target_reader:
+  - platform architects
+  - platform engineers
+  - AI infrastructure engineers
+primary_question: What should Kubernetes own in an AI platform, and what should it not?
+reader_problem: Kubernetes-for-AI guides are either GPU tutorials or generic cluster diagrams that ignore serving, batch, and agent workloads.
+central_thesis: Kubernetes is a viable AI runtime when control plane, workload types, identity, and scheduling are designed as a system — not when a GPU operator is treated as the architecture.
+why_now: AI platforms are landing on Kubernetes as the default host before GPU, identity, and serving patterns are designed together.
+unique_angle: Kubernetes as an AI runtime with an explicit control-plane vs workload split, not a GPU how-to.
+required_sections:
+  - why this matters
+  - reference architecture
+  - control plane vs runtime
+  - assumptions and versions
+  - security and failure boundaries
+  - recommendation
+claims_to_verify:
+  - Dynamic Resource Allocation exists as a Kubernetes scheduling path for specialized hardware
+  - Gateway API inference is an extension, not core Kubernetes
+required_visuals:
+  - reference architecture diagram
+target_length: 3500
+research_review: mandatory
+editorial_decision: APPROVE
+refresh_cycle: 60

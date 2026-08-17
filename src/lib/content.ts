@@ -1,9 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 import {
   articleFrontmatterSchema,
+  publicReferencesFileSchema,
+  sourceLibrarySchema,
   type ArticleFrontmatter,
+  type PublicReference,
+  type SourceRecord,
 } from "@/lib/schemas";
 
 export type { ArticleFrontmatter };
@@ -47,6 +52,34 @@ export function getArticleBySlug(slug: string): Article {
     body: parsed.content,
     readingMinutes: readingMinutes(parsed.content),
   };
+}
+
+export function getSourceLibrary(): SourceRecord[] {
+  const file = path.join(process.cwd(), "editorial/sources.yml");
+  const parsed = sourceLibrarySchema.parse(
+    yaml.load(fs.readFileSync(file, "utf8")),
+  );
+  return parsed.sources;
+}
+
+export function getArticleReferences(
+  slug: string,
+): Array<{ entry: PublicReference; source: SourceRecord }> {
+  const file = path.join(articlesRoot, slug, "references.yml");
+  if (!fs.existsSync(file)) return [];
+  const parsed = publicReferencesFileSchema.parse(
+    yaml.load(fs.readFileSync(file, "utf8")),
+  );
+  const library = new Map(
+    getSourceLibrary().map((source) => [source.source_id, source]),
+  );
+  return parsed.references.map((entry) => {
+    const source = library.get(entry.source_id);
+    if (!source) {
+      throw new Error(`${slug}: public reference ${entry.source_id} is not in editorial/sources.yml`);
+    }
+    return { entry, source };
+  });
 }
 
 export function getPublishedArticles(): Article[] {

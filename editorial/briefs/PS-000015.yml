@@ -1,0 +1,28 @@
+article_id: PS-000015
+opportunity_id: PS-O-0015
+working_title: The State of Platform Engineering in the Age of AI Agents
+content_type: the_signal
+author_persona: elias
+secondary_perspective: maya
+target_reader:
+  - platform architects
+  - engineering leaders
+  - staff engineers
+primary_question: What actually changed for platform teams when agent runtimes, GPU pools, and tool access landed on the same product?
+reader_problem: State-of-platform-engineering roundups still inventory IDP features while the new failure domain is unattended tool access.
+central_thesis: Agents change the blast radius of self-service. That is the state change, not another catalog of tools.
+why_now: Platform orgs are inheriting agent runtimes without a clear change to the platform product.
+unique_angle: Name the blast-radius change and label industry-wide claims as uncertain.
+required_sections:
+  - what happened
+  - why it matters
+  - what changed technically
+  - who should care
+  - what we are watching next
+claims_to_verify:
+  - Any industry-wide “state of” claim needs a dated survey or must be labeled inference
+required_visuals: []
+target_length: 1300
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 45

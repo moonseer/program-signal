@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** August 17, 2026  
-**Status:** Phase 0 in progress — constitution, ID registry, launch opportunity cards, and license in-repo; site and CI live  
+**Status:** Phase 0 schemas and launch briefs in-repo; site and CI live; illustrated portraits still open  
 **Source of truth for work:** this document  
 **Source of truth for product intent:** the docs in `/docs`  
 **Canonical control-layer agents:** [`PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md`](./PLATFORM-SIGNAL-EDITORIAL-AND-TOPIC-AGENTS.md) (The Desk + The Radar)
@@ -340,7 +340,7 @@ Write `docs/standards/CONTENT-TYPES.md`.
 
 ## E03 — Content schemas and repository layout
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P0  
 **Priority:** Critical
 
@@ -392,13 +392,13 @@ Implement the handbook schema as a Zod (or equivalent) validator.
 - [x] `evidence.yml` per article
 - [x] Claim id, text, type, status, confidence, sources (title, org, url, date, tier)
 - [x] Ledger is **internal** — not dumped onto the public page
-- [ ] Public references are a curated subset
+- [x] Public references are a curated subset
 
 ### S03.04 — Source library schema
 
 - [x] `editorial/sources.yml` with source_id, title, org, url, type, tier, topics, dates, license, doi, notes
 - [x] Tiers 1–4 as defined by the Research Editor
-- [ ] Taxonomy folders conceptually: Kubernetes, platform engineering, AI agents, observability, AI infrastructure, security, research
+- [x] Taxonomy folders conceptually: Kubernetes, platform engineering, AI agents, observability, AI infrastructure, security, research
 
 ### S03.05 — Topic opportunity schema
 
@@ -453,14 +453,14 @@ Spec the design-guide components before inventing new ones:
 
 Header, footer, nav, topic menu, search dialog, feature story, Signal item, topic section, article list, article card (sparingly), lab card, newsletter CTA, article header, At a Glance, TOC, reading progress, callouts (SIGNAL / PRODUCTION NOTE / WATCH OUT / FIELD NOTE), code block, figure, diagram, comparison table, recommendation block, source list, related articles, difficulty indicator, series nav, breadcrumb.
 
-- [ ] Written component checklist in `docs/standards/` or a design README
-- [ ] Explicit non-goals: card grids, tag clouds, stock AI art, glassmorphism, robot imagery
+- [x] Written component checklist in `docs/standards/` or a design README
+- [x] Explicit non-goals: card grids, tag clouds, stock AI art, glassmorphism, robot imagery
 
 ### S04.04 — Persona visual system
 
-- [ ] Motifs: Marcus terminal/heartbeat, Maya grid/blueprint, Elias radar/pulse, Nia path/nodes
+- [x] Motifs: Marcus terminal/heartbeat, Maya grid/blueprint, Elias radar/pulse, Nia path/nodes
 - [ ] Illustrated editorial portraits — not fake photorealistic headshots
-- [ ] Same article template for all authors; identity is subtle
+- [x] Same article template for all authors; identity is subtle
 
 ---
 
@@ -713,7 +713,7 @@ Published · Updated · Last Reviewed · Applies to · Status
 
 ## E08 — Evidence and citation UX
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P1  
 **Priority:** High
 
@@ -722,8 +722,8 @@ Published · Updated · Last Reviewed · Applies to · Status
 - [ ] Inline numeric citations
 - [ ] Source cards: title, organization, type, date, evidence tier, outbound indicator
 - [ ] Optional version / DOI / section
-- [ ] Labels: PRIMARY SOURCE, SPECIFICATION, RESEARCH, VENDOR DOCUMENTATION, SECONDARY ANALYSIS
-- [ ] Do not render the full internal ledger on the page
+- [x] Labels: PRIMARY SOURCE, SPECIFICATION, RESEARCH, VENDOR DOCUMENTATION, SECONDARY ANALYSIS
+- [x] Do not render the full internal ledger on the page
 
 ### S08.02 — Structured data
 
@@ -892,36 +892,36 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E13 — Launch cluster: AI agents / agent harness (4)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** Critical
 
 ### S13.01 — What Is an AI Agent Harness?
 
-- [ ] Brief approved (Maya, Deep Dive / Explainer)
+- [x] Brief approved (Maya, Deep Dive / Explainer)
 - [ ] Draft in Maya voice
 - [ ] Evidence ledger + Research Editor review
 - [ ] Architecture diagram(s)
 - [ ] Human approval
-- [ ] ID assigned
+- [x] ID assigned
 
 ### S13.02 — The Anatomy of a Production AI Agent
 
-- [ ] Brief (Maya)
+- [x] Brief (Maya)
 - [ ] Layer model diagram
 - [ ] Research review
 - [ ] Human approval
 
 ### S13.03 — Agent Harness vs Agent Framework vs MCP
 
-- [ ] Brief (Maya, Decision Guide)
+- [x] Brief (Maya, Decision Guide)
 - [ ] Comparison table
 - [ ] Research review
 - [ ] Human approval
 
 ### S13.04 — What Actually Belongs Inside an Agent Harness?
 
-- [ ] Brief (Maya)
+- [x] Brief (Maya)
 - [ ] Responsibility-boundary diagram
 - [ ] Research review
 - [ ] Human approval
@@ -930,13 +930,13 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E14 — Launch cluster: Kubernetes + AI infrastructure (3)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** Critical
 
 ### S14.01 — Kubernetes for AI: A Production Architecture Guide
 
-- [ ] Brief (Maya or Marcus; architecture-primary → Maya)
+- [x] Brief (Maya or Marcus; architecture-primary → Maya)
 - [ ] Reference architecture diagram
 - [ ] Version pins
 - [ ] Research review
@@ -944,7 +944,7 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ### S14.02 — Kubernetes GPU Scheduling and DRA Explained
 
-- [ ] Brief (Marcus or Maya)
+- [x] Brief (Marcus or Maya)
 - [ ] DRA / ResourceClaim diagram
 - [ ] Maturity and version explicit
 - [ ] No unsupported “better utilization” claims without evidence
@@ -953,7 +953,7 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ### S14.03 — Building an Internal AI Platform on Kubernetes
 
-- [ ] Brief (Maya)
+- [x] Brief (Maya)
 - [ ] Control-plane vs runtime split
 - [ ] Research review
 - [ ] Human approval
@@ -962,20 +962,20 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E15 — Launch cluster: MCP / agent protocols (2)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** Critical
 
 ### S15.01 — MCP for Platform Engineers
 
-- [ ] Brief (Maya)
+- [x] Brief (Maya)
 - [ ] Protocol vs product distinction
 - [ ] Research review
 - [ ] Human approval
 
 ### S15.02 — How to Run MCP Servers Safely on Kubernetes
 
-- [ ] Brief (Marcus, Operator Guide)
+- [x] Brief (Marcus, Operator Guide)
 - [ ] Identity, authz, blast radius, secrets, audit
 - [ ] Failure modes
 - [ ] Research review
@@ -985,19 +985,19 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E16 — Launch cluster: platform engineering / SRE (2)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** Critical
 
 ### S16.01 — What Is Agentic Platform Engineering?
 
-- [ ] Brief (Maya or Elias)
+- [x] Brief (Maya or Elias)
 - [ ] Research review
 - [ ] Human approval
 
 ### S16.02 — Observability for AI Agents
 
-- [ ] Brief (Marcus)
+- [x] Brief (Marcus)
 - [ ] OpenTelemetry / tracing of multi-step workflows
 - [ ] Research review
 - [ ] Human approval
@@ -1006,20 +1006,20 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E17 — Launch cluster: FDE / engineering growth (2)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** High
 
 ### S17.01 — What Is a Forward Deployed Engineer?
 
-- [ ] Brief (Nia)
+- [x] Brief (Nia)
 - [ ] No fabricated personal war stories; label hypotheticals
 - [ ] Research review (strongly recommended)
 - [ ] Human approval
 
 ### S17.02 — FDE vs Platform Engineer vs Solutions Architect
 
-- [ ] Brief (Nia, Decision Guide)
+- [x] Brief (Nia, Decision Guide)
 - [ ] Comparison table
 - [ ] Research review
 - [ ] Human approval
@@ -1028,20 +1028,20 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 
 ## E18 — Launch cluster: The Signal / current analysis (2)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** High
 
 ### S18.01 — Why Everyone Suddenly Wants an MCP Gateway
 
-- [ ] Brief (Elias, The Signal format)
+- [x] Brief (Elias, The Signal format)
 - [ ] What happened / why it matters / what changed / who should care / watching next
 - [ ] Research review (strongly recommended)
 - [ ] Human approval
 
 ### S18.02 — The State of Platform Engineering in the Age of AI Agents
 
-- [ ] Brief (Elias or Maya)
+- [x] Brief (Elias or Maya)
 - [ ] Research review
 - [ ] Human approval
 
@@ -1725,6 +1725,6 @@ A story is done when:
 
 # 8. Immediate next session
 
-Phase 0 remaining work is optional design (component checklist, persona motifs) plus leftover schema items (public article references, source taxonomy).
+Phase 0 leftovers: optional topic accent colors, long-article reading comfort, illustrated (not photorealistic) portraits.
 
-Write launch articles from briefs, not from titles. One fixture article exists; the other 14 launch titles are opportunity cards only (`PS-O-0002`–`PS-O-0015` in `APPROVED`). `main` requires a PR and a passing `validate` job. Proven: [#1](https://github.com/moonseer/program-signal/pull/1) failed `validate` and skipped `deploy`.
+Launch briefs `PS-000002`–`PS-000015` exist. Next is drafting from those briefs — starting with the agent-harness cluster — not from titles. Evidence review and human approval still gate publication.

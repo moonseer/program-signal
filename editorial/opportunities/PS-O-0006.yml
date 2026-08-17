@@ -1,7 +1,7 @@
 opportunity_id: PS-O-0006
 topic: Kubernetes GPU Scheduling and DRA Explained
 classification: EMERGING
-lifecycle: APPROVED
+lifecycle: BRIEF
 opportunity_score: 85
 commodity_risk: MEDIUM
 horizon: NEXT

@@ -2,9 +2,11 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Callout } from "@/components/Callout";
+import { SourceList } from "@/components/SourceList";
 import {
   contentTypeLabels,
   getArticleBySlug,
+  getArticleReferences,
   getArticleSlugs,
   personaNames,
 } from "@/lib/content";
@@ -42,6 +44,7 @@ export default async function ArticlePage({ params }: Props) {
   }
 
   const { frontmatter, body, readingMinutes } = article;
+  const references = getArticleReferences(slug);
 
   return (
     <article className="px-6 py-12">
@@ -78,6 +81,7 @@ export default async function ArticlePage({ params }: Props) {
       <div className="prose-signal mx-auto mt-12 max-w-[46rem]">
         <MDXRemote source={body} components={{ Callout }} />
       </div>
+      <SourceList references={references} />
     </article>
   );
 }

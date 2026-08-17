@@ -1,0 +1,30 @@
+article_id: PS-000009
+opportunity_id: PS-O-0009
+working_title: How to Run MCP Servers Safely on Kubernetes
+content_type: operator_guide
+author_persona: marcus
+target_reader:
+  - platform engineers
+  - SRE
+  - security engineers
+primary_question: How should an MCP server run as a Kubernetes workload with named identity, authz, secrets, audit, and a bounded blast radius?
+reader_problem: The default path is a container with a token and a tool list.
+central_thesis: "An MCP server is a privileged workload. Treat it like one: identity, network policy, secrets, audit, and failure domains — not prompt hardening."
+why_now: MCP servers are being pointed at cluster APIs, secrets, and internal systems.
+unique_angle: An operator guide for identity, authz, secrets, audit, and blast radius.
+required_sections:
+  - why this matters
+  - identity and authorization
+  - secrets and network
+  - audit
+  - failure modes
+  - recommendation
+claims_to_verify:
+  - MCP servers can hold credentials distinct from the calling agent
+  - Kubernetes NetworkPolicy and workload identity are the relevant controls, not prompt text
+required_visuals:
+  - blast-radius diagram
+target_length: 2400
+research_review: mandatory
+editorial_decision: APPROVE
+refresh_cycle: 60

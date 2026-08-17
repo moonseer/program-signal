@@ -1,0 +1,27 @@
+article_id: PS-000012
+opportunity_id: PS-O-0012
+working_title: What Is a Forward Deployed Engineer?
+content_type: field_note
+author_persona: nia
+target_reader:
+  - field engineers
+  - platform engineers
+  - engineering managers
+primary_question: What engineering work does an FDE actually do between discovery and production handoff?
+reader_problem: FDE is described as sales engineering, staff engineer, or implementation consultant depending on who is hiring.
+central_thesis: FDE is technical discovery and production enablement. It is not a personality. Hypotheticals must be labeled; no invented war stories.
+why_now: The title is spreading from a few AI labs into platform and infrastructure hiring without a shared definition.
+unique_angle: Discovery, evidence, and handoff as engineering work — not a mythologized career post.
+required_sections:
+  - why this matters
+  - definition
+  - discovery and evidence
+  - production handoff
+  - recommendation
+claims_to_verify:
+  - Public FDE job descriptions from multiple firms disagree on scope; the article must not freeze one vendor’s definition as the industry
+required_visuals: []
+target_length: 1400
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 180

@@ -1,0 +1,30 @@
+article_id: PS-000011
+opportunity_id: PS-O-0011
+working_title: Observability for AI Agents
+content_type: operator_guide
+author_persona: marcus
+target_reader:
+  - SRE
+  - platform engineers
+  - AI infrastructure engineers
+primary_question: How do you trace a multi-step agent workflow with identity, tools, and cost attached, using the same discipline as any other production system?
+reader_problem: Agent failures are being debugged from chat logs.
+central_thesis: Agent work is a distributed system. Trace the workflow, not only the prompt.
+why_now: Teams already have traces, metrics, and audit for every other production system, then abandon them at the agent boundary.
+unique_angle: OpenTelemetry and identity across tools and cluster — not an LLM-observability product tour.
+required_sections:
+  - why this matters
+  - what to trace
+  - identity and correlation
+  - failure modes
+  - OpenTelemetry considerations
+  - recommendation
+claims_to_verify:
+  - OpenTelemetry has semantic conventions relevant to generative AI and spans
+  - Chat logs are not a substitute for distributed traces
+required_visuals:
+  - trace of a multi-step tool workflow
+target_length: 2200
+research_review: mandatory
+editorial_decision: APPROVE
+refresh_cycle: 60

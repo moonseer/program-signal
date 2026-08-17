@@ -1,7 +1,7 @@
 opportunity_id: PS-O-0009
 topic: How to Run MCP Servers Safely on Kubernetes
 classification: PAIN_POINT
-lifecycle: APPROVED
+lifecycle: BRIEF
 opportunity_score: 91
 commodity_risk: LOW
 horizon: NOW
