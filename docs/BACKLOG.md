@@ -66,7 +66,7 @@ Keep this section current. Detail lives in the epics below.
 | Phase | Epics | How it looks right now |
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
-| P1 Publishing system | E06–E12 | E07, E08, E10 **In progress**. Homepage, search, and remaining trust pages are not started. |
+| P1 Publishing system | E06–E12 | E07, E08, E09, E10 **In progress**. Homepage, search, and remaining trust pages are not started. |
 | P2 Launch inventory | E13–E21 | E13 agent-harness drafted, pending human approval. E14–E18 still briefs only. |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
