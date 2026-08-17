@@ -32,6 +32,8 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_SCOPE: moonseers-projects
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -40,17 +42,29 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm install --global vercel@latest
+      - name: Link Vercel project
+        run: |
+          mkdir -p .vercel
+          python3 - <<'PY'
+          import json, os, pathlib
+          org = os.environ["VERCEL_ORG_ID"].strip().strip('"').strip("'")
+          project = os.environ["VERCEL_PROJECT_ID"].strip().strip('"').strip("'")
+          pathlib.Path(".vercel/project.json").write_text(
+              json.dumps({"orgId": org, "projectId": project}) + "\n"
+          )
+          print(f"linked org_prefix={org[:5]} project_prefix={project[:4]}")
+          PY
       - name: Pull Vercel env
-        run: vercel pull --yes --environment=${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && 'production' || 'preview' }} --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && 'production' || 'preview' }} --scope "$VERCEL_SCOPE"
       - name: Build
-        run: vercel build ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && '--prod' || '' }} --scope "$VERCEL_SCOPE"
       - name: Deploy
         id: deploy
         run: |
           if [ "${GITHUB_REF}" = "refs/heads/main" ] && [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            url=$(vercel deploy --prebuilt --prod --token="${{ secrets.VERCEL_TOKEN }}")
+            url=$(vercel deploy --prebuilt --prod --scope "$VERCEL_SCOPE")
           else
-            url=$(vercel deploy --prebuilt --token="${{ secrets.VERCEL_TOKEN }}")
+            url=$(vercel deploy --prebuilt --scope "$VERCEL_SCOPE")
           fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Comment preview URL on PR
