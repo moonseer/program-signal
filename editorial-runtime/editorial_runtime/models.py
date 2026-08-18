@@ -130,6 +130,7 @@ class WorkflowState(BaseModel):
     brief: ArticleBrief | None = None
     outline: str | None = None
     draft_path: str | None = None
+    draft_mdx: str | None = None
     evidence_review: EvidenceReview | None = None
     human_status: Literal["pending", "approved", "rejected"] = "pending"
     model_usage: list[ModelUsageRecord] = Field(default_factory=list)

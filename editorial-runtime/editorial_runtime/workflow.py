@@ -9,22 +9,37 @@ from uuid import uuid4
 from langgraph.graph import END, StateGraph
 
 from editorial_runtime.models import PersonaName, WorkflowStage, WorkflowState
+from editorial_runtime.store import RunStore, open_run_store
 from editorial_runtime import nodes
 
 
-def build_workflow(*, runs_dir: Path) -> Any:
+def _as_state(value: Any) -> WorkflowState:
+    if isinstance(value, WorkflowState):
+        return value
+    return WorkflowState.model_validate(value)
+
+
+def build_workflow(*, runs_dir: Path, store: RunStore) -> Any:
     graph: StateGraph = StateGraph(WorkflowState)
+
+    def persist(node):
+        def wrapped(state: Any) -> WorkflowState:
+            out = _as_state(node(_as_state(state)))
+            store.save(out)
+            return out
+
+        return wrapped
 
     def draft_node(state: WorkflowState) -> WorkflowState:
         return nodes.author_draft(state, runs_dir)
 
-    graph.add_node("desk", nodes.desk_review)
-    graph.add_node("brief", nodes.create_brief)
-    graph.add_node("outline", nodes.author_outline)
-    graph.add_node("draft", draft_node)
-    graph.add_node("evidence", nodes.evidence_review)
-    graph.add_node("revision", nodes.revision)
-    graph.add_node("human_gate", nodes.human_gate)
+    graph.add_node("desk", persist(nodes.desk_review))
+    graph.add_node("brief", persist(nodes.create_brief))
+    graph.add_node("outline", persist(nodes.author_outline))
+    graph.add_node("draft", persist(draft_node))
+    graph.add_node("evidence", persist(nodes.evidence_review))
+    graph.add_node("revision", persist(nodes.revision))
+    graph.add_node("human_gate", persist(nodes.human_gate))
 
     graph.set_entry_point("desk")
     graph.add_edge("desk", "brief")
@@ -52,8 +67,11 @@ def run_workflow(
     brief_path: Path | None = None,
     source_ids: list[str] | None = None,
     max_revisions: int = 1,
+    store: RunStore | None = None,
 ) -> WorkflowState:
-    app = build_workflow(runs_dir=runs_dir)
+    run_store = store or open_run_store(runs_dir=runs_dir)
+    run_store.setup()
+    app = build_workflow(runs_dir=runs_dir, store=run_store)
     initial = WorkflowState(
         workflow_id=str(uuid4()),
         topic=topic,
@@ -65,7 +83,8 @@ def run_workflow(
         source_ids=source_ids or ["SRC-MCP-001"],
         max_revisions=max_revisions,
     )
+    run_store.save(initial)
     final = app.invoke(initial)
-    if isinstance(final, WorkflowState):
-        return final
-    return WorkflowState.model_validate(final)
+    state = _as_state(final)
+    run_store.save(state)
+    return state

@@ -36,6 +36,8 @@ def desk_review(state: WorkflowState) -> WorkflowState:
         )
         state.touch()
         return state
+
+    if _use_llm(state):
         from editorial_runtime.agents.desk import run_desk_decision
 
         try:
@@ -167,15 +169,14 @@ def author_draft(state: WorkflowState, runs_dir: Path) -> WorkflowState:
         except Exception as exc:  # noqa: BLE001
             state.errors.append(f"author LLM failed: {exc}")
 
-    draft_path.write_text(
-        (
-            f"---\n"
-            f"title: {state.brief.working_title}\n"
-            f"---\n\n"
-            f"{body}\n"
-        ),
-        encoding="utf-8",
+    draft_mdx = (
+        f"---\n"
+        f"title: {state.brief.working_title}\n"
+        f"---\n\n"
+        f"{body}\n"
     )
+    draft_path.write_text(draft_mdx, encoding="utf-8")
+    state.draft_mdx = draft_mdx
     state.draft_path = str(draft_path)
     state.stage = WorkflowStage.author_draft
     state.touch()
@@ -183,8 +184,8 @@ def author_draft(state: WorkflowState, runs_dir: Path) -> WorkflowState:
 
 
 def evidence_review(state: WorkflowState) -> WorkflowState:
-    draft_mdx = ""
-    if state.draft_path:
+    draft_mdx = state.draft_mdx or ""
+    if not draft_mdx and state.draft_path:
         draft_mdx = Path(state.draft_path).read_text(encoding="utf-8")
 
     if _use_llm(state) and state.brief is not None:

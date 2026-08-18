@@ -47,14 +47,14 @@ Keep this section current. Detail lives in the epics below.
 | License | MIT for site software; editorial content all rights reserved |
 | Launch planning | 15 opportunity cards + 15 Desk briefs (`PS-000001`–`PS-000015`) |
 | Agent-harness cluster | `PS-000001`–`PS-000004` published ([#5](https://github.com/moonseer/program-signal/pull/5)) |
-| Agent runtime Phase 1 | LangGraph workflow, persona packages, PydanticAI agents (Desk/Author/Evidence), capability routing, dry-run + test-model + live modes ([#7](https://github.com/moonseer/program-signal/pull/7), E37 LLM slice in progress) |
+| Agent runtime Phase 1 | LangGraph workflow, persona packages, PydanticAI agents (Desk/Author/Evidence), capability routing, dry-run + test-model + live modes, revision cap, Evidence gates ([#7](https://github.com/moonseer/program-signal/pull/7)–[#11](https://github.com/moonseer/program-signal/pull/11)) |
 | MCP cluster start | `PS-000008` published with evidence and diagram `PS-D-0004` ([#7](https://github.com/moonseer/program-signal/pull/7)) |
+| PostgreSQL workflow state | Editorial runs persisted in Postgres (`workflow_runs`); JSON files under `editorial-runtime/runs/` are a local fallback when `DATABASE_URL` is unset |
 
 ### Do next (recommended order)
 
-1. **PostgreSQL workflow state (E37)** — persist runs; replace JSON files under `editorial-runtime/runs/`.
-2. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
-3. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
+1. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
+2. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
 
 ### Deferred (not now)
 
@@ -64,7 +64,7 @@ Keep this section current. Detail lives in the epics below.
 ### Not next
 
 - Illustrated persona portraits, topic accent colors, or long-article comfort testing
-- Homepage magazine layout, search, RSS, newsletter vendor, custom domain
+- RSS, newsletter vendor, custom domain
 - Public launch / turning off `noindex`
 - Running Radar or Desk as live jobs **before Agent runtime Phase 1 is proven**
 - Kubernetes launch cluster (`PS-000005`–`000007`) or MCP-on-K8s operator guide (`PS-000009`)
@@ -138,7 +138,7 @@ Hobby is viable for launch if the architecture stays **mostly static**. It is no
 | Analytics | Search Console + GA4 + Vercel Web Analytics | Free / included; stay under 50k Vercel Analytics events initially |
 | CI/CD | GitHub Actions validate, then Vercel CLI deploy | Sequential gate; Vercel Git auto-deploy is off. See `docs/CI-CD.md` |
 | Database | None on the public site | Frontmatter + YAML graphs generated at build |
-| Agent runtime state | PostgreSQL (when E37 ships) | Workflow stages, opportunity/brief state, eval runs — **not** on Vercel Hobby |
+| Agent runtime state | PostgreSQL (editorial-runtime; local Docker) | Workflow stages, briefs, drafts, evidence — **not** on Vercel Hobby |
 | Auth | None on the public site | Preview protection via Vercel if needed |
 
 ### 2.2 Hobby limits that shape the backlog
@@ -1726,7 +1726,7 @@ See E39. Persona config example (voice sliders, preferred elements, avoid list) 
 - [x] Explicit stages: topic → Desk → brief → Author → Evidence → human gate (publish/analytics/Radar later)
 - [x] Conditional routing: Evidence CHANGES → Author rewrite, **capped at `max_revisions` (default 1)**, then human gate
 - [x] Human approval as a **hard interruption** before publish
-- [ ] Workflow state schema persisted in PostgreSQL (JSON run files in Phase 1)
+- [x] Workflow state schema persisted in PostgreSQL (JSON files remain a local fallback when `DATABASE_URL` is unset)
 
 ### S37.06 — LiteLLM model routing
 
@@ -1875,4 +1875,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: human approval of the agent-harness cluster, then Agent runtime Phase 1 (E37) and MCP cluster `PS-000008`. Kubernetes cluster (`PS-000005`–`000007`) is deferred.
+Recommended next piece of work: homepage magazine layout and article discovery (E06 / E10), then MCP cluster `PS-000009` as a host-agnostic operator guide. Kubernetes cluster (`PS-000005`–`000007`) is deferred.
