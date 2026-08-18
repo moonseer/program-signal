@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 18 August 2026  
-**Phase:** FDE cluster `PS-000012` **published**. `PS-000013` packaged, awaiting merge. Platform engineering / SRE (`PS-000010`, `PS-000011`) and MCP (`PS-000008`–`PS-000009`) **published**. Site reading experience landed ([#24](https://github.com/moonseer/program-signal/pull/24)). Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Phase:** The Signal cluster started (`PS-000014` packaged, this PR). FDE (`PS-000012`, `PS-000013`), platform engineering / SRE (`PS-000010`, `PS-000011`), and MCP (`PS-000008`–`PS-000009`) **published**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or remaining launch content.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -58,11 +58,12 @@ Keep this section current. Detail lives in the epics below.
 | Platform SRE observability | `PS-000011` published ([#23](https://github.com/moonseer/program-signal/pull/23)) |
 | Site reading experience | Diagram visual language, expand/download, reading progress, JSON-LD/OG, citations, code copy ([#24](https://github.com/moonseer/program-signal/pull/24)) |
 | FDE cluster start | `PS-000012` published ([#25](https://github.com/moonseer/program-signal/pull/25)) |
-| FDE comparison | `PS-000013` packaged (this PR); Nia decision guide; Palantir / OpenAI / Anthropic / CNCF / AWS sources |
+| FDE comparison | `PS-000013` published ([#26](https://github.com/moonseer/program-signal/pull/26)) |
+| The Signal start | `PS-000014` packaged (this PR); Elias; Docker 2025-07-09 and Cloudflare 2025-08-26; Kubernetes Gateway API distinguished |
 
 ### Do next (recommended order)
 
-1. Merge the `PS-000013` content PR, then run `PS-000014` (The Signal: Why Everyone Suddenly Wants an MCP Gateway). Kubernetes cluster (`PS-000005`–`000007`) stays deferred. Radar automation stays later.
+1. After `PS-000014` lands, run `PS-000015` (The State of Platform Engineering in the Age of AI Agents). Kubernetes cluster (`PS-000005`–`000007`) stays deferred. Radar automation stays later.
 
 ### Deferred (not now)
 
@@ -83,7 +84,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 **Done**. E17 **In progress** (`PS-000012` published, `PS-000013` packaged). E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 **Done**. E17 **Done**. E18 **In progress** (`PS-000014` packaged). E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1115,9 +1116,10 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 ### S18.01 — Why Everyone Suddenly Wants an MCP Gateway
 
 - [x] Brief (Elias, The Signal format)
-- [ ] What happened / why it matters / what changed / who should care / watching next
-- [ ] Research review (strongly recommended)
-- [ ] Human approval
+- [x] What happened / why it matters / what changed / who should care / watching next
+- [x] Research review (strongly recommended)
+- [x] Human approval
+- [ ] Content PR merge (this PR)
 
 ### S18.02 — The State of Platform Engineering in the Age of AI Agents
 

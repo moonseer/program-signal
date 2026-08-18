@@ -7,8 +7,10 @@ next:
 source_families:
   ANTH: 2
   AWS: 2
+  CF: 2
   CNCF: 3
-  K8S: 3
+  DOCKER: 2
+  K8S: 4
   MCP: 3
   OAI: 2
   OTEL: 3

@@ -94,4 +94,8 @@ test("loads launch clusters from editorial/clusters.yml", () => {
   assert.equal(fde?.pillar, "what-is-a-forward-deployed-engineer");
   assert.ok(fde?.articles.includes("PS-000012"));
   assert.ok(fde?.articles.includes("PS-000013"));
+  const signal = loaded.find((cluster) => cluster.id === "the-signal");
+  assert.ok(signal);
+  assert.equal(signal?.pillar, "why-everyone-suddenly-wants-an-mcp-gateway");
+  assert.ok(signal?.articles.includes("PS-000014"));
 });
