@@ -49,11 +49,11 @@ Keep this section current. Detail lives in the epics below.
 | Agent-harness cluster | `PS-000001`–`PS-000004` published ([#5](https://github.com/moonseer/program-signal/pull/5)) |
 | Agent runtime Phase 1 | LangGraph workflow, persona packages, PydanticAI agents (Desk/Author/Evidence), capability routing, dry-run + test-model + live modes, revision cap, Evidence gates ([#7](https://github.com/moonseer/program-signal/pull/7)–[#11](https://github.com/moonseer/program-signal/pull/11)) |
 | MCP cluster start | `PS-000008` published with evidence and diagram `PS-D-0004` ([#7](https://github.com/moonseer/program-signal/pull/7)) |
-| PostgreSQL workflow state | Editorial runs persisted in Postgres (`workflow_runs`); JSON files under `editorial-runtime/runs/` are a local fallback when `DATABASE_URL` is unset |
+| Homepage + topics | Magazine homepage, topic cluster pages, list-first articles index with filters |
 
 ### Do next (recommended order)
 
-1. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
+1. **Search** — build-time index (Pagefind or FlexSearch); keep it static, no search API.
 2. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
 
 ### Deferred (not now)
@@ -75,7 +75,7 @@ Keep this section current. Detail lives in the epics below.
 | Phase | Epics | How it looks right now |
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
-| P1 Publishing system | E06–E12 | E07, E08, E09, E10 **In progress**. Homepage, search, and remaining trust pages are not started. |
+| P1 Publishing system | E06–E12 | E06 **In progress** (homepage + topics landed; search and remaining indexes open). E07, E08, E09, E10 **In progress**. |
 | P2 Launch inventory | E13–E21 | E13 **Done**. E15 S15.01 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
@@ -604,7 +604,7 @@ Prove one article can render before building the whole magazine.
 
 ## E06 — Site chrome and information architecture
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P1  
 **Priority:** Critical
 
@@ -616,25 +616,25 @@ Articles   Topics   Labs   Field Notes   About
                               Search   Subscribe
 ```
 
-- [ ] Minimal primary nav
-- [ ] Topics is the taxonomy home, not a mega-menu of everything
-- [ ] Mobile nav: large targets, no horizontal overflow
-- [ ] Footer: standards links, persona disclosure, founder/editor
+- [x] Minimal primary nav
+- [x] Topics is the taxonomy home, not a mega-menu of everything
+- [x] Mobile nav: large targets, no horizontal overflow
+- [x] Footer: standards links, persona disclosure, founder/editor
 
 ### S06.02 — Homepage (technical magazine, not card dump)
 
-- [ ] Masthead + one-line positioning (“Engineering the platforms behind modern software and AI.”)
-- [ ] One featured story with visual priority
-- [ ] The Signal module (three editorially chosen items)
-- [ ] Topic cluster sections (not a dense category grid)
-- [ ] Featured Lab module (distinct from articles)
-- [ ] Newsletter CTA (“Get the Signal” / “One useful engineering brief every week.”)
-- [ ] No identical 20-card grid
+- [x] Masthead + one-line positioning (“Engineering the platforms behind modern software and AI.”)
+- [x] One featured story with visual priority
+- [x] The Signal module (three editorially chosen items)
+- [x] Topic cluster sections (not a dense category grid)
+- [x] Featured Lab module (distinct from articles)
+- [x] Newsletter CTA (“Get the Signal” / “One useful engineering brief every week.”)
+- [x] No identical 20-card grid
 
 ### S06.03 — Articles index
 
-- [ ] Filter by topic, content type, persona, difficulty
-- [ ] List-first, not card-first
+- [x] Filter by topic, content type, persona, difficulty
+- [x] List-first, not card-first
 - [ ] Pagination or “more” without infinite scroll
 
 ### S06.04 — Topics taxonomy
@@ -648,8 +648,8 @@ Launch clusters:
 - SRE & Observability
 - Forward Deployed Engineering
 
-- [ ] `/topics` overview
-- [ ] `/topics/[cluster]` with pillar + supporting articles
+- [x] `/topics` overview
+- [x] `/topics/[cluster]` with pillar + supporting articles
 - [ ] Internal linking fields in frontmatter drive related reads
 
 ### S06.05 — Labs index and lab article variant
@@ -1875,4 +1875,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: homepage magazine layout and article discovery (E06 / E10), then MCP cluster `PS-000009` as a host-agnostic operator guide. Kubernetes cluster (`PS-000005`–`000007`) is deferred.
+Recommended next piece of work: build-time search (Pagefind or FlexSearch), then MCP cluster `PS-000009` as a host-agnostic operator guide. Kubernetes cluster (`PS-000005`–`000007`) is deferred.

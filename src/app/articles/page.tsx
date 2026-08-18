@@ -1,10 +1,7 @@
-import Link from "next/link";
-import {
-  contentTypeLabels,
-  getPublishedArticles,
-  personaNames,
-} from "@/lib/content";
-import { formatDate } from "@/lib/format";
+import { ArticlesIndex } from "@/components/ArticlesIndex";
+import { getEditorialClusters } from "@/lib/clusters";
+import { getPublishedArticles } from "@/lib/content";
+import { toArticleCard } from "@/lib/labels";
 
 export const metadata = {
   title: "Articles",
@@ -12,35 +9,24 @@ export const metadata = {
 
 export default function ArticlesPage() {
   const articles = getPublishedArticles();
+  const clusters = getEditorialClusters(articles).map((cluster) => ({
+    id: cluster.id,
+    name: cluster.name,
+    articleIds: cluster.articles,
+  }));
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12">
       <h1 className="font-[family-name:var(--font-display)] text-4xl tracking-[-0.03em]">
         Articles
       </h1>
-      <ul className="mt-10 divide-y divide-[var(--border)]">
-        {articles.map((article) => (
-          <li key={article.frontmatter.id} className="py-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-              {article.frontmatter.category} · {contentTypeLabels[article.frontmatter.contentType]}
-            </p>
-            <Link
-              href={`/articles/${article.frontmatter.slug}`}
-              className="mt-2 block text-2xl leading-snug hover:text-[var(--accent)]"
-            >
-              {article.frontmatter.title}
-            </Link>
-            <p className="mt-2 text-[var(--muted)]">{article.frontmatter.description}</p>
-            <p className="mt-3 font-mono text-[12px] text-[var(--muted)]">
-              {personaNames[article.frontmatter.authorPersona]}
-              {article.frontmatter.publishedAt
-                ? ` · ${formatDate(article.frontmatter.publishedAt)}`
-                : ""}
-              {` · ${article.readingMinutes} min`}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <p className="mt-4 text-[var(--muted)]">
+        List-first index. Filter by topic, persona, type, and difficulty.
+      </p>
+      <ArticlesIndex
+        articles={articles.map(toArticleCard)}
+        clusters={clusters}
+      />
     </div>
   );
 }
