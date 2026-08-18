@@ -1,0 +1,16 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: MCP is a protocol for tool invocation and context sharing, not an agent architecture. Spec version 2025-06-18.
+  - source_id: SRC-MCP-002
+    label: SPECIFICATION
+    note: Token passthrough, confused deputy, and operator-facing MCP security risks. Not a Kubernetes guide.
+  - source_id: SRC-K8S-003
+    label: PRIMARY_SOURCE
+    note: Kubernetes Gateway API models L4 and L7 service networking. It is not an MCP product. Distinct from an API gateway.
+  - source_id: SRC-DOCKER-001
+    label: PRIMARY_SOURCE
+    note: Official Docker Blog, 2025-07-09. MCP Gateway as an enforcement point between agents and MCP servers.
+  - source_id: SRC-CF-001
+    label: PRIMARY_SOURCE
+    note: Official Cloudflare Blog. MCP Server Portals Open Beta dated 2025-08-26. Product name is Portal, not Gateway.

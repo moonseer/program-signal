@@ -1,0 +1,51 @@
+article: why-everyone-suddenly-wants-an-mcp-gateway
+reviewed: "2026-08-18"
+claims:
+  - id: C001
+    claim: Docker announced Docker MCP Gateway on 2025-07-09 as an open-source enforcement point between agents and MCP servers. Cloudflare announced MCP Server Portals in Open Beta on 2025-08-26 as part of Cloudflare One. These are dated vendor announcements, not a frozen category definition.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Docker MCP Gateway
+        org: Docker
+        url: https://www.docker.com/blog/docker-mcp-gateway-secure-infrastructure-for-agentic-ai/
+        date: "2025-07-09"
+        tier: 1
+      - title: Introducing Cloudflare MCP Server Portals
+        org: Cloudflare
+        url: https://blog.cloudflare.com/zero-trust-mcp-server-portals/
+        date: "2025-08-26"
+        tier: 1
+  - id: C002
+    claim: Kubernetes Gateway API models L4 and L7 service networking (Ingress, load balancing, mesh). It is a Kubernetes SIG-Network project, not an MCP product. The docs distinguish Gateway API from an API gateway.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Gateway API introduction
+        org: Kubernetes SIG Network
+        url: https://gateway-api.sigs.k8s.io/docs/introduction/
+        tier: 1
+  - id: C003
+    claim: MCP is a protocol for tool invocation and context sharing. Security guidance names token passthrough and confused deputy as operator-facing risks. The protocol does not define a gateway as the required control point.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+      - title: MCP security best practices
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+        date: "2025-06-18"
+        tier: 1
+  - id: C004
+    claim: "The demand for MCP gateways is real. A gateway is not automatically the right control point. Some functions may already live in the harness or the mesh."
+    type: OPINION
+    status: SUPPORTED
+    confidence: HIGH
+    sources: []

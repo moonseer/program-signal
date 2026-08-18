@@ -114,5 +114,36 @@ sources:
     topics:
       - platform-engineering
     notes: Official AWS Training blog. An AWS Solutions Architect is a technical advisor, customer advocate, and educator. Work includes Well-Architected reviews and whiteboarding. Hands-on implementation is routed to Professional Services or partners. Ongoing management is a customer vs Managed Services choice, not SA ownership. Not an FDE or platform-engineer job.
+  - source_id: SRC-K8S-003
+    title: Gateway API introduction
+    organization: Kubernetes SIG Network
+    url: https://gateway-api.sigs.k8s.io/docs/introduction/
+    type: official_docs
+    tier: 1
+    topics:
+      - kubernetes
+    notes: Kubernetes Gateway API models L4 and L7 service networking (Ingress, load balancing, mesh). It is not an MCP product. The docs distinguish Gateway API from an API gateway. Some API gateways can be programmed with Gateway API. Do not treat MCP gateway products as this control point.
+  - source_id: SRC-DOCKER-001
+    title: Docker MCP Gateway
+    organization: Docker
+    url: https://www.docker.com/blog/docker-mcp-gateway-secure-infrastructure-for-agentic-ai/
+    type: official_docs
+    tier: 1
+    topics:
+      - ai-agents
+      - security
+    published_at: "2025-07-09"
+    notes: Official Docker Blog, 2025-07-09. Open-sources MCP Gateway as a secure enforcement point between agents and MCP servers. Aggregates servers behind one interface. Features include signature verification, secret blocking, and call logging. Available in Docker Desktop and as open source. Dated vendor announcement, not a frozen category definition.
+  - source_id: SRC-CF-001
+    title: Introducing Cloudflare MCP Server Portals
+    organization: Cloudflare
+    url: https://blog.cloudflare.com/zero-trust-mcp-server-portals/
+    type: official_docs
+    tier: 1
+    topics:
+      - ai-agents
+      - security
+    published_at: "2025-08-26"
+    notes: Official Cloudflare Blog. MCP Server Portals in Open Beta as part of Cloudflare One. Centralizes MCP connections for policy, logging, and a single portal endpoint. Changelog dates the release 2025-08-26. Product name is Portal, not Gateway. Dated vendor announcement, not a frozen category definition.
 
 

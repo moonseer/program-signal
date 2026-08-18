@@ -53,8 +53,10 @@ clusters:
       - PS-O-0013
   - id: the-signal
     name: The Signal / Current Analysis
+    pillar: why-everyone-suddenly-wants-an-mcp-gateway
     pillar_opportunity: PS-O-0014
-    articles: []
+    articles:
+      - PS-000014
     opportunities:
       - PS-O-0014
       - PS-O-0015

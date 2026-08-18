@@ -1,0 +1,176 @@
+---
+id: PS-000014
+title: Why Everyone Suddenly Wants an MCP Gateway
+slug: why-everyone-suddenly-wants-an-mcp-gateway
+description: The demand is real. A gateway is not automatically the right control point. Date the announcements. Distinguish Kubernetes Gateway API from MCP products.
+subtitle: What a proxy can centralize, what it cannot, and which controls may already live in the harness or the mesh.
+contentType: the_signal
+authorPersona: elias
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-18"
+updatedAt: "2026-08-18"
+lastReviewedAt: "2026-08-18"
+reviewAfter: "2026-09-17"
+category: AI Agents
+tags:
+  - mcp
+  - security
+  - gateway
+  - platform-engineering
+concepts:
+  - mcp
+  - mcp-gateway
+  - kubernetes-gateway-api
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0014
+seo:
+  title: Why Everyone Suddenly Wants an MCP Gateway
+  description: Docker and Cloudflare announced MCP proxies in 2025. The demand is real. A gateway is not automatically the right control point.
+  primaryQuery: MCP gateway
+  searchIntent: informational
+research:
+  editorStatus: pass_with_changes
+  confidence: 80
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - mcp-for-platform-engineers
+    - how-to-run-mcp-servers-as-privileged-workloads
+    - agent-harness-vs-agent-framework-vs-mcp
+  sources:
+    - SRC-MCP-001
+    - SRC-MCP-002
+    - SRC-K8S-003
+    - SRC-DOCKER-001
+    - SRC-CF-001
+  diagrams: []
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| **Central thesis** | The demand is real. A gateway is not automatically the right control point. |
+| **Signal type** | Emerging category, accelerating vendor activity |
+| **Maturity** | Early market, no settled standard |
+| **Who should care** | Platform engineers, staff engineers, security engineers |
+| **Time sensitivity** | Architecture decisions being made now, before failure modes are named |
+
+<Callout type="signal">
+The demand is real. A gateway is not automatically the right control point.
+</Callout>
+
+---
+
+## Why This Matters
+
+When a category forms fast, the category name becomes the answer before the question is fully asked. That is where MCP gateways are right now. Products are appearing, blog posts are announcing, and procurement conversations are starting, all before the field has agreed on what a gateway centralizes, what it cannot centralize, and whether it sits in the right place for a given organization's control surface.
+
+If you are designing agent infrastructure today, the question is not "do we need an MCP gateway." The question is "what functions need centralizing, and where do those functions already live."
+
+---
+
+## What Happened
+
+Two notable vendor announcements landed in mid-2025.
+
+Docker published the Docker MCP Gateway on 2025-07-09, open-sourcing it as an enforcement point between agents and MCP servers. The stated features include signature verification, secret blocking, and call logging. It aggregates multiple MCP servers behind a single interface and is available in Docker Desktop as well as open source.<Cite sourceId="SRC-DOCKER-001" />
+
+Cloudflare announced MCP Server Portals, entering Open Beta on 2025-08-26 as part of Cloudflare One. The product centralizes MCP connections for policy enforcement, logging, and a single portal endpoint. Cloudflare calls its product a "Portal," not a "Gateway," which is a small naming signal worth noting: the category label is not yet stable.<Cite sourceId="SRC-CF-001" />
+
+These are dated vendor announcements, not a frozen category definition. They represent two companies placing a bet on where the control point should live, not an industry consensus that it belongs there.
+
+---
+
+## What Changed Technically
+
+To understand why gateway products are appearing now, you need to understand what MCP actually changed.
+
+The Model Context Protocol specifies a JSON-RPC message exchange between hosts, clients, and servers. It is a protocol for tool invocation and context sharing, not an agent architecture and not a harness. The specification defines how a client calls a server, how servers advertise capabilities, and how messages are structured.<Cite sourceId="SRC-MCP-001" />
+
+What the protocol does not define is enforcement. The MCP security best practices documentation names real risks: token passthrough, confused deputy problems, and operator-facing security gaps. A client receiving a token and forwarding it to a server it did not originate with is a passthrough risk. A server acting on requests without verifying the principal is a confused deputy risk. These are not theoretical. They are structural properties of a delegated invocation protocol.<Cite sourceId="SRC-MCP-002" />
+
+Before MCP, most tool-calling in agent systems was bespoke per integration. Security lived inside each application, and the attack surface was bounded by the number of integrations you had built. MCP changes that by standardizing the protocol and making servers composable. Composability is the feature. It is also why the security surface expands: any client that speaks MCP can now potentially reach any server that speaks MCP, within whatever trust controls you have in place.
+
+A gateway's appeal is direct: put a single enforcement point in front of all server connections, and you centralize the policy surface. Signature verification, secret scrubbing, call logging, and access control become one problem instead of many.
+
+That logic is sound as far as it goes.
+
+---
+
+## What a Gateway Actually Centralizes, and What It Cannot
+
+A gateway positioned between agents and MCP servers can enforce:
+
+- Authentication and authorization at the connection boundary
+- Transport-layer policies (allowed servers, blocked endpoints)
+- Secrets detection in outbound calls
+- Audit logging of invocations
+
+What a gateway sitting at that boundary cannot see or enforce:
+
+- The semantic content of what an agent decides to request before it sends the call
+- Prompt injection that arrives through a tool response payload
+- Agent reasoning that routes around the gateway by calling servers directly
+- Trust decisions inside the host or harness layer
+
+The confused deputy problem named in the MCP security documentation is a useful illustration. If a malicious tool response instructs an agent to forward a credential it received from a different context, the gateway may log the outbound call but cannot necessarily distinguish it from a legitimate one. The attack vector is inside the protocol exchange, not at the transport boundary.<Cite sourceId="SRC-MCP-002" />
+
+This is not an argument against gateways. It is an argument for knowing what boundary you are defending and what boundaries a gateway cannot reach.
+
+---
+
+## The Control Points You Already Have
+
+Here is the reader problem that needs naming: MCP gateway is being treated as a category you must buy, not as a set of functions that may already live in the harness or the mesh.
+
+The Kubernetes Gateway API is an existing, separate control point for L4 and L7 service networking. It is not an MCP product. It models ingress, load balancing, and mesh traffic. Some API gateways can be programmed using it. If your MCP servers are running in a cluster, network-layer policy for who can reach them can be expressed through controls you already operate, without purchasing a dedicated MCP gateway.<Cite sourceId="SRC-K8S-003" />
+
+Your service mesh, if you have one, handles mTLS, observability, and traffic policy. Your secrets manager handles credential lifecycle. Your identity provider handles principal verification. The question is whether those controls are being applied at the MCP boundary, not whether you need a new product category to apply them.
+
+The new MCP-specific functions, the ones that justify a dedicated product, are the ones that require understanding MCP semantics: call-level logging in terms of tool names and arguments, MCP-aware signature verification, server aggregation behind a stable endpoint. Those are genuinely new functions. They are also the functions most likely to be absorbed into harness frameworks and service meshes as MCP matures.
+
+---
+
+## Who Should Care
+
+**Platform engineers** deciding whether to route MCP traffic through a dedicated gateway, a service mesh, or an existing API gateway. The control surface question belongs to you now, before the architecture is locked.
+
+**Staff engineers** building or evaluating agent frameworks. The harness layer already makes decisions about which servers an agent can call. Understanding what a gateway adds versus what the harness already enforces matters before you add a proxy layer.
+
+**Security engineers** responsible for defining the threat model. Token passthrough and confused deputy risks live at the protocol and application layer, not just the transport layer. A gateway addresses part of the surface.
+
+---
+
+## What We Are Watching Next
+
+<Callout type="watch">
+The category label is not stable. Docker calls it a Gateway. Cloudflare calls it a Portal. Whether this consolidates into a single product pattern or fragments into harness-native controls is genuinely uncertain.
+</Callout>
+
+Three things worth tracking:
+
+**Harness-native enforcement.** If major agent frameworks build MCP-aware policy controls into the harness itself, the case for a separate gateway weakens. Watch the roadmaps of frameworks that already manage tool registration and server selection.
+
+**Mesh and Gateway API integration.** If MCP traffic becomes first-class in service mesh policy, the enforcement point moves to infrastructure you already operate. The Kubernetes Gateway API is not an MCP product today. That boundary could move.
+
+**Protocol evolution.** The MCP specification is at version 2025-06-18. Authorization and trust primitives are early. If the protocol itself gains stronger principal binding or delegation controls, some of what gateways currently enforce in front of the protocol may shift into the protocol itself.<Cite sourceId="SRC-MCP-001" />
+
+---
+
+<Recommendation>
+**Use an MCP gateway when** you need MCP-semantic logging, server aggregation behind a stable endpoint, or call-level enforcement that your existing mesh and API gateway cannot express without significant custom work.
+
+**Wait when** your MCP server footprint is small, your existing service mesh and identity controls can be applied to MCP traffic with configuration rather than a new product, or the harness layer you are already running handles server selection and access control. Buying a gateway before the threat model is defined adds a proxy layer without a clear problem statement.
+</Recommendation>
+
+The demand for MCP gateways is a real signal: the protocol's security surface is new, the composability is real, and centralized enforcement is a reasonable instinct. The instinct is worth interrogating before it becomes a purchase order.
