@@ -1,0 +1,48 @@
+article: fde-vs-platform-engineer-vs-solutions-architect
+reviewed: "2026-08-18"
+claims:
+  - id: C001
+    claim: Public FDE job descriptions from Palantir, OpenAI, and Anthropic disagree on scope. They are evidence of company-specific definitions, not a universal org chart.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Dev versus Delta
+        org: Palantir
+        url: https://blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87
+        date: "2019-04-08"
+        tier: 1
+      - title: Forward Deployed Engineer (FDE) - SF
+        org: OpenAI
+        url: https://openai.com/careers/forward-deployed-engineer-%28fde%29-sf-san-francisco/
+        tier: 1
+      - title: Forward Deployed Engineer
+        org: Anthropic
+        url: https://job-boards.greenhouse.io/anthropic/jobs/5391021008
+        tier: 1
+  - id: C002
+    claim: The CNCF Platforms White Paper treats platforms as products. Golden paths are templates, documentation, and onboarding workflows for internal users, not a one-customer embed.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: CNCF Platforms White Paper
+        org: CNCF TAG App Delivery
+        url: https://tag-app-delivery.cncf.io/whitepapers/platforms/
+        tier: 1
+  - id: C003
+    claim: AWS describes a Solutions Architect as a technical advisor, customer advocate, and educator. Hands-on implementation is routed to Professional Services or partners. Ongoing management is a customer or Managed Services choice, not SA ownership.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Maximizing your cloud journey
+        org: Amazon Web Services
+        url: https://aws.amazon.com/blogs/training-and-certification/engaging-a-solutions-architect/
+        tier: 1
+  - id: C004
+    claim: "The three titles map to different failure modes. A decision guide should assign who owns discovery, productization, and ongoing operations, not rank prestige."
+    type: OPINION
+    status: SUPPORTED
+    confidence: HIGH
+    sources: []

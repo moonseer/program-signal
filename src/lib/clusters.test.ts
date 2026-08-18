@@ -93,4 +93,5 @@ test("loads launch clusters from editorial/clusters.yml", () => {
   assert.ok(fde);
   assert.equal(fde?.pillar, "what-is-a-forward-deployed-engineer");
   assert.ok(fde?.articles.includes("PS-000012"));
+  assert.ok(fde?.articles.includes("PS-000013"));
 });

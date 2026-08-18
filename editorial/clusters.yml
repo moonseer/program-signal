@@ -47,6 +47,7 @@ clusters:
     pillar_opportunity: PS-O-0012
     articles:
       - PS-000012
+      - PS-000013
     opportunities:
       - PS-O-0012
       - PS-O-0013

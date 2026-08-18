@@ -6,6 +6,7 @@ next:
   opportunity: 16
 source_families:
   ANTH: 2
+  AWS: 2
   CNCF: 3
   K8S: 3
   MCP: 3
