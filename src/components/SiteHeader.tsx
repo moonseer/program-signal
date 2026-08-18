@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { SearchDialog } from "@/components/SearchDialog";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import type { SearchDocument } from "@/lib/search";
 
 const nav = [
   { href: "/articles", label: "Articles" },
@@ -12,7 +14,7 @@ const nav = [
   { href: "/about", label: "About" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ searchCorpus }: { searchCorpus: SearchDocument[] }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,6 +31,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-4">
+          <SearchDialog corpus={searchCorpus} />
           <ThemeToggle />
           <Link
             href="/#subscribe"
