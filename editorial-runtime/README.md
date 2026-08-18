@@ -12,8 +12,9 @@ Canonical spec: [`docs/PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](../do
 - **Capability routing** via `config/models.yaml` and `PS_MODEL_*` env overrides (`research`, `reasoning`, `writer`, `fast`, `local`).
 - **Human approval** is a hard stop before publish.
 - **Dry-run** (default), **`--test-model`** (pydantic-ai test model, no keys), or **`--live`** (real providers).
+- **PostgreSQL** persists workflow runs (stage, brief, evidence, draft). Draft MDX is still written under `runs/` for human review.
 
-PostgreSQL persistence and Radar automation land in later slices.
+Radar automation lands in a later slice. This runtime is **not** hosted on Vercel Hobby.
 
 ## Setup
 
@@ -23,7 +24,12 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev,llm]"
 cp .env.example .env   # add OPENAI_API_KEY or similar for --live
+docker compose up -d   # local Postgres
+# in .env:
+# DATABASE_URL=postgresql://platform_signal:platform_signal@127.0.0.1:5432/editorial
 ```
+
+Without `DATABASE_URL` / `PS_DATABASE_URL`, runs are stored as JSON under `editorial-runtime/runs/` (dev fallback only).
 
 ## Usage
 
@@ -41,6 +47,8 @@ ps-editorial run --topic "MCP for platform engineers" --persona maya --test-mode
 ps-editorial run --topic "MCP for platform engineers" --persona maya --live \
   --brief editorial/briefs/PS-000008.yml --source SRC-MCP-001 --max-revisions 1
 
+ps-editorial list --stage human_gate
+ps-editorial show <workflow_id>
 ps-editorial assemble-context --persona maya --brief editorial/briefs/PS-000008.yml
 pytest
 ```
@@ -49,7 +57,9 @@ pytest
 
 ```text
 editorial-runtime/
-  editorial_runtime/   # workflow, models, CLI
+  editorial_runtime/   # workflow, models, CLI, store
+  sql/                 # Postgres schema
+  docker-compose.yml   # local Postgres
   tests/
 agents/author/         # persona packages (repo root)
 ```

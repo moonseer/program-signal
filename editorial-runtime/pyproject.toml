@@ -4,12 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "editorial-runtime"
-version = "0.2.0"
-description = "Platform Signal editorial agent workflow (Phase 1 + LLM wiring)"
+version = "0.3.0"
+description = "Platform Signal editorial agent workflow (Phase 1 + LLM wiring + Postgres state)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "langgraph>=0.2.60",
+  "psycopg[binary,pool]>=3.2",
   "pydantic>=2.10",
   "pydantic-ai>=0.0.55",
   "python-dotenv>=1.0",
