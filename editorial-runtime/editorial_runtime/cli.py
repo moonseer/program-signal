@@ -45,6 +45,24 @@ def main() -> None:
         action="store_true",
         help="Use pydantic-ai test model (no API keys; exercises LLM wiring)",
     )
+    run.add_argument(
+        "--brief",
+        type=Path,
+        default=None,
+        help="Existing Desk brief YAML (skips generating a new brief)",
+    )
+    run.add_argument(
+        "--source",
+        action="append",
+        default=[],
+        help="Approved source id (repeatable). Default SRC-MCP-001",
+    )
+    run.add_argument(
+        "--max-revisions",
+        type=int,
+        default=1,
+        help="Author rewrites after Evidence PASS WITH CHANGES (default 1)",
+    )
 
     ctx = sub.add_parser("assemble-context", help="Render Author Engine context")
     ctx.add_argument("--persona", choices=[p.value for p in PersonaName], required=True)
@@ -64,12 +82,18 @@ def main() -> None:
             )
 
         runs_dir = repo / "editorial-runtime" / "runs"
+        brief_path = args.brief
+        if brief_path and not brief_path.is_absolute():
+            brief_path = (repo / brief_path).resolve()
         state = run_workflow(
             topic=args.topic,
             persona=PersonaName(args.persona),
             dry_run=dry_run,
             use_test_model=args.test_model,
             runs_dir=runs_dir,
+            brief_path=brief_path,
+            source_ids=args.source or ["SRC-MCP-001"],
+            max_revisions=args.max_revisions,
         )
         print(json.dumps(state.model_dump(mode="json"), indent=2, default=str))
         if state.stage != WorkflowStage.human_gate:

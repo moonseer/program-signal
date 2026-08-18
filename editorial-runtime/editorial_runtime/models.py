@@ -57,6 +57,7 @@ class EditorialDecision(BaseModel):
 
 
 class ArticleBrief(BaseModel):
+    model_config = {"extra": "ignore"}
     article_id: str = Field(pattern=r"^PS-\d{6}$")
     opportunity_id: str | None = Field(default=None, pattern=r"^PS-O-\d{4}$")
     working_title: str
@@ -132,6 +133,10 @@ class WorkflowState(BaseModel):
     evidence_review: EvidenceReview | None = None
     human_status: Literal["pending", "approved", "rejected"] = "pending"
     model_usage: list[ModelUsageRecord] = Field(default_factory=list)
+    revision_count: int = 0
+    max_revisions: int = 1
+    source_ids: list[str] = Field(default_factory=list)
+    brief_path: str | None = None
     errors: list[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

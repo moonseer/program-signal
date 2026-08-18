@@ -5,6 +5,7 @@ from __future__ import annotations
 import uuid
 from pathlib import Path
 
+from editorial_runtime.context import load_brief
 from editorial_runtime.config import llm_credentials_available
 from editorial_runtime.models import (
     ArticleBrief,
@@ -13,8 +14,6 @@ from editorial_runtime.models import (
     EditorialDecisionStatus,
     EvidenceOutcome,
     EvidenceReview,
-    ModelUsageRecord,
-    PersonaName,
     WorkflowStage,
     WorkflowState,
 )
@@ -26,7 +25,17 @@ def _use_llm(state: WorkflowState) -> bool:
 
 def desk_review(state: WorkflowState) -> WorkflowState:
     state.stage = WorkflowStage.desk
-    if _use_llm(state):
+    if state.brief_path:
+        state.desk_decision = EditorialDecision(
+            status=EditorialDecisionStatus.APPROVE,
+            reason=f"Using existing brief {state.brief_path}",
+            content_type=ContentType.explainer,
+            author_persona=state.assigned_persona,
+            central_thesis=state.topic,
+            research_review="strongly_recommended",
+        )
+        state.touch()
+        return state
         from editorial_runtime.agents.desk import run_desk_decision
 
         try:
@@ -56,6 +65,15 @@ def _desk_stub(state: WorkflowState) -> EditorialDecision:
 
 
 def create_brief(state: WorkflowState) -> WorkflowState:
+    if state.brief_path:
+        try:
+            state.brief = load_brief(Path(state.brief_path))
+            state.stage = WorkflowStage.brief
+            state.touch()
+            return state
+        except Exception as exc:  # noqa: BLE001
+            state.errors.append(f"failed to load brief {state.brief_path}: {exc}")
+
     if state.desk_decision is None:
         state.errors.append("desk_decision missing before brief")
         return state
@@ -204,12 +222,16 @@ def _evidence_stub(state: WorkflowState) -> EvidenceReview:
 def route_after_evidence(state: WorkflowState) -> str:
     if state.evidence_review is None:
         return "human_gate"
-    if state.evidence_review.editor_status == EvidenceOutcome.pass_with_changes:
+    if (
+        state.evidence_review.editor_status == EvidenceOutcome.pass_with_changes
+        and state.revision_count < state.max_revisions
+    ):
         return "revision"
     return "human_gate"
 
 
 def revision(state: WorkflowState) -> WorkflowState:
+    state.revision_count += 1
     state.stage = WorkflowStage.revision
     state.touch()
     return state

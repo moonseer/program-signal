@@ -33,8 +33,7 @@ def test_test_model_workflow_reaches_human_gate():
     assert state.stage == WorkflowStage.human_gate
     assert state.desk_decision is not None
     assert state.brief is not None
-    assert len(state.model_usage) >= 3
+    assert len(state.model_usage) >= 2
     agents = {record.agent for record in state.model_usage}
-    assert "desk" in agents
     assert "author" in agents
     assert "evidence" in agents

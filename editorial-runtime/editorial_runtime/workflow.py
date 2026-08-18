@@ -49,6 +49,9 @@ def run_workflow(
     dry_run: bool = True,
     use_test_model: bool = False,
     runs_dir: Path,
+    brief_path: Path | None = None,
+    source_ids: list[str] | None = None,
+    max_revisions: int = 1,
 ) -> WorkflowState:
     app = build_workflow(runs_dir=runs_dir)
     initial = WorkflowState(
@@ -58,6 +61,9 @@ def run_workflow(
         dry_run=dry_run,
         use_test_model=use_test_model,
         stage=WorkflowStage.topic,
+        brief_path=str(brief_path) if brief_path else None,
+        source_ids=source_ids or ["SRC-MCP-001"],
+        max_revisions=max_revisions,
     )
     final = app.invoke(initial)
     if isinstance(final, WorkflowState):
