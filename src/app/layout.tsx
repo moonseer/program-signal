@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Newsreader, Source_Serif_4 } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { getSearchCorpus } from "@/lib/search-corpus";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -46,6 +47,7 @@ const themeScript = `
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const searchCorpus = getSearchCorpus();
   return (
     <html
       lang="en"
@@ -56,7 +58,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col antialiased">
-        <SiteHeader />
+        <SiteHeader searchCorpus={searchCorpus} />
         <main className="flex-1">{children}</main>
         <SiteFooter />
       </body>
