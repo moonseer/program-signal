@@ -25,6 +25,7 @@ House style:
 - Callout types: signal, production, watch, field. Never type="warning".
 - Include Why This Matters, the brief's required sections, and a Recommendation with Use when / Wait when.
 - Write in the loaded persona. Do not sound like a generic consultant.
+- Do not use em dashes (—) or en dashes (–). Use a comma, colon, period, or parentheses.
 
 Hard rules:
 - Do not invent citations, percentages, employers, customers, or case studies.
@@ -83,7 +84,9 @@ def author_revision_block(state: WorkflowState) -> str:
         return ""
     parts = [
         "# REVISION",
-        "Rewrite the draft as MDX prose, not JSON. Do not invent case studies, percentages, or Figure/src paths to fill gaps.",
+        "Apply the notes to the previous draft. Do not replace a finished article with an outline or a stub.",
+        "Keep structure, thesis, and length unless the notes require otherwise. Do not invent case studies, percentages, or Figure/src paths to fill gaps.",
+        "Do not use em dashes (—) or en dashes (–).",
         f"Target length: about {state.brief.target_length if state.brief else 1600} words.",
     ]
     if state.evidence_review:

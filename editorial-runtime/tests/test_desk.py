@@ -1,4 +1,4 @@
-from editorial_runtime.desk import inbox, render_index, render_run
+from editorial_runtime.desk import inbox, queue_revise, render_index, render_run
 from editorial_runtime.models import (
     ArticleBrief,
     ContentType,
@@ -11,6 +11,7 @@ from editorial_runtime.models import (
 from editorial_runtime.store import InMemoryRunStore
 from editorial_runtime.workflow import decide_workflow
 import pytest
+import threading
 
 
 def _brief() -> ArticleBrief:
@@ -68,6 +69,75 @@ def test_render_run_includes_draft_and_does_not_claim_publish():
     assert "does not publish" in page.lower() or "This does not publish" in page
     assert "Accept" in page
     assert "Reject" in page
+    assert "Send back to Author" in page
+
+
+def test_render_run_shows_errors_and_rewriting_state():
+    failed = _run()
+    failed.errors.append("author LLM failed: 'str' object has no attribute 'outline'")
+    page = render_run(failed).decode("utf-8")
+    assert "author LLM failed" in page
+    assert "Errors" in page
+
+    rewriting = _run()
+    rewriting.stage = WorkflowStage.revision
+    page = render_run(rewriting).decode("utf-8")
+    assert "Author is rewriting" in page
+    assert "http-equiv=\"refresh\"" in page
+    assert "Send back to Author" not in page
+
+
+def test_inbox_includes_rewrites_in_progress():
+    store = InMemoryRunStore()
+    pending = _run()
+    rewriting = _run()
+    rewriting.workflow_id = "desk-rewrite"
+    rewriting.stage = WorkflowStage.revision
+    store.save(pending)
+    store.save(rewriting)
+    rows = inbox(store)
+    ids = [row.workflow_id for row in rows]
+    assert "desk-1" in ids
+    assert "desk-rewrite" in ids
+    index = render_index(rows).decode("utf-8")
+    assert "rewriting" in index
+
+
+def test_queue_revise_returns_before_author_finishes(tmp_path, monkeypatch):
+    store = InMemoryRunStore()
+    store.save(_run())
+    started = threading.Event()
+    release = threading.Event()
+
+    def fake_revise(**kwargs):
+        started.set()
+        assert release.wait(timeout=2)
+
+    monkeypatch.setattr("editorial_runtime.desk.revise_workflow", fake_revise)
+    queue_revise(
+        workflow_id="desk-1",
+        runs_dir=tmp_path,
+        notes="Remove em dashes.",
+        store=store,
+    )
+    marked = store.get("desk-1")
+    assert marked is not None
+    assert marked.stage == WorkflowStage.revision
+    assert marked.revision_notes == "Remove em dashes."
+    assert started.wait(timeout=2)
+    release.set()
+
+
+def test_queue_revise_requires_notes(tmp_path):
+    store = InMemoryRunStore()
+    store.save(_run())
+    with pytest.raises(ValueError, match="revision notes are required"):
+        queue_revise(
+            workflow_id="desk-1",
+            runs_dir=tmp_path,
+            notes="  ",
+            store=store,
+        )
 
 
 def test_render_index_empty():

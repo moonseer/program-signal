@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from editorial_runtime.agents.author import (
+    AUTHOR_INSTRUCTIONS,
     author_revision_block,
     story_constraints_block,
     unwrap_mdx,
@@ -16,7 +17,7 @@ from editorial_runtime.models import (
     WorkflowStage,
     WorkflowState,
 )
-from editorial_runtime.nodes import route_after_evidence
+from editorial_runtime.nodes import author_draft, route_after_evidence
 from editorial_runtime.sources import load_source_pack
 from editorial_runtime.repo import find_repo_root
 from editorial_runtime.store import InMemoryRunStore
@@ -114,6 +115,8 @@ def test_revision_block_includes_draft_and_human_notes():
     assert "Remove all Figure tags" in block
     assert "1600" in block
     assert "Missing figure" in block
+    assert "Do not replace a finished article with an outline" in block
+    assert "em dashes" in block
 
 
 def test_revise_workflow_rejects_missing_run_and_empty_notes():
@@ -174,6 +177,55 @@ def test_dry_run_revise_returns_to_human_gate(tmp_path: Path):
     assert "Figure" in revised.revision_notes
     assert revised.draft_path is not None
     assert Path(revised.draft_path).is_file()
+
+
+def test_author_instructions_forbid_em_dashes():
+    assert "em dashes" in AUTHOR_INSTRUCTIONS
+
+
+def test_author_draft_keeps_previous_article_when_llm_fails(tmp_path, monkeypatch):
+    previous = "# What Is Agentic Platform Engineering?\n\nKeep this finished article.\n"
+    state = WorkflowState(
+        workflow_id="keep-1",
+        topic="x",
+        assigned_persona=PersonaName.maya,
+        brief=_brief(),
+        draft_mdx=previous,
+        outline="# Outline: What Is Agentic Platform Engineering?\n",
+        dry_run=False,
+        use_test_model=True,
+        revision_count=1,
+    )
+
+    def boom(*args, **kwargs):
+        raise RuntimeError("'str' object has no attribute 'outline'")
+
+    monkeypatch.setattr("editorial_runtime.agents.author.run_author_draft", boom)
+    out = author_draft(state, tmp_path)
+    assert "Keep this finished article" in (out.draft_mdx or "")
+    assert "Outline:" not in (out.draft_mdx or "")
+    assert any("author LLM failed" in err for err in out.errors)
+    assert Path(out.draft_path or "").is_file()
+
+
+def test_author_draft_falls_back_to_outline_without_previous(tmp_path, monkeypatch):
+    state = WorkflowState(
+        workflow_id="first-fail",
+        topic="x",
+        assigned_persona=PersonaName.maya,
+        brief=_brief(),
+        outline="# Outline: first pass\n",
+        dry_run=False,
+        use_test_model=True,
+    )
+
+    def boom(*args, **kwargs):
+        raise RuntimeError("writer unavailable")
+
+    monkeypatch.setattr("editorial_runtime.agents.author.run_author_draft", boom)
+    out = author_draft(state, tmp_path)
+    assert "Outline: first pass" in (out.draft_mdx or "")
+    assert any("author LLM failed" in err for err in out.errors)
 
 
 def test_unwrap_mdx_strips_fences_and_leaves_plain_prose():
