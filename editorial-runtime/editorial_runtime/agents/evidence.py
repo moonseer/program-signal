@@ -9,6 +9,7 @@ from pydantic_ai import Agent
 from editorial_runtime.llm.router import agent_metadata, resolve_model
 from editorial_runtime.models import ArticleBrief, EvidenceReview, ModelUsageRecord, WorkflowState
 from editorial_runtime.repo import find_repo_root
+from editorial_runtime.sources import load_source_pack
 
 
 EVIDENCE_INSTRUCTIONS = """
@@ -20,6 +21,10 @@ Rules:
 - Use statuses: VERIFIED, SUPPORTED, CONTESTED, UNSUPPORTED, INCORRECT.
 - Return pass, pass_with_changes, hold, or fail.
 - If claims lack tier-1 sources, prefer pass_with_changes or hold — not pass.
+- Invented case studies, percentages, employers, or war stories → HOLD or FAIL.
+- MCP means Model Context Protocol (hosts, clients, servers, JSON-RPC). 
+  Expanding it as Multi-Cluster Pod or treating it as an agent architecture is INCORRECT.
+- You may only treat sources in the approved pack as citable. Do not browse.
 """
 
 
@@ -43,10 +48,12 @@ def run_evidence_review(
     repo = root or find_repo_root()
     agent = _evidence_agent(use_test_model=state.use_test_model, root=repo)
     claims = "\n".join(f"- {claim}" for claim in brief.claims_to_verify) or "- (none listed)"
+    source_pack = load_source_pack(state.source_ids, root=repo)
     prompt = (
         f"Article: {brief.working_title}\n"
         f"Thesis: {brief.central_thesis}\n\n"
         f"Claims to verify:\n{claims}\n\n"
+        f"Approved sources:\n{source_pack}\n\n"
         f"Draft MDX:\n{draft_mdx[:12000]}\n"
     )
     metadata = agent_metadata(

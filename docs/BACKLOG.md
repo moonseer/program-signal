@@ -52,9 +52,9 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **PostgreSQL workflow state (E37)** — persist runs; replace JSON files under `editorial-runtime/runs/`.
-2. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
-3. **End-to-end live trial** — `ps-editorial run --live` on a real brief; human gate before any Git commit.
+1. **Harden Evidence against over-PASS** — first live `gpt-4o` draft still invented a Figure path and skipped host/client/server; Evidence said PASS too easily.
+2. **PostgreSQL workflow state (E37)** — persist runs; replace JSON files under `editorial-runtime/runs/`.
+3. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
 4. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
 
 ### Deferred (not now)
@@ -1725,7 +1725,7 @@ See E39. Persona config example (voice sliders, preferred elements, avoid list) 
 ### S37.05 — LangGraph workflow orchestration
 
 - [x] Explicit stages: topic → Desk → brief → Author → Evidence → human gate (publish/analytics/Radar later)
-- [x] Conditional routing: Evidence CHANGES → revision (stub)
+- [x] Conditional routing: Evidence CHANGES → Author rewrite, **capped at `max_revisions` (default 1)**, then human gate
 - [x] Human approval as a **hard interruption** before publish
 - [ ] Workflow state schema persisted in PostgreSQL (JSON run files in Phase 1)
 

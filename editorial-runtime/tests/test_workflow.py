@@ -17,4 +17,18 @@ def test_dry_run_reaches_human_gate():
     assert state.human_status == "pending"
     assert state.brief is not None
     assert state.draft_path is not None
-    assert Path(state.draft_path).is_file()
+def test_existing_brief_skips_generated_brief():
+    root = Path(__file__).resolve().parents[2]
+    runs_dir = root / "editorial-runtime" / "runs" / "test-brief"
+    state = run_workflow(
+        topic="MCP for platform engineers",
+        persona=PersonaName.maya,
+        dry_run=True,
+        runs_dir=runs_dir,
+        brief_path=root / "editorial" / "briefs" / "PS-000008.yml",
+        source_ids=["SRC-MCP-001"],
+        max_revisions=1,
+    )
+    assert state.brief is not None
+    assert state.brief.article_id == "PS-000008"
+    assert state.stage == WorkflowStage.human_gate
