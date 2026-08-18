@@ -97,12 +97,14 @@ a {
   padding: 0;
 }
 
-.prose-signal table {
-  display: block;
-  width: 100%;
+.prose-signal .table-scroll {
   overflow-x: auto;
-  border-collapse: collapse;
   margin: 1.4rem 0;
+}
+
+.prose-signal table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 0.95rem;
 }
 
@@ -112,6 +114,22 @@ a {
   padding: 0.55rem 0.4rem;
   text-align: left;
   vertical-align: top;
+}
+
+.prose-signal th:first-child,
+.prose-signal td:first-child {
+  padding-left: 0;
+}
+
+.prose-signal th:last-child,
+.prose-signal td:last-child {
+  padding-right: 0;
+}
+
+.prose-signal hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2.4rem 0;
 }
 
 .callout-signal {

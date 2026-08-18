@@ -78,51 +78,55 @@ export default async function ArticlePage({ params }: Props) {
     h3: ({ children }: { children?: ReactNode }) => (
       <Heading level={3}>{children}</Heading>
     ),
+    table: ({ children }: { children?: ReactNode }) => (
+      <div className="table-scroll">
+        <table>{children}</table>
+      </div>
+    ),
   };
 
   return (
     <article className="px-6 py-12">
-      <header className="mx-auto max-w-[46rem]">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
-          {frontmatter.category} · {contentTypeLabels[frontmatter.contentType]}
-        </p>
-        <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl leading-[1.1] tracking-[-0.03em] md:text-5xl">
-          {frontmatter.title}
-        </h1>
-        {frontmatter.subtitle ? (
-          <p className="mt-4 text-xl text-[var(--muted)]">{frontmatter.subtitle}</p>
-        ) : null}
-        <p className="mt-6 font-mono text-[12px] text-[var(--muted)]">
-          {frontmatter.authorPersona === "founder"
-            ? personaNames.founder
-            : `Written in the ${personaNames[frontmatter.authorPersona]} editorial voice`}
-          {" · "}
-          Reviewed by Platform Signal Editorial
-        </p>
-        <p className="mt-2 font-mono text-[12px] text-[var(--muted)]">
-          {formatDate(frontmatter.publishedAt)}
-          {frontmatter.updatedAt ? ` · Updated ${formatDate(frontmatter.updatedAt)}` : ""}
-          {frontmatter.lastReviewedAt
-            ? ` · Reviewed ${formatDate(frontmatter.lastReviewedAt)}`
-            : ""}
-          {` · ${readingMinutes} min · ${difficultyDots(frontmatter.difficulty)} ${frontmatter.difficulty}`}
-        </p>
-        {frontmatter.technologyVersions.kubernetes ? (
-          <p className="mt-2 font-mono text-[12px] text-[var(--muted)]">
-            Applies to Kubernetes {frontmatter.technologyVersions.kubernetes}
-            {frontmatter.status ? ` · ${frontmatter.status.replace("_", " ")}` : ""}
-          </p>
-        ) : null}
-      </header>
-
-      <div className="mx-auto mt-12 grid max-w-6xl gap-12 lg:grid-cols-[14rem_minmax(0,46rem)]">
+      <div className="mx-auto grid max-w-[62rem] gap-8 lg:grid-cols-[12rem_minmax(0,46rem)]">
         <div className="hidden lg:block">
           <div className="sticky top-8">
             <TableOfContents headings={headings} />
           </div>
         </div>
         <div>
-          <details className="mb-8 lg:hidden">
+          <header>
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
+              {frontmatter.category} · {contentTypeLabels[frontmatter.contentType]}
+            </p>
+            <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl leading-[1.1] tracking-[-0.03em] md:text-5xl">
+              {frontmatter.title}
+            </h1>
+            {frontmatter.subtitle ? (
+              <p className="mt-4 text-xl text-[var(--muted)]">{frontmatter.subtitle}</p>
+            ) : null}
+            <p className="mt-6 font-mono text-[12px] text-[var(--muted)]">
+              {frontmatter.authorPersona === "founder"
+                ? personaNames.founder
+                : `Written in the ${personaNames[frontmatter.authorPersona]} editorial voice`}
+              {" · "}
+              Reviewed by Platform Signal Editorial
+            </p>
+            <p className="mt-2 font-mono text-[12px] text-[var(--muted)]">
+              {formatDate(frontmatter.publishedAt)}
+              {frontmatter.updatedAt ? ` · Updated ${formatDate(frontmatter.updatedAt)}` : ""}
+              {frontmatter.lastReviewedAt
+                ? ` · Reviewed ${formatDate(frontmatter.lastReviewedAt)}`
+                : ""}
+              {` · ${readingMinutes} min · ${difficultyDots(frontmatter.difficulty)} ${frontmatter.difficulty}`}
+            </p>
+            {frontmatter.technologyVersions.kubernetes ? (
+              <p className="mt-2 font-mono text-[12px] text-[var(--muted)]">
+                Applies to Kubernetes {frontmatter.technologyVersions.kubernetes}
+                {frontmatter.status ? ` · ${frontmatter.status.replace("_", " ")}` : ""}
+              </p>
+            ) : null}
+          </header>
+          <details className="mb-8 mt-12 lg:hidden">
             <summary className="cursor-pointer font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
               Contents
             </summary>
@@ -130,17 +134,17 @@ export default async function ArticlePage({ params }: Props) {
               <TableOfContents headings={headings} />
             </div>
           </details>
-          <div className="prose-signal">
+          <div className="prose-signal mt-12">
             <MDXRemote
               source={body}
               components={components}
               options={{ mdxOptions: articleMdxOptions }}
             />
           </div>
+          <RelatedArticles slugs={frontmatter.relationships.relatedArticles} />
+          <SourceList references={references} />
         </div>
       </div>
-      <RelatedArticles slugs={frontmatter.relationships.relatedArticles} />
-      <SourceList references={references} />
     </article>
   );
 }

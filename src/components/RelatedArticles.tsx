@@ -15,7 +15,7 @@ export function RelatedArticles({ slugs }: { slugs: string[] }) {
   if (articles.length === 0) return null;
 
   return (
-    <section className="mx-auto mt-12 max-w-[46rem] border-t border-[var(--border)] pt-8">
+    <section className="mt-12 border-t border-[var(--border)] pt-8">
       <h2 className="font-[family-name:var(--font-display)] text-2xl tracking-[-0.02em]">
         Related reading
       </h2>
