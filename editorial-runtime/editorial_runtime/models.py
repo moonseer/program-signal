@@ -91,16 +91,6 @@ class EvidenceReview(BaseModel):
     summary: str
 
 
-class AuthorDraftOutput(BaseModel):
-    outline: str = ""
-    draft_mdx: str = Field(
-        description=(
-            "Full MDX article body at about the brief target_length in words. "
-            "No YAML frontmatter. Do not truncate. Do not summarize the article as a stub."
-        ),
-    )
-
-
 class ModelUsageRecord(BaseModel):
     agent: str
     capability: str

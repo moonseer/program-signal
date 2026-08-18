@@ -9,8 +9,8 @@ reasoning:
   primary: openai:gpt-4o-mini
   fallback: openai:gpt-4o-mini
 writer:
-  primary: openai:gpt-4o-mini
-  fallback: openai:gpt-4o-mini
+  primary: openrouter:anthropic/claude-sonnet-4.6
+  fallback: openrouter:openai/gpt-4.1
 fast:
   primary: openai:gpt-4o-mini
   fallback: openai:gpt-4o-mini

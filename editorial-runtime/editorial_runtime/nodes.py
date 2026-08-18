@@ -163,9 +163,7 @@ def author_draft(state: WorkflowState, runs_dir: Path) -> WorkflowState:
         from editorial_runtime.agents.author import run_author_draft
 
         try:
-            output = run_author_draft(state, brief=state.brief)
-            state.outline = output.outline
-            body = output.draft_mdx
+            body = run_author_draft(state, brief=state.brief)
         except Exception as exc:  # noqa: BLE001
             state.errors.append(f"author LLM failed: {exc}")
 

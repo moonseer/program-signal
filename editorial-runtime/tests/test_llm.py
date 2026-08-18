@@ -13,6 +13,7 @@ def test_load_capability_routes():
     routes = load_capability_routes(root)
     assert "writer" in routes
     assert ":" in routes["writer"].primary
+    assert "mini" not in routes["writer"].primary
 
 
 def test_peek_next_article_id():
