@@ -52,10 +52,9 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **Harden Evidence against over-PASS** — first live `gpt-4o` draft still invented a Figure path and skipped host/client/server; Evidence said PASS too easily.
-2. **PostgreSQL workflow state (E37)** — persist runs; replace JSON files under `editorial-runtime/runs/`.
-3. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
-4. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
+1. **PostgreSQL workflow state (E37)** — persist runs; replace JSON files under `editorial-runtime/runs/`.
+2. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
+3. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
 
 ### Deferred (not now)
 

@@ -7,6 +7,7 @@ from pathlib import Path
 from pydantic_ai import Agent
 
 from editorial_runtime.llm.router import agent_metadata, resolve_model
+from editorial_runtime.evidence_gates import apply_evidence_gates
 from editorial_runtime.models import ArticleBrief, EvidenceReview, ModelUsageRecord, WorkflowState
 from editorial_runtime.repo import find_repo_root
 from editorial_runtime.sources import load_source_pack
@@ -24,7 +25,9 @@ Rules:
 - Invented case studies, percentages, employers, or war stories → HOLD or FAIL.
 - MCP means Model Context Protocol (hosts, clients, servers, JSON-RPC). 
   Expanding it as Multi-Cluster Pod or treating it as an agent architecture is INCORRECT.
-- You may only treat sources in the approved pack as citable. Do not browse.
+- Invented Figure/src paths, missing files, or diagrams that are not in the article package → HOLD.
+- MCP articles must name host, client, and server. Missing roles → pass_with_changes or HOLD, never pass.
+- Do not PASS a draft that is merely plausible. PASS requires the approved source pack to support the claims and no deterministic defects.
 """
 
 
@@ -74,4 +77,9 @@ def run_evidence_review(
             workflow_stage="evidence",
         ),
     )
-    return result.output
+    return apply_evidence_gates(
+        result.output,
+        brief=brief,
+        draft_mdx=draft_mdx,
+        root=repo,
+    )
