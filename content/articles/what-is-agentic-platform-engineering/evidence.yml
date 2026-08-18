@@ -1,0 +1,29 @@
+article: what-is-agentic-platform-engineering
+reviewed: "2026-08-18"
+claims:
+  - id: C001
+    claim: The CNCF Platforms White Paper treats golden paths as product surfaces (templates, documentation, and onboarding workflows), not as autonomous agents.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: CNCF Platforms White Paper
+        org: CNCF TAG App Delivery
+        url: https://tag-app-delivery.cncf.io/whitepapers/platforms/
+        tier: 1
+  - id: C002
+    claim: The CNCF Platform Engineering Maturity Model describes golden paths and self-serve templates as a product investment (users, surfaces, adoption). It does not describe control-plane ownership transferring to an automated agent.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Platform Engineering Maturity Model
+        org: CNCF TAG App Delivery
+        url: https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/
+        tier: 1
+  - id: C003
+    claim: '"Agentic platform engineering" as used here is Platform Signal vocabulary: agents may assist platform product surfaces; they must not autonomously own control-plane decisions that define blast radius.'
+    type: OPINION
+    status: SUPPORTED
+    confidence: HIGH
+    sources: []
