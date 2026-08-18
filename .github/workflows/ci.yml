@@ -90,9 +90,9 @@ jobs:
         id: deploy
         run: |
           if [ "${GITHUB_REF}" = "refs/heads/main" ] && [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            url=$(vercel deploy --prebuilt --prod)
+            url=$(vercel deploy --prebuilt --prod --archive=tgz)
           else
-            url=$(vercel deploy --prebuilt)
+            url=$(vercel deploy --prebuilt --archive=tgz)
           fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Comment preview URL on PR

@@ -1,0 +1,9 @@
+references:
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: Canonical MCP roles (host, client, server) and JSON-RPC transport. Authorization is optional.
+    version: "2025-06-18"
+  - source_id: SRC-MCP-002
+    label: SPECIFICATION
+    note: Token passthrough is forbidden. SSRF and confused-deputy risks are operator-relevant, not prompt issues.
+    version: "2025-06-18"
