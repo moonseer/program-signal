@@ -47,6 +47,7 @@ def run_workflow(
     topic: str,
     persona: PersonaName,
     dry_run: bool = True,
+    use_test_model: bool = False,
     runs_dir: Path,
 ) -> WorkflowState:
     app = build_workflow(runs_dir=runs_dir)
@@ -55,6 +56,7 @@ def run_workflow(
         topic=topic,
         assigned_persona=persona,
         dry_run=dry_run,
+        use_test_model=use_test_model,
         stage=WorkflowStage.topic,
     )
     final = app.invoke(initial)

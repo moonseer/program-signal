@@ -8,11 +8,12 @@ Canonical spec: [`docs/PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](../do
 
 - One **Author Engine** loads persona packages from [`agents/author/`](../agents/author/) — not four separate agent runtimes.
 - **LangGraph** orchestrates explicit stages with conditional Evidence routing.
-- **Pydantic** models mirror repo YAML schemas (`OpportunityCard`, `ArticleBrief`, `EvidenceReview`, …).
+- **PydanticAI** agents for Desk, Author, and Evidence return typed outputs (`EditorialDecision`, `ArticleBrief`, `AuthorDraftOutput`, `EvidenceReview`).
+- **Capability routing** via `config/models.yaml` and `PS_MODEL_*` env overrides (`research`, `reasoning`, `writer`, `fast`, `local`).
 - **Human approval** is a hard stop before publish.
-- **Dry-run mode** exercises the graph without LLM API keys.
+- **Dry-run** (default), **`--test-model`** (pydantic-ai test model, no keys), or **`--live`** (real providers).
 
-Radar automation, PostgreSQL persistence, and LiteLLM routing land in later slices.
+PostgreSQL persistence and Radar automation land in later slices.
 
 ## Setup
 
@@ -20,14 +21,8 @@ Radar automation, PostgreSQL persistence, and LiteLLM routing land in later slic
 cd editorial-runtime
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
-```
-
-Optional LLM extras (not required for dry-run):
-
-```bash
 pip install -e ".[dev,llm]"
-export OPENAI_API_KEY=...  # or provider of choice
+cp .env.example .env   # add OPENAI_API_KEY or similar for --live
 ```
 
 ## Usage
@@ -35,12 +30,18 @@ export OPENAI_API_KEY=...  # or provider of choice
 From the repository root:
 
 ```bash
+# Stub nodes (no LLM)
 ps-editorial run --topic "MCP for platform engineers" --persona maya --dry-run
+
+# Exercise LLM wiring without API keys
+ps-editorial run --topic "MCP for platform engineers" --persona maya --test-model
+
+# Real providers (requires credentials)
+ps-editorial run --topic "MCP for platform engineers" --persona maya --live
+
 ps-editorial assemble-context --persona maya --brief editorial/briefs/PS-000008.yml
 pytest
 ```
-
-Dry-run writes workflow state under `editorial-runtime/runs/` (gitignored).
 
 ## Layout
 

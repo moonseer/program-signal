@@ -1,0 +1,17 @@
+# Capability-based model routing (not per-persona).
+# Override any alias with PS_MODEL_<ALIAS> env vars, e.g. PS_MODEL_WRITER=anthropic:claude-3-5-sonnet-latest
+
+research:
+  primary: openai:gpt-4o-mini
+  fallback: openai:gpt-4o-mini
+reasoning:
+  primary: openai:gpt-4o-mini
+  fallback: openai:gpt-4o-mini
+writer:
+  primary: openai:gpt-4o-mini
+  fallback: openai:gpt-4o-mini
+fast:
+  primary: openai:gpt-4o-mini
+  fallback: openai:gpt-4o-mini
+local:
+  primary: ollama:llama3.2

@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from editorial_runtime.config import llm_credentials_available
 from editorial_runtime.context import assemble_author_context
 from editorial_runtime.models import PersonaName, WorkflowStage
 from editorial_runtime.repo import find_repo_root
@@ -16,11 +17,24 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="ps-editorial")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    run = sub.add_parser("run", help="Run Phase 1 editorial workflow")
+    run = sub.add_parser("run", help="Run editorial workflow")
     run.add_argument("--topic", required=True)
     run.add_argument("--persona", choices=[p.value for p in PersonaName], default="maya")
-    run.add_argument("--dry-run", action="store_true", default=True)
-    run.add_argument("--live", action="store_true", help="Disable dry-run (LLM nodes TBD)")
+    run.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Stub LLM nodes (default when neither --live nor --test-model)",
+    )
+    run.add_argument(
+        "--live",
+        action="store_true",
+        help="Call configured LLM providers (requires API keys)",
+    )
+    run.add_argument(
+        "--test-model",
+        action="store_true",
+        help="Use pydantic-ai test model (no API keys; exercises LLM wiring)",
+    )
 
     ctx = sub.add_parser("assemble-context", help="Render Author Engine context")
     ctx.add_argument("--persona", choices=[p.value for p in PersonaName], required=True)
@@ -31,11 +45,19 @@ def main() -> None:
     repo = find_repo_root()
 
     if args.command == "run":
+        dry_run = not args.live and not args.test_model
+        if args.live and not llm_credentials_available():
+            raise SystemExit(
+                " --live requires provider credentials (e.g. OPENAI_API_KEY). "
+                "Use --test-model to exercise wiring without keys.",
+            )
+
         runs_dir = repo / "editorial-runtime" / "runs"
         state = run_workflow(
             topic=args.topic,
             persona=PersonaName(args.persona),
-            dry_run=not args.live,
+            dry_run=dry_run,
+            use_test_model=args.test_model,
             runs_dir=runs_dir,
         )
         print(json.dumps(state.model_dump(mode="json"), indent=2, default=str))
