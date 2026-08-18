@@ -150,6 +150,13 @@ def author_outline(state: WorkflowState) -> WorkflowState:
     return state
 
 
+def _with_frontmatter(title: str, body: str) -> str:
+    stripped = body.strip()
+    if stripped.startswith("---"):
+        return stripped + "\n"
+    return f"---\ntitle: {title}\n---\n\n{stripped}\n"
+
+
 def author_draft(state: WorkflowState, runs_dir: Path) -> WorkflowState:
     if state.brief is None:
         state.errors.append("brief missing before draft")
@@ -157,22 +164,26 @@ def author_draft(state: WorkflowState, runs_dir: Path) -> WorkflowState:
 
     runs_dir.mkdir(parents=True, exist_ok=True)
     draft_path = runs_dir / f"{state.workflow_id}-draft.mdx"
+    previous = state.draft_mdx
+    body: str | None = None
 
-    body = state.outline or ""
     if _use_llm(state):
         from editorial_runtime.agents.author import run_author_draft
 
         try:
             body = run_author_draft(state, brief=state.brief)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001 — keep a prior draft instead of clobbering it
             state.errors.append(f"author LLM failed: {exc}")
+            if previous:
+                body = None
+            else:
+                body = state.outline or ""
+    elif previous and state.revision_count > 0:
+        body = None
+    else:
+        body = state.outline or ""
 
-    draft_mdx = (
-        f"---\n"
-        f"title: {state.brief.working_title}\n"
-        f"---\n\n"
-        f"{body}\n"
-    )
+    draft_mdx = previous if body is None else _with_frontmatter(state.brief.working_title, body)
     draft_path.write_text(draft_mdx, encoding="utf-8")
     state.draft_mdx = draft_mdx
     state.draft_path = str(draft_path)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import json
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -14,20 +15,69 @@ from editorial_runtime.store import RunStore
 from editorial_runtime.workflow import decide_workflow, revise_workflow
 
 HOST = "127.0.0.1"
+_revise_lock = threading.Lock()
 
 
 def inbox(store: RunStore) -> list[WorkflowState]:
-    rows = store.list(stage=WorkflowStage.human_gate.value, limit=50)
+    rows = store.list(limit=50)
+    rows = [
+        row
+        for row in rows
+        if row.stage in {WorkflowStage.human_gate, WorkflowStage.revision}
+    ]
     pending = [row for row in rows if row.human_status == "pending"]
     decided = [row for row in rows if row.human_status != "pending"]
     return pending + decided
 
 
-def _page(title: str, body: str) -> bytes:
+def queue_revise(
+    *,
+    workflow_id: str,
+    runs_dir: Path,
+    notes: str,
+    store: RunStore,
+) -> None:
+    """Mark the run as rewriting and start Author+Evidence off the request thread."""
+    if not notes.strip():
+        raise ValueError("revision notes are required")
+
+    with _revise_lock:
+        state = store.get(workflow_id)
+        if state is None:
+            raise ValueError(f"No run found: {workflow_id}")
+        if state.stage == WorkflowStage.revision:
+            return
+        state.revision_notes = notes.strip()
+        state.stage = WorkflowStage.revision
+        state.touch()
+        store.save(state)
+
+    def worker() -> None:
+        try:
+            revise_workflow(
+                workflow_id=workflow_id,
+                runs_dir=runs_dir,
+                notes=notes,
+                store=store,
+            )
+        except Exception as exc:  # noqa: BLE001 — surface on the run, do not kill the desk
+            failed = store.get(workflow_id)
+            if failed is None:
+                return
+            failed.errors.append(f"revise failed: {exc}")
+            failed.stage = WorkflowStage.human_gate
+            failed.touch()
+            store.save(failed)
+
+    threading.Thread(target=worker, daemon=True, name=f"revise-{workflow_id[:8]}").start()
+
+
+def _page(title: str, body: str, extra_head: str = "") -> bytes:
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  {extra_head}
   <title>{html.escape(title)}</title>
   <style>
     :root {{ --bg:#161513; --fg:#ece7de; --muted:#a8a196; --border:#2f2c28; --accent:#8fc4b3; --card:#1d1b18; }}
@@ -45,6 +95,7 @@ def _page(title: str, body: str) -> bytes:
     textarea, button {{ font: inherit; }}
     textarea {{ width:100%; min-height: 6rem; background:#241f1b; color:var(--fg); border:1px solid var(--border); padding:.6rem; }}
     button {{ background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: .55rem 1rem; cursor: pointer; }}
+    button:disabled {{ opacity: .45; cursor: not-allowed; }}
     form {{ margin: .75rem 0; }}
     .warn {{ color: #e7b9a8; }}
   </style>
@@ -70,9 +121,10 @@ def render_index(rows: list[WorkflowState]) -> bytes:
         links = []
         for row in rows:
             title = row.brief.working_title if row.brief else row.topic
+            badge = "rewriting" if row.stage == WorkflowStage.revision else row.human_status
             links.append(
                 f"<a href='/runs/{html.escape(row.workflow_id)}'>"
-                f"<span class='badge'>{html.escape(row.human_status)}</span><br>"
+                f"<span class='badge'>{html.escape(badge)}</span><br>"
                 f"{html.escape(title)}</a>"
             )
         items = "".join(links)
@@ -86,34 +138,27 @@ def render_run(state: WorkflowState) -> bytes:
     target = brief.target_length if brief else 0
     evidence = state.evidence_review
     status = evidence.editor_status.value if evidence else "none"
+    rewriting = state.stage == WorkflowStage.revision
     claims = ""
     if evidence:
         for claim in evidence.claim_reviews:
             claims += (
                 f"<p><span class='badge'>{html.escape(claim.status)}</span> "
-                f"{html.escape(claim.claim_id)} — {html.escape(claim.note)}</p>"
+                f"{html.escape(claim.claim_id)}: {html.escape(claim.note)}</p>"
             )
+    errors = ""
+    if state.errors:
+        items = "".join(f"<p>{html.escape(err)}</p>" for err in state.errors)
+        errors = f"<p class='badge warn'>Errors</p>{items}"
     length_class = "warn" if target and words < int(target * 0.6) else ""
-    body = f"""
-    <p class="muted"><a href="/">Inbox</a> · {html.escape(state.workflow_id)}</p>
-    <div class="grid">
-      <aside class="card">
-        <p class="badge">Queue</p>
-        <p>{html.escape(title)}</p>
-        <p class="muted">{html.escape(state.assigned_persona.value)} · {html.escape(brief.content_type.value if brief else '')}</p>
-        <p class="{length_class}">{words} / {target} words</p>
-        <p class="badge">Evidence {html.escape(status)}</p>
-      </aside>
-      <article class="card">
-        <p class="badge">Draft</p>
-        <pre>{html.escape(state.draft_mdx or '(empty)')}</pre>
-      </article>
-      <aside class="card">
-        <p class="badge">Brief</p>
-        <p>{html.escape(brief.central_thesis if brief else '')}</p>
-        <p class="muted">Evidence</p>
-        <p>{html.escape(evidence.summary if evidence else 'No review')}</p>
-        {claims}
+    if rewriting:
+        actions = (
+            "<p class='warn'>Author is rewriting. This usually takes about a minute. "
+            "This page refreshes until Evidence returns it here. It does not publish.</p>"
+        )
+        extra_head = '<meta http-equiv="refresh" content="4">'
+    else:
+        actions = f"""
         <p class="muted">This does not publish</p>
         <form method="post" action="/runs/{html.escape(state.workflow_id)}/accept">
           <textarea name="notes" placeholder="Optional note"></textarea>
@@ -127,10 +172,35 @@ def render_run(state: WorkflowState) -> bytes:
           <textarea name="notes" required placeholder="Revision notes for Author"></textarea>
           <button type="submit">Send back to Author</button>
         </form>
+        <p class="muted">Rewrite runs in the background. Keep this tab open.</p>
+        """
+        extra_head = ""
+    body = f"""
+    <p class="muted"><a href="/">Inbox</a> · {html.escape(state.workflow_id)}</p>
+    <div class="grid">
+      <aside class="card">
+        <p class="badge">Queue</p>
+        <p>{html.escape(title)}</p>
+        <p class="muted">{html.escape(state.assigned_persona.value)} · {html.escape(brief.content_type.value if brief else '')}</p>
+        <p class="{length_class}">{words} / {target} words</p>
+        <p class="badge">Evidence {html.escape(status)}</p>
+        {errors}
+      </aside>
+      <article class="card">
+        <p class="badge">Draft</p>
+        <pre>{html.escape(state.draft_mdx or '(empty)')}</pre>
+      </article>
+      <aside class="card">
+        <p class="badge">Brief</p>
+        <p>{html.escape(brief.central_thesis if brief else '')}</p>
+        <p class="muted">Evidence</p>
+        <p>{html.escape(evidence.summary if evidence else 'No review')}</p>
+        {claims}
+        {actions}
       </aside>
     </div>
     """
-    return _page(title, body)
+    return _page(title, body, extra_head=extra_head)
 
 
 def make_handler(store: RunStore, runs_dir: Path):
@@ -181,7 +251,7 @@ def make_handler(store: RunStore, runs_dir: Path):
                         store=store,
                     )
                 elif action == "revise":
-                    revise_workflow(
+                    queue_revise(
                         workflow_id=workflow_id,
                         runs_dir=runs_dir,
                         notes=notes,
