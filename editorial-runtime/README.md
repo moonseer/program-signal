@@ -37,6 +37,7 @@ ps-editorial run --topic "MCP for platform engineers" --persona maya --dry-run
 ps-editorial run --topic "MCP for platform engineers" --persona maya --test-model
 
 # Real providers (requires credentials)
+# Direct OpenAI/Anthropic, or a LiteLLM proxy via OPENAI_API_BASE + OPENAI_API_KEY
 ps-editorial run --topic "MCP for platform engineers" --persona maya --live
 
 ps-editorial assemble-context --persona maya --brief editorial/briefs/PS-000008.yml

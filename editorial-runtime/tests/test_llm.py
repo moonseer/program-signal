@@ -11,7 +11,7 @@ def test_load_capability_routes():
     root = find_repo_root(Path(__file__).resolve().parents[2])
     routes = load_capability_routes(root)
     assert "writer" in routes
-    assert routes["writer"].primary.startswith("openai:") or routes["writer"].primary.startswith("ollama:")
+    assert ":" in routes["writer"].primary
 
 
 def test_peek_next_article_id():

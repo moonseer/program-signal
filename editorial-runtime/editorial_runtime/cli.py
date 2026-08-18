@@ -4,13 +4,23 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 from editorial_runtime.config import llm_credentials_available
 from editorial_runtime.context import assemble_author_context
 from editorial_runtime.models import PersonaName, WorkflowStage
 from editorial_runtime.repo import find_repo_root
 from editorial_runtime.workflow import run_workflow
+
+
+def _load_env(repo: Path) -> None:
+    load_dotenv(repo / "editorial-runtime" / ".env")
+    base = os.getenv("OPENAI_API_BASE")
+    if base and not os.getenv("OPENAI_BASE_URL"):
+        os.environ["OPENAI_BASE_URL"] = base
 
 
 def main() -> None:
@@ -43,6 +53,7 @@ def main() -> None:
 
     args = parser.parse_args()
     repo = find_repo_root()
+    _load_env(repo)
 
     if args.command == "run":
         dry_run = not args.live and not args.test_model
