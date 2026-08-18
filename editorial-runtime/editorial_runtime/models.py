@@ -92,9 +92,12 @@ class EvidenceReview(BaseModel):
 
 
 class AuthorDraftOutput(BaseModel):
-    outline: str
+    outline: str = ""
     draft_mdx: str = Field(
-        description="MDX article body. Frontmatter is added by the workflow.",
+        description=(
+            "Full MDX article body at about the brief target_length in words. "
+            "No YAML frontmatter. Do not truncate. Do not summarize the article as a stub."
+        ),
     )
 
 
@@ -138,6 +141,8 @@ class WorkflowState(BaseModel):
     max_revisions: int = 1
     source_ids: list[str] = Field(default_factory=list)
     brief_path: str | None = None
+    revision_notes: str | None = None
+    human_notes: str | None = None
     errors: list[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

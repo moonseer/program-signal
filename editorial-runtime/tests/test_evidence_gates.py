@@ -20,7 +20,7 @@ def _brief() -> ArticleBrief:
         unique_angle="Host, identity, blast radius.",
         required_sections=["why this matters"],
         claims_to_verify=["MCP is a protocol"],
-        target_length=1800,
+        target_length=20,
         research_review="strongly_recommended",
     )
 
@@ -80,3 +80,22 @@ def test_clean_mcp_draft_keeps_pass():
     )
     assert gated.editor_status == EvidenceOutcome.pass_
     assert gated.confidence == 80
+
+
+def test_short_draft_downgrades_pass_to_hold():
+    review = EvidenceReview(
+        editor_status=EvidenceOutcome.pass_,
+        confidence=90,
+        summary="Looks complete.",
+        claim_reviews=[],
+    )
+    brief = _brief()
+    brief.target_length = 1600
+    gated = apply_evidence_gates(
+        review,
+        brief=brief,
+        draft_mdx="A short stub about golden paths.\n",
+        root=find_repo_root(Path(__file__).resolve().parents[2]),
+    )
+    assert gated.editor_status == EvidenceOutcome.hold
+    assert "words" in gated.summary

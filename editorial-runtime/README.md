@@ -10,7 +10,7 @@ Canonical spec: [`docs/PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](../do
 - **LangGraph** orchestrates explicit stages with conditional Evidence routing.
 - **PydanticAI** agents for Desk, Author, and Evidence return typed outputs (`EditorialDecision`, `ArticleBrief`, `AuthorDraftOutput`, `EvidenceReview`).
 - **Capability routing** via `config/models.yaml` and `PS_MODEL_*` env overrides (`research`, `reasoning`, `writer`, `fast`, `local`).
-- **Human approval** is a hard stop before publish.
+- **Human approval** is a hard stop before publish. Review locally with `ps-editorial desk` (127.0.0.1 only). Accept/reject does not publish.
 - **Dry-run** (default), **`--test-model`** (pydantic-ai test model, no keys), or **`--live`** (real providers).
 - **PostgreSQL** persists workflow runs (stage, brief, evidence, draft). Draft MDX is still written under `runs/` for human review.
 
@@ -49,6 +49,8 @@ ps-editorial run --topic "MCP for platform engineers" --persona maya --live \
 
 ps-editorial list --stage human_gate
 ps-editorial show <workflow_id>
+ps-editorial desk            # local review UI at http://127.0.0.1:8787
+ps-editorial decide <id> --accept|--reject --note "..."
 ps-editorial assemble-context --persona maya --brief editorial/briefs/PS-000008.yml
 pytest
 ```

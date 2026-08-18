@@ -40,3 +40,21 @@ sources:
     topics:
       - kubernetes
     notes: Smallest deployable compute unit. Scheduling is not an agent harness.
+  - source_id: SRC-CNCF-001
+    title: CNCF Platforms White Paper
+    organization: CNCF TAG App Delivery
+    url: https://tag-app-delivery.cncf.io/whitepapers/platforms/
+    type: whitepaper
+    tier: 1
+    topics:
+      - platform-engineering
+    notes: Platform as a product. Golden paths are templates, documentation, and onboarding workflows — product surfaces, not autonomous agents.
+  - source_id: SRC-CNCF-002
+    title: Platform Engineering Maturity Model
+    organization: CNCF TAG App Delivery
+    url: https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/
+    type: whitepaper
+    tier: 1
+    topics:
+      - platform-engineering
+    notes: Investment "as product" and golden-path templates/docs as self-serve surfaces. Does not define agents as control-plane owners.

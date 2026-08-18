@@ -1752,6 +1752,7 @@ See E39. Persona config example (voice sliders, preferred elements, avoid list) 
 
 - [x] Cursor/agent may open the PR
 - [x] GitHub Action may lint
+- [x] Local Editor-in-Chief desk (`ps-editorial desk`) to view, accept, reject, or send back — localhost only, does not publish
 - [ ] Only the human merges to `main`
 - [ ] Four-part gate unchanged: Evidence PASS + Desk READY + CI PASS + Human Editor-in-Chief APPROVED
 
