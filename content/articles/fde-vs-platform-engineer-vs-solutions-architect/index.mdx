@@ -1,0 +1,190 @@
+---
+id: PS-000013
+title: FDE vs Platform Engineer vs Solutions Architect
+slug: fde-vs-platform-engineer-vs-solutions-architect
+description: The three titles map to different failure modes. Assign who owns discovery, productization, and ongoing operations. Do not rank prestige.
+subtitle: A hiring decision guide. Public role descriptions disagree by company; they are not a universal org chart.
+contentType: decision_guide
+authorPersona: nia
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-18"
+updatedAt: "2026-08-18"
+lastReviewedAt: "2026-08-18"
+reviewAfter: "2027-02-14"
+category: Field Engineering
+tags:
+  - forward-deployed-engineer
+  - platform-engineering
+  - solutions-architect
+  - decision-guide
+concepts:
+  - forward-deployed-engineer
+  - platform-as-product
+  - solutions-architect
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0013
+seo:
+  title: FDE vs Platform Engineer vs Solutions Architect
+  description: Who owns discovery, productization, and ongoing operations. Public titles disagree; assign the handoff, not the prestige.
+  primaryQuery: FDE vs platform engineer vs solutions architect
+  searchIntent: informational
+research:
+  editorStatus: pass_with_changes
+  confidence: 80
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-a-forward-deployed-engineer
+    - what-is-agentic-platform-engineering
+  sources:
+    - SRC-PAL-001
+    - SRC-OAI-001
+    - SRC-ANTH-001
+    - SRC-CNCF-001
+    - SRC-AWS-001
+  diagrams: []
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| **Central thesis** | The roles map to different failure modes. Assign ownership, not prestige. |
+| **Primary question** | Who owns discovery, productization, and ongoing operations? |
+| **Audience** | Engineering managers, field engineers, platform engineers |
+| **Decision** | Hiring and scope assignment when the same headcount request gets three titles |
+| **What this is not** | A prestige ranking or a universal org chart |
+
+<Callout type="signal">
+The question is not which title sounds most senior. The question is which failure mode you are trying to avoid.
+</Callout>
+
+---
+
+## Why This Matters
+
+Something predictable keeps happening. A company needs to connect an emerging capability, large language models, a new cloud service, a data platform, to a real customer or internal user. The headcount request goes in. Three titles come back as candidates: Forward Deployed Engineer, Platform Engineer, Solutions Architect.
+
+One gets hired. The POC ships. Then nothing happens. The platform team did not pick it up because it was never designed for scale. The customer did not extend it because the FDE rotated to the next engagement. The solutions architect had moved on at the whiteboard stage. Someone blames the person. The real problem was that the scope was never assigned to the right role in the first place.
+
+This is a structural problem, not a performance problem. The roles map to different failure modes. Treating them as interchangeable, or as a prestige ladder where SA is junior and FDE is senior, collapses the distinction that makes each role useful.
+
+A decision guide should assign ownership, not rank prestige.
+
+---
+
+## What the Public Record Actually Says
+
+Role definitions vary substantially by company. This is not a minor disclaimer. Published, official job descriptions from Palantir, OpenAI, and Anthropic use the same or similar titles to describe meaningfully different scopes. The sources below are evidence of what these titles mean at specific organizations. They are not a universal org chart. Before you post a headcount request, you need to define the role for your context, not borrow a definition from a company whose business model differs from yours.
+
+**Forward Deployed Engineer at OpenAI** means owning end-to-end deployment of frontier models: discovery, technical scoping, system design, build, and production rollout. The OpenAI job listing names production adoption and eval-driven feedback into product and model roadmaps as success criteria. Travel can be up to fifty percent. This is a delivery role with a feedback loop back into the product, not a generalist advisory function.<Cite sourceId="SRC-OAI-001" />
+
+**Forward Deployed Engineer at Anthropic** sits on the Applied AI team, embeds with strategic customers, and accelerates adoption of existing products while creating new applications on Anthropic models. The Anthropic listing asks for four or more years in a technical customer-facing role. The emphasis is on embedding inside a customer context to drive adoption, not on building reusable internal infrastructure that other teams will consume.<Cite sourceId="SRC-ANTH-001" />
+
+**Delta at Palantir** (their term for what others call Forward Deployed Software Engineers) sits in Business Development, supports one customer with many capabilities, and deploys Palantir platforms. Palantir explicitly says this is not consulting. The distinction Palantir draws: a Delta works with one customer and many of Palantir's capabilities, while a Dev builds one capability used by many customers. Deployment and adoption are the Delta's job. Building the underlying platform is not.<Cite sourceId="SRC-PAL-001" />
+
+Notice what is already diverging. OpenAI's FDE owns a feedback loop into the model roadmap. Anthropic's FDE is oriented toward accelerating adoption of existing products. Palantir's Delta is a deployment and business development function. All three use a variant of the same title. None of them describe the same job in full.
+
+**Platform Engineer** as framed by the CNCF Platforms White Paper builds platforms as products. The outputs are golden paths: templates, documentation, and onboarding workflows. A platform engineer's customer is internal, the development team, and success is measured in how many teams adopt the golden path without needing a human escort. This role is explicitly about scale through product surfaces, not through individual embedding.<Cite sourceId="SRC-CNCF-001" />
+
+**Solutions Architect at AWS** (used here as a representative example of the SA pattern as described by one major provider) is a technical advisor, customer advocate, and educator. AWS describes the SA role as including Well-Architected reviews and whiteboarding. Hands-on implementation routes to Professional Services or partners. Ongoing management is a customer decision or Managed Services, not SA ownership. An SA influences architecture decisions. The SA does not own delivery.<Cite sourceId="SRC-AWS-001" />
+
+<Callout type="field">
+These descriptions reflect specific companies. Your organization may use these titles differently, and many organizations do. The variation itself is the point: before you hire, define the handoffs internally. Do not assume the title carries the answer.
+</Callout>
+
+---
+
+## Decision Criteria
+
+Before you decide which role you need, answer four questions.
+
+**1. Where does the work begin?**
+Is the problem still fuzzy, needing someone to sit with a customer or user and figure out what is actually needed? Or is the problem understood and the job is now building for scale?
+
+**2. Where does the work end?**
+Does the engagement have a defined delivery point, such as a production rollout with feedback loops captured, and then the FDE rotates? Or does someone need to maintain and evolve this capability for years?
+
+**3. Who is the customer?**
+Is the customer external, a specific enterprise, a specific agency? Or is the customer internal, a development team, an SRE team, a product team inside your own organization?
+
+**4. What does success look like in twelve months?**
+One customer in production with measured adoption? A platform capability used by ten teams on the golden path? An architectural decision made well and implemented by someone else?
+
+---
+
+## Comparison
+
+| Dimension | Forward Deployed Engineer | Platform Engineer | Solutions Architect |
+|---|---|---|---|
+| Primary customer | External (one or few accounts) | Internal (many dev teams) | External or internal (advisory) |
+| Core motion | Embed, discover, deploy, measure | Build, document, enable at scale | Advise, design, educate, hand off |
+| Owns discovery | Yes, deeply | Rarely (receives requirements) | Partially (scoping, not committing) |
+| Owns productization | Sometimes (deployment to prod) | Yes (platform as a product) | No (routes to others) |
+| Owns ongoing operations | Rarely (rotates out) | Yes (platform reliability) | No (customer or managed services) |
+| Success metric | Production adoption, eval feedback | Internal adoption rate, self-service | Architectural quality, decision support |
+| Scope boundary | Single customer, multiple capabilities | Single platform capability, many teams | Single engagement, broad coverage |
+| Characteristic failure mode | Leaves a working POC with no owner | Builds infrastructure with no users | Produces a diagram no one implements |
+
+---
+
+## Tradeoffs
+
+Every role comes with a specific gap that becomes a problem if you do not account for it in your hiring plan.
+
+**The FDE gap: handoff.** An FDE embedded with a customer can ship something genuinely useful in weeks. The failure mode appears at rotation. If there is no platform team ready to absorb the capability, no internal engineer trained to own it, and no documented golden path, the POC becomes tech debt. The FDE's strength, deep embedding in one context, is precisely what makes it hard to generalize. Organizations that hire FDEs without also investing in platform work will accumulate a portfolio of bespoke solutions with no owners. This pattern shows up across the published FDE definitions: OpenAI's FDEs feed back into product and model roadmaps, but the roadmap absorbs the learning, not the deployment artifact.<Cite sourceId="SRC-OAI-001" /> Anthropic's FDEs accelerate adoption of existing products, which means there is a product underneath.<Cite sourceId="SRC-ANTH-001" /> The FDE is not building the product from scratch and handing it to no one.
+
+**The platform engineer gap: connection to real problems.** A platform team working entirely from internal requirements and existing tool catalogs can build excellent infrastructure for problems that are slightly wrong. The CNCF Platforms White Paper is clear that platforms are products, which means they need product discovery.<Cite sourceId="SRC-CNCF-001" /> Without someone doing the customer-facing work of understanding what developers actually need, golden paths calcify around assumptions. Platform engineers are strong at scale. They are often weak at original discovery, and that weakness is structural, not personal.
+
+**The solutions architect gap: delivery.** An SA's value is in the advice, the review, the pattern recognition across many customers. AWS is explicit: hands-on implementation is not the SA's job.<Cite sourceId="SRC-AWS-001" /> The failure mode is a well-designed architecture that sits in a slide deck while the engineering team attempts to implement something they only partially understood from the whiteboard session. The SA role requires a clear downstream owner, or it produces decision artifacts that no one converts to running software.
+
+<Callout type="watch">
+The most expensive version of this failure: you hire a solutions architect to do FDE work, the customer gets advisory output when they needed delivery, and you blame the SA for not going deep enough. Or you hire an FDE to build a platform capability, they build something tailored to one customer, and three teams attempt to adopt it unsuccessfully because it was never designed for generalization. The title is not the problem. The unexamined scope assumption is.
+</Callout>
+
+---
+
+## Recommendation by Use Case
+
+<Callout type="production">
+These are hiring heuristics, not org chart templates. Your context will differ. Use these as a starting point for scoping the role, not as a final answer.
+</Callout>
+
+<Recommendation>
+**Use an FDE when:** you need someone to embed with a specific customer or stakeholder and own end-to-end delivery; discovery and production rollout need to happen in one motion; deployment feedback should flow into a product or model roadmap; and you have, or plan to build, a downstream owner to absorb what ships.
+
+**Wait on an FDE when:** ten internal teams need a self-service catalog (that is a platform engineer job); you need architecture advice before committing to a build (start with an SA); or you have not defined what production means for this engagement.
+
+**Use a platform engineer when:** multiple internal teams have validated demand for a common capability; the job is a product surface, not one team's specific problem; and long-term ownership, documentation, and reliability are in scope.
+
+**Wait on a platform engineer when:** you do not yet know if more than one team needs the thing, or the customer is external. An internal-facing platform product does not substitute for customer-facing deployment work.
+
+**Use a solutions architect when:** you need an expert voice before committing to a build; you need a Well-Architected review, a pattern recommendation, or a design translation; and implementation and operations already have clear owners.
+
+**Wait on a solutions architect when:** the gap is delivery, not design. Adding advisory capacity to a delivery deficit makes the slide deck better, not the system.
+</Recommendation>
+
+---
+
+## The Actual Question
+
+When a POC dies on the vine, the instinct is to evaluate the person. The better question is: did we assign the right scope to the right role, and did we define who owned the handoff?
+
+An FDE who shipped a working deployment into a vacuum did not fail. A platform team that built golden paths no internal team requested did not fail by being incompetent. A solutions architect who produced a thorough architecture review and then rotated did not fail by leaving.
+
+The failure was in the org design that left the handoff undefined, often because the hiring manager assumed the title carried the scope.
+
+The variation in published role definitions is itself a signal. Palantir, OpenAI, and Anthropic use related titles to describe jobs with different motions, different customers, and different success criteria. That is not a naming problem to be solved by standardization. It is a reminder that your organization needs to define these boundaries explicitly, not inherit them from a job board.
+
+Before the headcount request goes in, answer the four decision criteria. Write down who owns discovery, who owns productization, and who owns ongoing operations. If all three answers point to the same job description, you may be describing a unicorn. More likely, you are describing work that belongs to more than one role, or work that belongs to a role you have not yet defined.
+
+The titles are not interchangeable. Neither are the failure modes.

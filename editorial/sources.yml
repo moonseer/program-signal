@@ -105,5 +105,14 @@ sources:
     topics:
       - platform-engineering
     notes: Official Anthropic Greenhouse listing. FDEs sit on the Applied AI team, embed with strategic customers, accelerate adoption of existing products, and create new applications on Anthropic models. 4-plus years in a technical customer-facing role. Job IDs rotate; quote the listing, not a frozen industry definition.
+  - source_id: SRC-AWS-001
+    title: Maximizing your cloud journey
+    organization: Amazon Web Services
+    url: https://aws.amazon.com/blogs/training-and-certification/engaging-a-solutions-architect/
+    type: official_docs
+    tier: 1
+    topics:
+      - platform-engineering
+    notes: Official AWS Training blog. An AWS Solutions Architect is a technical advisor, customer advocate, and educator. Work includes Well-Architected reviews and whiteboarding. Hands-on implementation is routed to Professional Services or partners. Ongoing management is a customer vs Managed Services choice, not SA ownership. Not an FDE or platform-engineer job.
 
 

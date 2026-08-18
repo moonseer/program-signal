@@ -1,0 +1,28 @@
+article_id: PS-000013
+opportunity_id: PS-O-0013
+working_title: FDE vs Platform Engineer vs Solutions Architect
+content_type: decision_guide
+author_persona: nia
+target_reader:
+  - engineering managers
+  - field engineers
+  - platform engineers
+primary_question: Who owns discovery, productization, and ongoing operations when those three titles collide?
+reader_problem: Teams hire the wrong role, then blame the person when a POC cannot become a platform capability.
+central_thesis: The roles map to different failure modes. A decision guide should assign ownership, not rank prestige.
+why_now: The same headcount request is being filled by three titles.
+unique_angle: A comparison table for who owns discovery, productization, and ongoing operations.
+required_sections:
+  - why this matters
+  - decision criteria
+  - comparison table
+  - tradeoffs
+  - recommendation by use case
+claims_to_verify:
+  - Role definitions vary by company; treat public descriptions as evidence of disagreement, not as a universal org chart
+required_visuals:
+  - comparison table
+target_length: 1600
+research_review: strongly_recommended
+editorial_decision: APPROVE
+refresh_cycle: 180
