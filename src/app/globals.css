@@ -150,6 +150,11 @@ a {
 }
 
 .search-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  max-height: min(36rem, calc(100dvh - 4rem));
   color: var(--fg);
   background: var(--card);
 }
