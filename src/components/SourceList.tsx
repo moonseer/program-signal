@@ -16,7 +16,7 @@ export function SourceList({
   if (references.length === 0) return null;
 
   return (
-    <section className="mx-auto mt-16 max-w-[46rem] border-t border-[var(--border)] pt-8">
+    <section className="mt-16 border-t border-[var(--border)] pt-8">
       <h2 className="font-[family-name:var(--font-display)] text-2xl tracking-[-0.02em]">
         References
       </h2>
