@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { ReactNode } from "react";
+import { DiagramFrame } from "@/components/DiagramFrame";
 
 export function Figure({
   slug,
@@ -21,10 +22,7 @@ export function Figure({
   const svg = fs.readFileSync(file, "utf8");
   return (
     <figure className="figure-breakout my-10">
-      <div
-        className="diagram-frame overflow-x-auto border border-[var(--border)] bg-[var(--card)] p-4"
-        dangerouslySetInnerHTML={{ __html: svg }}
-      />
+      <DiagramFrame id={id} svg={svg} />
       <figcaption className="mt-3 font-mono text-[12px] leading-5 text-[var(--muted)]">
         {caption}
       </figcaption>

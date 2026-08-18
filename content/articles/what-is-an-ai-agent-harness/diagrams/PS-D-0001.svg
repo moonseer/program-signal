@@ -1,23 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="d1-title d1-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" role="img" aria-labelledby="d1-title d1-desc">
   <title id="d1-title">Agent infrastructure layers</title>
   <desc id="d1-desc">Experience sits above the agent harness. The harness sits above the tool and protocol layer. Infrastructure is the base. The model is a dependency of the harness, not a layer that replaces it.</desc>
-  <g fill="none" stroke="currentColor" stroke-width="1.5">
-    <rect x="80" y="24" width="480" height="56" />
-    <rect x="80" y="100" width="480" height="72" />
-    <rect x="80" y="192" width="480" height="56" />
-    <rect x="80" y="268" width="480" height="56" />
-    <rect x="80" y="344" width="480" height="56" />
-  </g>
-  <g fill="currentColor" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">
-    <text x="320" y="48" text-anchor="middle">Experience</text>
-    <text x="320" y="66" text-anchor="middle" font-size="11">chat, IDP, tickets, operator UI</text>
-    <text x="320" y="128" text-anchor="middle" font-weight="700">Agent harness / runtime</text>
-    <text x="320" y="148" text-anchor="middle" font-size="11">context, tool policy, recovery, traces</text>
-    <text x="320" y="225" text-anchor="middle">Tool / protocol layer</text>
-    <text x="320" y="243" text-anchor="middle" font-size="11">MCP and other tool contracts</text>
-    <text x="320" y="301" text-anchor="middle">Model</text>
-    <text x="320" y="319" text-anchor="middle" font-size="11">token generation, not operations</text>
-    <text x="320" y="377" text-anchor="middle">Infrastructure</text>
-    <text x="320" y="395" text-anchor="middle" font-size="11">compute, identity, network, secrets</text>
-  </g>
+  <defs>
+    <marker id="d1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="node" x="80" y="20" width="480" height="56" rx="6" />
+  <rect class="node node-focus" x="80" y="100" width="480" height="80" rx="6" />
+  <rect class="node" x="80" y="204" width="480" height="56" rx="6" />
+  <rect class="node" x="80" y="284" width="480" height="56" rx="6" />
+  <rect class="node" x="80" y="364" width="480" height="56" rx="6" />
+  <path class="connector" marker-end="url(#d1-arrow)" d="M320 76 L320 96" />
+  <path class="connector" marker-end="url(#d1-arrow)" d="M320 180 L320 200" />
+  <path class="connector" marker-end="url(#d1-arrow)" d="M320 260 L320 280" />
+  <path class="connector" marker-end="url(#d1-arrow)" d="M320 340 L320 360" />
+  <text class="label" x="320" y="44" text-anchor="middle">Experience</text>
+  <text class="sublabel" x="320" y="62" text-anchor="middle">chat, IDP, tickets, operator UI</text>
+  <text class="label-focus" x="320" y="132" text-anchor="middle">Agent harness / runtime</text>
+  <text class="sublabel" x="320" y="152" text-anchor="middle">context, tool policy, recovery, traces</text>
+  <text class="label" x="320" y="228" text-anchor="middle">Tool / protocol layer</text>
+  <text class="sublabel" x="320" y="246" text-anchor="middle">MCP and other tool contracts</text>
+  <text class="label" x="320" y="308" text-anchor="middle">Model</text>
+  <text class="sublabel" x="320" y="326" text-anchor="middle">token generation, not operations</text>
+  <text class="label" x="320" y="388" text-anchor="middle">Infrastructure</text>
+  <text class="sublabel" x="320" y="406" text-anchor="middle">compute, identity, network, secrets</text>
 </svg>

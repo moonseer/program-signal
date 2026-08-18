@@ -10,6 +10,8 @@ The evidence ledger is internal. The public page gets a **curated subset**.
 
 Do not render `evidence.yml` on the article page.
 
+Inline citations use `<Cite sourceId="SRC-MCP-001" />`. The number is the 1-based index in that article’s `references.yml`. The link target is `#ref-SRC-MCP-001` on the source list.
+
 ```yaml
 references:
   - source_id: SRC-MCP-001

@@ -79,7 +79,7 @@ On one side: a task, a model, and a policy. On the other: tools that can change 
 
 That is closer to an admission controller plus a workflow engine than it is to a chatbot. The chatbot can sit above it. Kubernetes can sit below it. MCP can sit beside it as the way tools are described.
 
-<Figure id="PS-D-0003" caption="PS-D-0003 — In-scope versus out-of-scope. If a concern is not on the left, name the other layer that owns it." />
+<Figure id="PS-D-0003" caption="PS-D-0003. In-scope versus out-of-scope. If a concern is not on the left, name the other layer that owns it." />
 
 The interface that should remain stable is the run: start, pause, resume, terminate, and “here is the trace.” Models, tool servers, and clusters should be swappable behind that interface.
 
@@ -89,7 +89,7 @@ The interface that should remain stable is the run: start, pause, resume, termin
 
 **Tool invocation and results.** The harness is the caller. It parses the model’s proposed action, matches it to a tool, and handles the result. A framework may help express that loop. The harness is the process that is allowed to make the call.
 
-**Policy at the point of action.** Not a paragraph in a system prompt. An allow-list, an identity, a budget, a refusal. MCP tells implementors that tools are arbitrary code execution and that hosts must obtain consent before invoking them. Mapping that duty onto a named layer is the harness decision.
+**Policy at the point of action.** Not a paragraph in a system prompt. An allow-list, an identity, a budget, a refusal. MCP tells implementors that tools are arbitrary code execution and that hosts must obtain consent before invoking them.<Cite sourceId="SRC-MCP-001" /> Mapping that duty onto a named layer is the harness decision.
 
 **Lifecycle.** Start, pause, retry, terminate. If you cannot stop a run without deleting a namespace, the lifecycle leaked into infrastructure.
 
@@ -99,7 +99,7 @@ The interface that should remain stable is the run: start, pause, resume, termin
 
 **Model weights and training.** The harness consumes a model. It does not train one. If the model is fine-tuned every week, that is a different product.
 
-**Cluster scheduling.** Kubernetes schedules Pods. That is infrastructure. The harness may request a Pod. It should not become a second scheduler.
+**Cluster scheduling.** Kubernetes schedules Pods.<Cite sourceId="SRC-K8S-001" /> That is infrastructure. The harness may request a Pod. It should not become a second scheduler.
 
 **Product experience.** Tickets, chat, IDP buttons. Those are clients of the harness.
 

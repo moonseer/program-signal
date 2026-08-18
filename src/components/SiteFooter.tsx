@@ -23,6 +23,12 @@ export function SiteFooter() {
           >
             AI and process
           </Link>
+          <Link
+            href="/corrections"
+            className="text-[var(--fg)] underline-offset-4 hover:underline"
+          >
+            Corrections
+          </Link>
         </nav>
       </div>
       <p className="mx-auto max-w-6xl px-6 pb-8 text-sm text-[var(--muted)]">

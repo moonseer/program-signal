@@ -1,28 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="d2-title d2-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" role="img" aria-labelledby="d2-title d2-desc">
   <title id="d2-title">Production agent layer model</title>
   <desc id="d2-desc">Six adjacent layers of a production agent: interface, model, harness, tools, identity, and observability. The harness is the operable center.</desc>
-  <g fill="none" stroke="currentColor" stroke-width="1.5">
-    <rect x="16" y="40" width="108" height="180" />
-    <rect x="132" y="40" width="108" height="180" />
-    <rect x="248" y="24" width="140" height="212" />
-    <rect x="396" y="40" width="108" height="180" />
-    <rect x="512" y="40" width="96" height="180" />
-    <rect x="616" y="40" width="88" height="180" />
-  </g>
-  <g fill="currentColor" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" text-anchor="middle">
-    <text x="70" y="88">Interface</text>
-    <text x="70" y="108" font-size="10">task in</text>
-    <text x="186" y="88">Model</text>
-    <text x="186" y="108" font-size="10">tokens</text>
-    <text x="318" y="80" font-weight="700">Harness</text>
-    <text x="318" y="100" font-size="10">state</text>
-    <text x="318" y="116" font-size="10">policy</text>
-    <text x="318" y="132" font-size="10">recovery</text>
-    <text x="450" y="88">Tools</text>
-    <text x="450" y="108" font-size="10">MCP etc.</text>
-    <text x="560" y="88">Identity</text>
-    <text x="560" y="108" font-size="10">who acts</text>
-    <text x="660" y="88">Observe</text>
-    <text x="660" y="108" font-size="10">trace</text>
-  </g>
+  <rect class="node" x="16" y="52" width="110" height="176" rx="6" />
+  <rect class="node" x="138" y="52" width="110" height="176" rx="6" />
+  <rect class="node node-focus" x="260" y="24" width="156" height="232" rx="6" />
+  <rect class="node" x="428" y="52" width="110" height="176" rx="6" />
+  <rect class="node" x="550" y="52" width="96" height="176" rx="6" />
+  <rect class="node" x="658" y="52" width="86" height="176" rx="6" />
+  <text class="label" x="71" y="108" text-anchor="middle">Interface</text>
+  <text class="sublabel" x="71" y="128" text-anchor="middle">task in</text>
+  <text class="label" x="193" y="108" text-anchor="middle">Model</text>
+  <text class="sublabel" x="193" y="128" text-anchor="middle">tokens</text>
+  <text class="label-focus" x="338" y="92" text-anchor="middle">Harness</text>
+  <text class="sublabel" x="338" y="114" text-anchor="middle">state</text>
+  <text class="sublabel" x="338" y="132" text-anchor="middle">policy</text>
+  <text class="sublabel" x="338" y="150" text-anchor="middle">recovery</text>
+  <text class="label" x="483" y="108" text-anchor="middle">Tools</text>
+  <text class="sublabel" x="483" y="128" text-anchor="middle">MCP etc.</text>
+  <text class="label" x="598" y="108" text-anchor="middle">Identity</text>
+  <text class="sublabel" x="598" y="128" text-anchor="middle">who acts</text>
+  <text class="label" x="701" y="108" text-anchor="middle">Observe</text>
+  <text class="sublabel" x="701" y="128" text-anchor="middle">trace</text>
 </svg>

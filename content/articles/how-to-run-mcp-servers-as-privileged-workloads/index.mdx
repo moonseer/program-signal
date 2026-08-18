@@ -88,7 +88,7 @@ Treat that process like any other privileged worker:
 | Network | What can it reach from this placement? |
 | Audit | Can you reconstruct a tool call after an incident? |
 
-<Figure id="PS-D-0005" caption="PS-D-0005 — Blast radius sits on the server’s credentials and reachability. The host environment is a placement, not the control plane." />
+<Figure id="PS-D-0005" caption="PS-D-0005. Blast radius sits on the server’s credentials and reachability. The host environment is a placement, not the control plane." />
 
 Kubernetes is one legal answer to “where does the process run.” It is not the only one, and it is not in scope as a default here. The same five controls apply on a VM, a container host, or a vendor runtime.
 
@@ -102,13 +102,13 @@ Do not confuse three identities:
 
 If the server token can do more than the host will allow the model to request, the effective policy is the server token.
 
-MCP authorization is **optional**. When you use HTTP-based transports and you do implement authorization, the spec expects OAuth at the transport. When you use **STDIO**, the spec says you should **not** follow that HTTP authorization flow and should take credentials from the environment instead. That is a feature of local wiring. It is also how secrets leak into every child process that inherits the environment.
+MCP authorization is **optional**.<Cite sourceId="SRC-MCP-001" /> When you use HTTP-based transports and you do implement authorization, the spec expects OAuth at the transport. When you use **STDIO**, the spec says you should **not** follow that HTTP authorization flow and should take credentials from the environment instead. That is a feature of local wiring. It is also how secrets leak into every child process that inherits the environment.
 
 <Callout type="watch">
 STDIO is convenient. It is also an inheritance path. A server that reads `AWS_SECRET_ACCESS_KEY` from the environment has whatever blast radius that key has, regardless of what the prompt said.
 </Callout>
 
-MCP security guidance forbids **token passthrough**: a server must not accept tokens that were not issued **for that MCP server** and forward them to a downstream API. Passthrough breaks audience checks, audit, and the trust boundary between client, server, and API.
+MCP security guidance forbids **token passthrough**: a server must not accept tokens that were not issued **for that MCP server** and forward them to a downstream API.<Cite sourceId="SRC-MCP-002" /> Passthrough breaks audience checks, audit, and the trust boundary between client, server, and API.
 
 Approve a server only with a named owner and a named principal. Shared “platform MCP” identities are how one compromised tool catalog becomes every team’s incident.
 

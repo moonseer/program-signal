@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 18 August 2026  
-**Phase:** Platform engineering / SRE cluster: `PS-000010` **published**, `PS-000011` packaged (awaiting merge). MCP cluster `PS-000008`–`PS-000009` **published**. Build-time search **landed**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Phase:** Platform engineering / SRE cluster **published** (`PS-000010`, `PS-000011`). MCP cluster `PS-000008`–`PS-000009` **published**. Site reading experience (diagrams, progress, citations, metadata) in flight. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -55,10 +55,11 @@ Keep this section current. Detail lives in the epics below.
 | Article layout | Title, At a Glance, and prose share one content column; tables scroll instead of stacking ([#21](https://github.com/moonseer/program-signal/pull/21)) |
 | Desk revise | Send-back keeps the finished draft on Author failure; house style bans em dashes ([#22](https://github.com/moonseer/program-signal/pull/22)) |
 | Platform SRE start | `PS-000010` published ([#20](https://github.com/moonseer/program-signal/pull/20)) |
+| Platform SRE observability | `PS-000011` published ([#23](https://github.com/moonseer/program-signal/pull/23)) |
 
 ### Do next (recommended order)
 
-1. **Merge `PS-000011`** (Observability for AI Agents) when the content PR is accepted. Radar automation stays later. Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
+1. Land the reading-experience PR: diagram visual language, expand/download, reading progress, JSON-LD/OG, article-end Signal CTA, inline citations, code copy. Then the next brief. Kubernetes cluster (`PS-000005`–`000007`) stays deferred. Radar automation stays later.
 
 ### Deferred (not now)
 
@@ -79,7 +80,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 S16.01 **Done**; S16.02 **Done** pending human merge. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -515,7 +516,7 @@ Canonical scoring and lifecycle: agent doc §§25–28. Do not implement the old
 
 - [x] Choose heading + body + mono fonts (readable, distinctive, self-host or `next/font`)
 - [x] Test code-adjacent body text
-- [ ] Test 2,500–5,000 word comfort
+- [x] Test 2,500–5,000 word comfort
 
 ### S04.03 — Component inventory (design, not all coded yet)
 
@@ -735,10 +736,10 @@ This is the most important design surface.
 
 ### S07.06 — Code blocks
 
-- [ ] Language, optional filename, copy button
+- [x] Language, optional filename, copy button
 - [ ] Optional line numbers and highlighted lines
-- [ ] Horizontal scroll, no page overflow
-- [ ] Accessible markup
+- [x] Horizontal scroll, no page overflow
+- [x] Accessible markup
 - [ ] Track `copy_code` later (P3 analytics), not required to ship the component
 
 ### S07.07 — Tables
@@ -760,13 +761,13 @@ No infinite scroll.
 - [x] Recommendation
 - [x] References
 - [x] ~3 related reads
-- [ ] Get the Signal CTA
+- [x] Get the Signal CTA
 - [ ] Optional series navigation
 
 ### S07.10 — Reading progress
 
-- [ ] Subtle top progress
-- [ ] Respect reduced motion
+- [x] Subtle top progress
+- [x] Respect reduced motion
 
 ### S07.11 — Freshness chrome
 
@@ -789,7 +790,7 @@ Published · Updated · Last Reviewed · Applies to · Status
 
 ### S08.01 — Public references
 
-- [ ] Inline numeric citations
+- [x] Inline numeric citations
 - [ ] Source cards: title, organization, type, date, evidence tier, outbound indicator
 - [ ] Optional version / DOI / section
 - [x] Labels: PRIMARY SOURCE, SPECIFICATION, RESEARCH, VENDOR DOCUMENTATION, SECONDARY ANALYSIS
@@ -797,17 +798,17 @@ Published · Updated · Last Reviewed · Applies to · Status
 
 ### S08.02 — Structured data
 
-- [ ] Article JSON-LD (`headline`, `datePublished`, `dateModified`, `author`)
-- [ ] Organization JSON-LD with `correctionsPolicy` when the page exists
-- [ ] Canonical URLs
-- [ ] Open Graph / Twitter cards with editorial art (not stock robots)
+- [x] Article JSON-LD (`headline`, `datePublished`, `dateModified`, `author`)
+- [x] Organization JSON-LD with `correctionsPolicy` when the page exists
+- [x] Canonical URLs
+- [x] Open Graph / Twitter cards (text only; no stock robots, no OG image yet)
 
 ### S08.03 — Corrections display
 
 - [ ] Material corrections render a visible notice
-- [ ] Minor edits do not
+- [x] Minor edits do not
 - [ ] Correction YAML on the article drives the notice
-- [ ] `/corrections` index of material corrections (can be empty at launch)
+- [x] `/corrections` index of material corrections (can be empty at launch)
 
 ---
 
@@ -821,10 +822,10 @@ Published · Updated · Last Reviewed · Applies to · Status
 
 Write `docs/standards/DIAGRAM-STANDARD.md`.
 
-- [ ] Every diagram answers a question; omissions are deliberate
-- [ ] Version/context required
-- [ ] Color-blind safe; light and dark variants or theme-safe SVG
-- [ ] Types: reference architecture, sequence, decision tree, failure flow, data flow, control-plane, dependency map, incident timeline
+- [x] Every diagram answers a question; omissions are deliberate
+- [x] Version/context required
+- [x] Color-blind safe; light and dark variants or theme-safe SVG
+- [x] Types: reference architecture, sequence, decision tree, failure flow, data flow, control-plane, dependency map, incident timeline
 
 ### S09.02 — File layout
 
@@ -842,12 +843,12 @@ content/articles/<slug>/diagrams/
 
 - [ ] Render Mermaid to SVG in GitHub Actions or local script
 - [x] Commit SVG (preferred on Hobby so Vercel build stays simple) **or** generate during Next build if fast enough
-- [ ] Article figure component: caption, expand, download SVG (copy Mermaid can wait until P4)
+- [x] Article figure component: caption, expand, download SVG (copy Mermaid can wait until P4)
 
 ### S09.04 — Figure component
 
 - [x] Full-width breakout
-- [ ] Full-screen on mobile
+- [x] Full-screen on mobile
 - [x] No unreadable tiny SVGs
 
 ---
@@ -929,18 +930,18 @@ Write `docs/standards/QUALITY-SCORE.md` (120-point rubric).
 
 ## E12 — Static pages for trust (copy in P0, pages in P1)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P1  
 **Priority:** High
 
 Implement routes (full policy text can be completed in P2 if needed, but stubs should exist):
 
-- [ ] `/editorial-standards`
-- [ ] `/ai-and-editorial-process`
-- [ ] `/corrections`
+- [x] `/editorial-standards`
+- [x] `/ai-and-editorial-process`
+- [x] `/corrections`
 - [ ] `/sponsorship-policy`
 - [ ] `/responsible-disclosure`
-- [ ] `/about`
+- [x] `/about`
 
 ---
 
@@ -1059,7 +1060,7 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 
 ## E16 — Launch cluster: platform engineering / SRE (2)
 
-**Status:** Done pending merge of `PS-000011`  
+**Status:** Done  
 **Phase:** P2  
 **Priority:** Critical
 
@@ -1879,4 +1880,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: merge `PS-000011` (Observability for AI Agents). Kubernetes cluster (`PS-000005`–`000007`) is deferred. Radar automation stays later.
+Recommended next piece of work: finish the reading-experience PR (diagrams, progress, citations, metadata), then the next brief. Kubernetes cluster (`PS-000005`–`000007`) is deferred. Radar automation stays later.

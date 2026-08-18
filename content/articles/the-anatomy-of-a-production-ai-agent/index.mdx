@@ -74,7 +74,7 @@ A model plus a tool loop can look complete in a notebook and still have no answe
 
 ## The Layer Model
 
-<Figure id="PS-D-0002" caption="PS-D-0002 — Six bands of a production agent. The harness is the operable center, not the largest box on a vendor slide." />
+<Figure id="PS-D-0002" caption="PS-D-0002. Six bands of a production agent. The harness is the operable center, not the largest box on a vendor slide." />
 
 Read the bands as ownership, not as products.
 
@@ -86,7 +86,7 @@ Read the bands as ownership, not as products.
 
 **Tools.** The actual side effects. MCP servers are one way to expose them. A Kubernetes API is another. A tool is not a policy engine.
 
-**Identity.** Who the run is, in infrastructure terms. A Kubernetes service account can name a process. The harness still has to bind that name to a tool allow-list.
+**Identity.** Who the run is, in infrastructure terms. A Kubernetes service account can name a process.<Cite sourceId="SRC-K8S-001" /> The harness still has to bind that name to a tool allow-list.
 
 **Observe.** A trace of the workflow, not a chat log. If you cannot find the failed step, you cannot operate the system.
 
@@ -94,7 +94,7 @@ Read the bands as ownership, not as products.
 
 Vendor pictures usually omit failure domains. They also omit the difference between a protocol and a runtime.
 
-MCP standardizes how a host talks to a server that exposes tools, resources, and prompts. It does not schedule the server, issue its credentials, or decide what happens when the server hangs. The specification is explicit that security principles are not enforced at the protocol level.
+MCP standardizes how a host talks to a server that exposes tools, resources, and prompts.<Cite sourceId="SRC-MCP-001" /> It does not schedule the server, issue its credentials, or decide what happens when the server hangs. The specification is explicit that security principles are not enforced at the protocol level.
 
 So an anatomy that ends at “we added MCP” has described a connector, not a production agent.
 
