@@ -1,0 +1,228 @@
+---
+id: PS-000011
+title: Observability for AI Agents
+slug: observability-for-ai-agents
+description: Agent work is a distributed system. Trace the workflow, not only the prompt, and stop debugging production failures from chat logs.
+subtitle: Spans, identity, and cost for multi-step agent workflows, using OpenTelemetry rather than a vendor product tour.
+contentType: operator_guide
+authorPersona: marcus
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-18"
+updatedAt: "2026-08-18"
+lastReviewedAt: "2026-08-18"
+reviewAfter: "2026-10-17"
+category: Observability
+tags:
+  - observability
+  - tracing
+  - opentelemetry
+  - ai-agents
+  - sre
+concepts:
+  - distributed-tracing
+  - gen-ai-semantic-conventions
+  - identity
+technologyVersions: {}
+difficulty: advanced
+opportunityId: PS-O-0011
+seo:
+  title: Observability for AI Agents
+  description: Trace multi-step agent workflows with OpenTelemetry spans, identity, and cost. Chat logs are not distributed traces.
+  primaryQuery: observability for AI agents
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 85
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-agentic-platform-engineering
+    - what-is-an-ai-agent-harness
+    - mcp-for-platform-engineers
+  sources:
+    - SRC-OTEL-001
+    - SRC-OTEL-002
+  diagrams:
+    - PS-D-0006
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## Treat the Workflow Like a Distributed System: It Is One
+
+| Attribute | Value |
+|---|---|
+| Topic | Tracing multi-step agent workflows |
+| Audience | SREs, platform engineers, AI infrastructure engineers |
+| Operational question | Will you know why it failed at 2 AM? |
+| Central thesis | Agent work is a distributed system. Trace the workflow, not only the prompt. |
+| Key tool | OpenTelemetry semantic conventions, not a vendor product tour |
+| Primary risk | Debugging production failures from chat logs |
+
+---
+
+## Why This Matters
+
+Spans on the API gateway. Traces through the microservices. Structured logs on the databases. Alerts tied to error budgets. That is the standard for production systems. Then a team adds an agent, and the standard collapses. Failures get debugged from chat logs: the raw text exchange between a user, a model, and whatever tool calls fired along the way.
+
+Chat logs are not distributed traces. They are flat sequential text. They carry no parent-child span hierarchy, no clock-synchronized latency breakdown, no propagated trace context, no status codes you can alert on. A chat log tells you what the model said. It does not tell you which tool call timed out, which downstream API returned a 500, how long the retrieval took, what identity the agent was running as when it touched your internal service, or how much token spend belongs to that specific workflow execution.
+
+The discipline already exists. Distributed systems tracing is solved infrastructure. The problem is that teams abandon it at the agent boundary, as if an agent were somehow not a distributed system. It is. A multi-step agent workflow crosses process boundaries, calls external APIs, fans out to sub-agents, and aggregates results. That is a distributed system by construction.
+
+This guide is about applying the same rigor to agent workflows: traces, identity correlation, failure taxonomy, and cost attribution. It is not a survey of LLM observability vendors. The instrumentation layer is OpenTelemetry, the same signal layer used everywhere else, with the emerging semantic conventions that define what agent spans should look like.
+
+---
+
+## What to Trace
+
+Before instrumenting anything, be precise about what a multi-step agent workflow actually is at runtime. It is a graph of operations: a planning step, one or more tool calls, possibly recursive sub-agent invocations, a synthesis step, and a response to the caller. Each of those operations crosses a process boundary, calls an external API, or both.
+
+Trace the workflow, not the prompt. The prompt is one input to one span. The workflow is the full causal chain you need to reconstruct a failure.
+
+### Spans you need
+
+**Inference spans** cover each call to a model endpoint. Capture the model name, the provider, the operation name, and the latency. The OpenTelemetry GenAI semantic conventions define `gen_ai.operation.name` and `gen_ai.provider.name` as standard attributes on these spans. The `chat` and `text_completion` values for `gen_ai.operation.name` represent the most common completion operations. Start here because it is the most settled part of the specification.
+
+**Tool execution spans** cover each tool call as a child of the inference span that triggered it. The semantic conventions define `execute_tool` as a value for `gen_ai.operation.name`, making tool calls first-class spans rather than annotations buried in a message payload. This matters operationally: if a tool call to a downstream service times out, you want that span to carry an error status and the tool name, not just a vague signal that the agent failed to respond.
+
+**Retrieval spans** cover each fetch from a vector store, object store, or search index. Retrieval latency is frequently a surprise in production. You cannot diagnose a slow workflow without knowing whether the model call or the retrieval was the bottleneck.
+
+**Orchestration spans** cover a planner that dispatches sub-agents or chains together multiple model calls. The planner itself is a span; the dispatched units are children. This is where trace hierarchy earns its cost. A flat log of tool calls tells you what happened in order. A trace with parent-child relationships tells you what happened causally.
+
+**Token and cost spans** attribute token consumption to spans at the workflow level. Token counts are an operational signal, not only a billing line item. When you attach them to spans, you can correlate expensive executions with specific workflow paths rather than aggregating cost only by model or time window. The GenAI semantic conventions cover token usage attributes on inference spans.
+
+<Callout type="production">
+The OpenTelemetry GenAI semantic conventions are in Development status, not GA. Attributes and span shapes may change between releases. Pin the version you instrument against and track upstream changes before upgrading agent instrumentation.
+</Callout>
+
+<Figure id="PS-D-0006" caption="PS-D-0006. Parent workflow span with inference, execute_tool, and downstream children. Identity and cost ride on the spans, not in a chat log." />
+
+### What a chat log cannot give you
+
+An OpenTelemetry trace is correlated spans across processes, with context propagation, parent-child hierarchy, and status codes you can write alerts against. A chat log is a sequential record of messages. The structural difference is not cosmetic.
+
+Without a trace, you cannot reconstruct which tool call was on the critical path for a slow response. You cannot tell whether a failure originated in the model, the tool, or the downstream system the tool called. You cannot join agent execution data to your existing APM dashboards. You cannot set an error budget on agent workflow success rate with the same tooling you use for every other service.
+
+---
+
+## Identity and Correlation
+
+This is the section most agent observability guides skip. Do not skip it.
+
+When an agent calls a tool, it is making an authenticated API call to something: an internal service, an external API, a database proxy, a secret store. The agent is running as some identity. In production, you must be able to answer: which identity, for which workflow execution, touching which resources?
+
+### Propagate trace context through identity boundaries
+
+Trace context, the `traceparent` header or equivalent, must cross every boundary the agent crosses.
+
+HTTP calls from agent to tool backends must carry W3C trace context headers. If the tool backend is itself instrumented, the spans it emits become children of the agent's tool execution span, and your trace graph reflects the full call chain. If the tool backend is not yet instrumented, the span ends at the call boundary, but you still have latency and status on the outbound side.
+
+Do not let your service mesh strip or fail to forward trace context headers. Verify this in your agent namespace the same way you verify it for any other service.
+
+### Attribute workflow identity to spans
+
+Every span in an agent workflow should carry attributes that answer: what execution was this? That requires three things.
+
+A **workflow execution ID** is a stable identifier for the top-level invocation, propagated through all child spans. This is the correlation key you use to reconstruct everything that happened in a single agent run.
+
+The **agent identity** is the service account, OIDC identity, or equivalent that the agent process authenticates as. This is not the user identity. It is the agent's own credential, the one that carries RBAC permissions and appears in audit logs.
+
+The **requesting user or system** is a separate span attribute. The agent acts on behalf of someone. That relationship needs to be captured explicitly rather than conflated with the agent's own identity. Access reviews and incident investigations depend on distinguishing the two.
+
+<Callout type="signal">
+If you cannot name the identity the agent uses, the tools it may call, and how you observe a failed step, you do not operate an agent in production yet. You have a demo loop.
+</Callout>
+
+### Join to your existing audit trail
+
+Your security team already has audit requirements. Compliance posture already demands answers to questions about who touched what and when. Agent workflows must be joinable to that existing audit trail, not siloed in a separate bucket that nobody opens during an incident.
+
+The mechanism is the same as every other service: structured log events tied to trace IDs, with the agent identity and the accessed resource as indexed fields. When a trace shows a tool call that touched sensitive data, your audit log should be reachable by trace ID. If it is not, you have an audit gap that an incident will expose.
+
+---
+
+## Failure Modes
+
+Agent workflows fail in ways that are structurally familiar from distributed systems, and in a few ways specific to LLM-backed steps. Know the difference before you write your runbooks.
+
+### Distributed-system failures you already know
+
+**Downstream timeout.** A tool call to an internal service times out. The span carries a timeout status. The agent may retry, escalate, or return a degraded response. The span is what tells you which tool and which downstream service were involved.
+
+**Authentication failure.** The agent's identity does not have the permission the tool requires. An error status appears on the tool execution span. This is a configuration error you want to catch before production, which means your pre-production environment needs the same identity configuration as production.
+
+**Cascading latency.** A slow retrieval step causes the overall workflow to exceed a user-facing SLO. Without span latency breakdown you will blame the model. Usually the model is not the problem.
+
+**Partial failure with silent degradation.** One tool call fails, the orchestrator catches the error and proceeds without the data, and the model produces a plausible but incorrect answer. The user gets a response. The response is wrong. Nothing errors at the top level. Only a span with an error status on the tool call and a downstream check on response quality surfaces this failure. It is the most dangerous mode in this list.
+
+### LLM-specific failure modes
+
+**Token limit exhaustion.** The workflow exceeds the model's context window mid-execution. Capture input and output token counts on inference spans so you can trend toward the limit over time and alert before hard failures begin.
+
+**Model refusal.** The model declines to complete a step. This is a status, not a span error in the traditional sense, but it needs to be surfaced as a metric. Map refusals to a counter you can chart and alert on. Refusal rate changes are a signal about prompt behavior or input distribution shifts.
+
+**Non-deterministic path explosion.** The planner issues more tool calls than expected on some inputs, driving latency and cost variance. Without per-execution span trees, you cannot distinguish a legitimate complex query from a runaway loop.
+
+<Callout type="watch">
+Silent degradation, where a tool call fails but the model produces a confident response anyway, is your highest blast-radius failure mode. No alert fires. The user does not see an error. Instrument tool call error status explicitly and set an alert on tool execution error rate independently of overall workflow failure rate.
+</Callout>
+
+### Blast radius and rollback
+
+When an agent workflow fails mid-execution, the first operational question is: what did it already do? If tool calls have side effects, writing to a database, sending a notification, calling an external API, a failed workflow may have completed some of those side effects and not others. Your trace is the only artifact that reliably tells you how far execution reached.
+
+Design workflows so the trace is sufficient to answer that question. Document the rollback path for each tool with side effects. If you cannot answer "what did it do before it failed" from the trace, your instrumentation is incomplete.
+
+---
+
+## OpenTelemetry Considerations
+
+OpenTelemetry is the right instrumentation layer for agent workflows for the same reason it is right for every other service: one SDK, one export pipeline, one set of trace and metric backends. You do not need a separate observability product for agents any more than you need a separate one for your payment service.
+
+### What the GenAI semantic conventions define
+
+The OpenTelemetry GenAI semantic conventions specify span attributes for generative AI operations. `gen_ai.operation.name` distinguishes between inference operations (`chat`, `text_completion`) and tool execution (`execute_tool`). `gen_ai.provider.name` identifies the model provider. Token usage attributes on inference spans support cost attribution at the span level.
+
+Content capture, the actual prompt and completion text, is explicitly opt-in in the specification. The default behavior does not record message content. This is the correct default for production: you do not want prompt content in your trace backend without deliberate policy decisions about retention, access control, and PII handling.
+
+### Development status and what it means for you
+
+The GenAI semantic conventions are in Development status. That means the specification is actively evolving and attribute names or span shapes may change before reaching GA. This is not a reason to avoid the conventions; it is a reason to instrument carefully.
+
+Pin the version of the instrumentation library you use. Record which version of the semantic conventions your spans conform to. Treat a major version bump in the conventions as a change that requires a review of your span queries, dashboards, and alerts, not just a library upgrade.
+
+### Practical instrumentation posture
+
+Instrument inference spans and tool execution spans first. These are the two span kinds where the semantic conventions are most defined and where you will recover the most signal with the least effort.
+
+Add retrieval spans next. Retrieval latency is frequently invisible without explicit instrumentation, and it is often the actual bottleneck.
+
+Add orchestration spans when you have multi-agent or multi-step planning logic. The hierarchy matters here: parent-child relationships in the trace are how you distinguish sequential steps from parallel fan-outs.
+
+Use the same collector pipeline you already run. Agent spans export to your existing OTLP endpoint. They appear in the same trace backend your engineers already know. A new workflow, not a new tool.
+
+<Callout type="field">
+Content capture is opt-in by design in the GenAI semantic conventions. Before enabling it in any environment, define your data classification policy for prompt and completion content, set retention limits, and restrict access to the trace backend accordingly. Prompt content often contains user data that your existing trace backend was not designed to store.
+</Callout>
+
+---
+
+## Recommendation
+
+<Recommendation>
+**Use when:** You are running multi-step agent workflows in production or moving from prototype to production. Any workflow that crosses more than one process boundary and has tool calls with side effects needs distributed tracing from the start, not retrofitted after the first hard-to-diagnose incident.
+
+**Wait when:** You are still in a single-process prototype with no external tool calls and no production traffic. In that phase, logs may be sufficient. The moment you add a tool call to an external service, you have a distributed system and the tracing investment becomes load-bearing.
+</Recommendation>
+
+The core operating requirement is straightforward: treat agent work with the same discipline as every other distributed system. That means traces with parent-child hierarchy and status codes, not flat chat logs. It means identity attributes on every span, joinable to your existing audit trail. It means explicit instrumentation of tool execution spans, not only inference spans, so you can see where in the workflow a failure actually occurred.
+
+The OpenTelemetry GenAI semantic conventions give you the span vocabulary to do this consistently. They are in Development status, which means some rework as the specification matures. That cost is smaller than the cost of the first production incident you cannot debug because all you have is a chat log.
+
+Agent failures are opaque when you treat the agent as a black box. The agent is not a black box. It is a distributed system with identities, APIs, latency budgets, and error states. Instrument it like one.

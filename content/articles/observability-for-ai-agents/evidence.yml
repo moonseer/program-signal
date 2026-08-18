@@ -1,0 +1,29 @@
+article: observability-for-ai-agents
+reviewed: "2026-08-18"
+claims:
+  - id: C001
+    claim: OpenTelemetry GenAI semantic conventions define span attributes for generative AI operations, including gen_ai.operation.name values such as chat, text_completion, and execute_tool, plus gen_ai.provider.name. The conventions are in Development status. Content capture is opt-in.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Semantic conventions for generative client AI spans
+        org: OpenTelemetry
+        url: https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-spans.md
+        tier: 1
+  - id: C002
+    claim: An OpenTelemetry trace is correlated spans across processes, with context, hierarchy, and status. A chat log is a sequential record of messages and is not a substitute for a distributed trace.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Traces
+        org: OpenTelemetry
+        url: https://opentelemetry.io/docs/concepts/signals/traces/
+        tier: 1
+  - id: C003
+    claim: "Agent workflows should be instrumented with the same distributed-tracing discipline as other production systems: parent-child spans, identity attributes, and tool-execution status, not chat logs alone."
+    type: OPINION
+    status: SUPPORTED
+    confidence: HIGH
+    sources: []

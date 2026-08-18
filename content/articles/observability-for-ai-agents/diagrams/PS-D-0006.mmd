@@ -1,0 +1,7 @@
+flowchart TB
+  Orchestrator[Orchestrator workflow span]
+  Orchestrator --> Inference[Inference chat]
+  Orchestrator --> Retrieval[Retrieval]
+  Orchestrator --> Synthesis[Inference synthesis]
+  Inference --> Tool[execute_tool]
+  Tool --> Downstream[Downstream API]

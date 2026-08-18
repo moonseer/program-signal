@@ -57,4 +57,24 @@ sources:
     tier: 1
     topics:
       - platform-engineering
-    notes: Investment "as product" and golden-path templates/docs as self-serve surfaces. Does not define agents as control-plane owners.
+    notes: Investment as product and golden-path templates as self-serve surfaces. Does not assign control-plane ownership to agents.
+  - source_id: SRC-OTEL-001
+    title: Semantic conventions for generative client AI spans
+    organization: OpenTelemetry
+    url: https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-spans.md
+    type: specification
+    tier: 1
+    topics:
+      - observability
+      - ai-agents
+    notes: Status Development. Defines GenAI spans for inference and execute_tool (gen_ai.operation.name, gen_ai.provider.name). Content capture is opt-in. Not a vendor observability product.
+  - source_id: SRC-OTEL-002
+    title: Traces
+    organization: OpenTelemetry
+    url: https://opentelemetry.io/docs/concepts/signals/traces/
+    type: official_docs
+    tier: 1
+    topics:
+      - observability
+    notes: A trace is correlated spans across processes, with context, hierarchy, and status. A chat log is not that.
+

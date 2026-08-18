@@ -37,6 +37,7 @@ clusters:
     pillar_opportunity: PS-O-0010
     articles:
       - PS-000010
+      - PS-000011
     opportunities:
       - PS-O-0010
       - PS-O-0011
