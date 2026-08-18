@@ -9,27 +9,27 @@ Status is **spec** until the component exists in `src/` and matches this invento
 | Header | exists | `SiteHeader` — wordmark, primary nav, theme, subscribe |
 | Footer | exists | Standards links, persona disclosure |
 | Navigation | exists | Articles, Topics, Labs, Field Notes, About |
-| Topic menu | spec | Taxonomy home, not a mega-menu |
-| Search dialog | spec | Build-time index later; not a chat box |
-| Feature story | spec | Homepage masthead piece |
-| Signal item | spec | Three editorially chosen items |
-| Topic section | spec | Cluster, not a category grid |
+| Topic menu | exists | `/topics` taxonomy home, not a mega-menu |
+| Search dialog | exists | Build-time FlexSearch; not a chat box |
+| Feature story | exists | Homepage masthead piece |
+| Signal item | exists | Three editorially chosen items |
+| Topic section | exists | Cluster, not a category grid |
 | Article list | exists | List-first index pages |
 | Article card | spec | Use sparingly; lists preferred |
 | Lab card | spec | Distinct from article cards |
-| Newsletter CTA | spec | “Get the Signal” |
+| Newsletter CTA | exists | “Get the Signal” on homepage and article end |
 | Article header | exists | Category, title, persona byline, dates, difficulty |
 | At a Glance | spec | MDX table today; dedicated component later |
-| Table of contents | spec | Left column on long articles |
-| Reading progress | spec | Subtle; respect reduced motion |
+| Table of contents | exists | Left column on long articles |
+| Reading progress | exists | Subtle top bar; respects reduced motion |
 | Callout | exists | SIGNAL / PRODUCTION NOTE / WATCH OUT / FIELD NOTE |
-| Code block | spec | Language, copy, no page overflow |
-| Figure | spec | Caption required |
-| Architecture diagram | spec | `PS-D-NNNN`; alt text required |
-| Comparison table | spec | Scroll on mobile; “Platform Signal take” allowed |
-| Recommendation block | spec | Use when / wait when |
+| Code block | exists | Language label and copy button |
+| Figure | exists | Caption, expand, download SVG |
+| Architecture diagram | exists | `PS-D-NNNN`; theme-safe SVG; see `DIAGRAM-STANDARD.md` |
+| Comparison table | exists | Scroll on mobile; “Platform Signal take” allowed |
+| Recommendation block | exists | Use when / wait when |
 | Source list | exists | Curated `references.yml`, not the evidence ledger |
-| Related articles | spec | Frontmatter `relatedArticles` |
+| Related articles | exists | Frontmatter `relatedArticles` |
 | Difficulty indicator | exists | Dots in the article header |
 | Series navigation | spec | Optional |
 | Breadcrumb | spec | Quiet; not a second nav |

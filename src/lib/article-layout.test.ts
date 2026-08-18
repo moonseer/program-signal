@@ -40,3 +40,28 @@ test("GFM tables render through a horizontal scroll wrapper", () => {
   assert.match(page, /table:\s*\(\{ children \}/);
   assert.match(page, /className="table-scroll"/);
 });
+
+test("articles include reading progress, citations, code copy, and the Signal CTA", () => {
+  const page = read("app/articles/[slug]/page.tsx");
+  assert.match(page, /ReadingProgress/);
+  assert.match(page, /Cite:/);
+  assert.match(page, /pre: CodeBlock/);
+  assert.match(page, /SubscribeCta compact/);
+  assert.match(page, /articleJsonLd/);
+  assert.match(page, /alternates:\s*\{\s*canonical:/);
+});
+
+test("diagram CSS defines a theme-safe node language", () => {
+  const css = read("app/globals.css");
+  assert.match(css, /\.diagram-frame \.node-focus/);
+  assert.match(css, /\.reading-progress/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /\.prose-signal \.code-block-bar/);
+});
+
+test("figures offer expand and SVG download", () => {
+  const frame = read("components/DiagramFrame.tsx");
+  assert.match(frame, /Expand/);
+  assert.match(frame, /Download SVG/);
+  assert.match(frame, /showModal/);
+});

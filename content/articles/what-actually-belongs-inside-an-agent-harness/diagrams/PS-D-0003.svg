@@ -1,22 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img" aria-labelledby="d3-title d3-desc">
   <title id="d3-title">Harness responsibility boundary</title>
   <desc id="d3-desc">In the harness: session context, tool invocation, policy at the point of action, recovery, traces. Outside: model weights, cluster scheduling, product UX, unbounded memory stores.</desc>
-  <g fill="none" stroke="currentColor" stroke-width="1.5">
-    <rect x="24" y="48" width="320" height="268" />
-    <rect x="376" y="48" width="320" height="268" />
-  </g>
-  <g fill="currentColor" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">
-    <text x="184" y="80" text-anchor="middle" font-weight="700">In the harness</text>
-    <text x="48" y="120">Session and task context</text>
-    <text x="48" y="148">Tool invocation and results</text>
-    <text x="48" y="176">Policy at the point of action</text>
-    <text x="48" y="204">Retry, pause, terminate</text>
-    <text x="48" y="232">Run traces and eval hooks</text>
-    <text x="536" y="80" text-anchor="middle" font-weight="700">Outside the harness</text>
-    <text x="400" y="120">Model weights and training</text>
-    <text x="400" y="148">Cluster scheduling</text>
-    <text x="400" y="176">Product experience</text>
-    <text x="400" y="204">Unbounded memory stores</text>
-    <text x="400" y="232">Org-wide identity provider</text>
-  </g>
+  <rect class="node node-focus" x="24" y="24" width="328" height="292" rx="6" />
+  <rect class="node" x="368" y="24" width="328" height="292" rx="6" />
+  <text class="label-focus" x="188" y="56" text-anchor="middle">In the harness</text>
+  <text class="label" x="532" y="56" text-anchor="middle">Outside the harness</text>
+  <text class="sublabel" x="48" y="96">Session and task context</text>
+  <text class="sublabel" x="48" y="124">Tool invocation and results</text>
+  <text class="sublabel" x="48" y="152">Policy at the point of action</text>
+  <text class="sublabel" x="48" y="180">Retry, pause, terminate</text>
+  <text class="sublabel" x="48" y="208">Run traces and eval hooks</text>
+  <text class="sublabel" x="392" y="96">Model weights and training</text>
+  <text class="sublabel" x="392" y="124">Cluster scheduling</text>
+  <text class="sublabel" x="392" y="152">Product experience</text>
+  <text class="sublabel" x="392" y="180">Unbounded memory stores</text>
+  <text class="sublabel" x="392" y="208">Org-wide identity provider</text>
 </svg>

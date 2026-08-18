@@ -88,7 +88,7 @@ An agent system has to:
 
 Most of that work is not “the model.” It is surrounding infrastructure. Platform Signal calls that surrounding layer an **agent harness**.
 
-The term is ours. The MCP specification does not define a harness. It defines a protocol. Kubernetes does not define a harness. It defines how to schedule a process and how that process identifies itself. The gap between those two facts is the design problem.
+The term is ours. The MCP specification does not define a harness.<Cite sourceId="SRC-MCP-001" /> It defines a protocol. Kubernetes does not define a harness.<Cite sourceId="SRC-K8S-001" /> It defines how to schedule a process and how that process identifies itself. The gap between those two facts is the design problem.
 
 ## A Working Definition
 
@@ -121,7 +121,7 @@ MCP is not an agent architecture. It is a tool-access protocol. The specificatio
 
 ## Where It Belongs
 
-<Figure id="PS-D-0001" caption="PS-D-0001 — The harness sits between experience and infrastructure. The model is a dependency, not a substitute for operations." />
+<Figure id="PS-D-0001" caption="PS-D-0001. The harness sits between experience and infrastructure. The model is a dependency, not a substitute for operations." />
 
 The harness should remain replaceable. If the model changes, the harness should still know how to start a run, call a tool, and emit a trace. If the cluster changes, the harness should still enforce the same tool policy.
 

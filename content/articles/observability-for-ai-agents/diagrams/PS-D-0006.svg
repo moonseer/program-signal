@@ -1,33 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" role="img" aria-labelledby="d6-title d6-desc">
   <title id="d6-title">Trace of a multi-step agent workflow</title>
   <desc id="d6-desc">A parent orchestrator span sits above inference, retrieval, and synthesis children. The inference span has an execute_tool child that reaches a downstream API. Identity, workflow execution ID, and token cost ride on the spans.</desc>
-  <g fill="none" stroke="currentColor" stroke-width="1.5">
-    <rect x="230" y="24" width="300" height="64" />
-    <rect x="32" y="140" width="200" height="64" />
-    <rect x="280" y="140" width="200" height="64" />
-    <rect x="528" y="140" width="200" height="64" />
-    <rect x="32" y="248" width="200" height="64" />
-    <rect x="32" y="356" width="200" height="48" />
-    <rect x="280" y="356" width="448" height="48" />
-    <path d="M380 88 L132 140" />
-    <path d="M380 88 L380 140" />
-    <path d="M380 88 L628 140" />
-    <path d="M132 204 L132 248" />
-    <path d="M132 312 L132 356" />
-  </g>
-  <g fill="currentColor" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
-    <text x="380" y="50" text-anchor="middle" font-weight="700">Orchestrator</text>
-    <text x="380" y="70" text-anchor="middle" font-size="11">parent workflow span</text>
-    <text x="132" y="166" text-anchor="middle" font-weight="700">Inference</text>
-    <text x="132" y="186" text-anchor="middle" font-size="11">chat</text>
-    <text x="380" y="166" text-anchor="middle" font-weight="700">Retrieval</text>
-    <text x="380" y="186" text-anchor="middle" font-size="11">index / store</text>
-    <text x="628" y="166" text-anchor="middle" font-weight="700">Inference</text>
-    <text x="628" y="186" text-anchor="middle" font-size="11">synthesis</text>
-    <text x="132" y="274" text-anchor="middle" font-weight="700">execute_tool</text>
-    <text x="132" y="294" text-anchor="middle" font-size="11">child of inference</text>
-    <text x="132" y="385" text-anchor="middle" font-weight="700">Downstream API</text>
-    <text x="504" y="375" text-anchor="middle" font-weight="700">Span attributes</text>
-    <text x="504" y="393" text-anchor="middle" font-size="11">identity · execution ID · tokens / cost</text>
-  </g>
+  <defs>
+    <marker id="d6-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="node node-focus" x="230" y="20" width="300" height="64" rx="6" />
+  <rect class="node" x="32" y="140" width="200" height="64" rx="6" />
+  <rect class="node" x="280" y="140" width="200" height="64" rx="6" />
+  <rect class="node" x="528" y="140" width="200" height="64" rx="6" />
+  <rect class="node" x="32" y="248" width="200" height="64" rx="6" />
+  <rect class="node" x="32" y="356" width="200" height="48" rx="6" />
+  <rect class="band" x="280" y="356" width="448" height="48" rx="6" />
+  <path class="connector" marker-end="url(#d6-arrow)" d="M380 84 L132 136" />
+  <path class="connector" marker-end="url(#d6-arrow)" d="M380 84 L380 136" />
+  <path class="connector" marker-end="url(#d6-arrow)" d="M380 84 L628 136" />
+  <path class="connector" marker-end="url(#d6-arrow)" d="M132 204 L132 244" />
+  <path class="connector" marker-end="url(#d6-arrow)" d="M132 312 L132 352" />
+  <text class="label-focus" x="380" y="46" text-anchor="middle">Orchestrator</text>
+  <text class="sublabel" x="380" y="64" text-anchor="middle">parent workflow span</text>
+  <text class="label" x="132" y="166" text-anchor="middle">Inference</text>
+  <text class="sublabel" x="132" y="184" text-anchor="middle">chat</text>
+  <text class="label" x="380" y="166" text-anchor="middle">Retrieval</text>
+  <text class="sublabel" x="380" y="184" text-anchor="middle">index / store</text>
+  <text class="label" x="628" y="166" text-anchor="middle">Inference</text>
+  <text class="sublabel" x="628" y="184" text-anchor="middle">synthesis</text>
+  <text class="label" x="132" y="274" text-anchor="middle">execute_tool</text>
+  <text class="sublabel" x="132" y="292" text-anchor="middle">child of inference</text>
+  <text class="label" x="132" y="386" text-anchor="middle">Downstream API</text>
+  <text class="label" x="504" y="376" text-anchor="middle">Span attributes</text>
+  <text class="sublabel" x="504" y="394" text-anchor="middle">identity · execution ID · tokens / cost</text>
 </svg>

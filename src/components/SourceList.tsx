@@ -1,3 +1,4 @@
+import { referenceAnchorId } from "@/lib/citations";
 import type { PublicReference, SourceRecord } from "@/lib/schemas";
 
 const labels: Record<PublicReference["label"], string> = {
@@ -22,7 +23,11 @@ export function SourceList({
       </h2>
       <ol className="mt-6 space-y-5">
         {references.map(({ entry, source }, index) => (
-          <li key={source.source_id} className="text-sm leading-6">
+          <li
+              key={source.source_id}
+              id={referenceAnchorId(source.source_id)}
+              className="scroll-mt-6 text-sm leading-6"
+            >
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
               {index + 1} · {labels[entry.label]}
             </p>
@@ -34,7 +39,7 @@ export function SourceList({
               ) : (
                 source.title
               )}
-              {source.organization ? ` — ${source.organization}` : ""}
+              {source.organization ? ` · ${source.organization}` : ""}
               {entry.version ? ` · ${entry.version}` : ""}
             </p>
             {entry.note ? (

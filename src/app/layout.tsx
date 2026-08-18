@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Newsreader, Source_Serif_4 } from "next/font/google";
+import { JsonLd } from "@/components/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { organizationJsonLd } from "@/lib/json-ld";
 import { getSearchCorpus } from "@/lib/search-corpus";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -25,13 +28,27 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Platform Signal",
-    template: "%s · Platform Signal",
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "A technical publication on production AI, Kubernetes, platform engineering, and agent infrastructure.",
+  description: SITE_DESCRIPTION,
   robots: { index: false, follow: false },
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 const themeScript = `
@@ -58,6 +75,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col antialiased">
+        <JsonLd data={organizationJsonLd()} />
         <SiteHeader searchCorpus={searchCorpus} />
         <main className="flex-1">{children}</main>
         <SiteFooter />

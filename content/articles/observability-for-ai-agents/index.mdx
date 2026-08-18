@@ -87,7 +87,7 @@ Trace the workflow, not the prompt. The prompt is one input to one span. The wor
 
 ### Spans you need
 
-**Inference spans** cover each call to a model endpoint. Capture the model name, the provider, the operation name, and the latency. The OpenTelemetry GenAI semantic conventions define `gen_ai.operation.name` and `gen_ai.provider.name` as standard attributes on these spans. The `chat` and `text_completion` values for `gen_ai.operation.name` represent the most common completion operations. Start here because it is the most settled part of the specification.
+**Inference spans** cover each call to a model endpoint. Capture the model name, the provider, the operation name, and the latency. The OpenTelemetry GenAI semantic conventions define `gen_ai.operation.name` and `gen_ai.provider.name` as standard attributes on these spans.<Cite sourceId="SRC-OTEL-001" /> The `chat` and `text_completion` values for `gen_ai.operation.name` represent the most common completion operations. Start here because it is the most settled part of the specification.
 
 **Tool execution spans** cover each tool call as a child of the inference span that triggered it. The semantic conventions define `execute_tool` as a value for `gen_ai.operation.name`, making tool calls first-class spans rather than annotations buried in a message payload. This matters operationally: if a tool call to a downstream service times out, you want that span to carry an error status and the tool name, not just a vague signal that the agent failed to respond.
 
@@ -105,7 +105,7 @@ The OpenTelemetry GenAI semantic conventions are in Development status, not GA. 
 
 ### What a chat log cannot give you
 
-An OpenTelemetry trace is correlated spans across processes, with context propagation, parent-child hierarchy, and status codes you can write alerts against. A chat log is a sequential record of messages. The structural difference is not cosmetic.
+An OpenTelemetry trace is correlated spans across processes, with context propagation, parent-child hierarchy, and status codes you can write alerts against.<Cite sourceId="SRC-OTEL-002" /> A chat log is a sequential record of messages. The structural difference is not cosmetic.
 
 Without a trace, you cannot reconstruct which tool call was on the critical path for a slow response. You cannot tell whether a failure originated in the model, the tool, or the downstream system the tool called. You cannot join agent execution data to your existing APM dashboards. You cannot set an error budget on agent workflow success rate with the same tooling you use for every other service.
 

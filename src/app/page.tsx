@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArticleTeaser } from "@/components/ArticleTeaser";
+import { SubscribeCta } from "@/components/SubscribeCta";
 import { clustersWithArticles, getEditorialClusters } from "@/lib/clusters";
 import { getPublishedArticles } from "@/lib/content";
 import { toArticleCard } from "@/lib/labels";
@@ -125,17 +126,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      <section
-        id="subscribe"
-        className="mt-12 border border-[var(--border)] px-6 py-8"
-      >
-        <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-[-0.03em]">
-          Get the Signal
-        </h2>
-        <p className="mt-2 text-[var(--muted)]">
-          One useful engineering brief every week. Newsletter capture ships in a later phase.
-        </p>
-      </section>
+      <SubscribeCta id="subscribe" />
     </div>
   );
 }
