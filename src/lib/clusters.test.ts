@@ -89,4 +89,8 @@ test("loads launch clusters from editorial/clusters.yml", () => {
   assert.equal(platform?.pillar, "what-is-agentic-platform-engineering");
   assert.ok(platform?.articles.includes("PS-000010"));
   assert.ok(platform?.articles.includes("PS-000011"));
+  const fde = loaded.find((cluster) => cluster.id === "fde");
+  assert.ok(fde);
+  assert.equal(fde?.pillar, "what-is-a-forward-deployed-engineer");
+  assert.ok(fde?.articles.includes("PS-000012"));
 });

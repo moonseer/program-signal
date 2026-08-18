@@ -1,0 +1,160 @@
+---
+id: PS-000012
+title: What Is a Forward Deployed Engineer?
+slug: what-is-a-forward-deployed-engineer
+description: FDE is technical discovery and production enablement, not a personality. Public job descriptions disagree on scope; do not freeze one vendor's definition as the industry.
+subtitle: What Palantir, OpenAI, and Anthropic actually post, and the engineering work between discovery and production handoff.
+contentType: field_note
+authorPersona: nia
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-18"
+updatedAt: "2026-08-18"
+lastReviewedAt: "2026-08-18"
+reviewAfter: "2027-02-14"
+category: Field Engineering
+tags:
+  - forward-deployed-engineer
+  - platform-engineering
+  - technical-discovery
+  - production-handoff
+concepts:
+  - forward-deployed-engineer
+  - technical-discovery
+  - production-handoff
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0012
+seo:
+  title: What Is a Forward Deployed Engineer?
+  description: FDE is technical discovery and production enablement. Palantir, OpenAI, and Anthropic post different scopes; read the work, not the title.
+  primaryQuery: what is a forward deployed engineer
+  searchIntent: informational
+research:
+  editorStatus: pass_with_changes
+  confidence: 80
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - what-is-agentic-platform-engineering
+  sources:
+    - SRC-PAL-001
+    - SRC-OAI-001
+    - SRC-ANTH-001
+  diagrams: []
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| **Central thesis** | FDE is technical discovery and production enablement. It is not a personality. |
+| **Primary question** | What engineering work does an FDE actually do between discovery and production handoff? |
+| **Audience** | Field engineers, platform engineers, engineering managers |
+| **Key distinction** | Public job descriptions from Palantir, OpenAI, and Anthropic disagree on scope |
+| **What this is not** | A career guide, a vendor endorsement, or a mythologized origin story |
+
+---
+
+## Why This Matters
+
+Search for "forward deployed engineer" and you will find three incompatible answers depending on who is hiring.
+
+One employer uses it as a synonym for sales engineering. Another treats it as a senior staff role doing system design inside a customer's infrastructure. A third lists it under professional services. The title is now spreading from the handful of AI-native companies that popularized it into platform and infrastructure hiring more broadly, and it is arriving without a shared definition.
+
+That ambiguity has real costs. Engineers evaluating roles do not know what they are signing up for. Hiring managers import the title without importing the practice. Teams build expectations around a personality archetype ("brilliant generalist who ships fast") rather than around the actual work that makes the role useful.
+
+This article is not a career guide. It is an attempt to describe the engineering work that forward deployed engineers actually do, using the role definitions that exist in public job postings, and to be honest about where those definitions diverge.
+
+---
+
+## Definition: What the Role Actually Says
+
+The clearest way to understand FDE scope is to read what companies post, not what commentators summarize.
+
+Palantir named their version "Forward Deployed Software Engineers" or, internally, Deltas. Their public writing describes Deltas as sitting in Business Development, supporting one customer with many of Palantir's capabilities, and deploying Palantir platforms in that customer's environment. Palantir is explicit that this is not consulting. The comparison they draw is to another internal role they call Devs, who work on one capability shipped to many customers. Deltas go wide within a single account; Devs go deep on a single product.<Cite sourceId="SRC-PAL-001" />
+
+OpenAI's public FDE listing describes something with a different center of gravity. FDEs at OpenAI lead end-to-end deployments of frontier models, own discovery, technical scoping, system design, build, and production rollout, and their success is measured by production adoption and eval-driven feedback that flows back into product and model roadmaps. The listing notes up to 50 percent travel. This is not a platform-customization role in the Palantir sense. It sits closer to a small embedded product team of one.<Cite sourceId="SRC-OAI-001" />
+
+Anthropic's listing places FDEs on the Applied AI team. They embed with strategic customers, accelerate adoption of existing products, and create new applications on Anthropic models. The experience requirement is four or more years in a technical customer-facing role.<Cite sourceId="SRC-ANTH-001" />
+
+Three companies, three scopes. What they share is the basic structure: an engineer who embeds with a customer, does the work required to get something into production, and then moves. What they do not share is how much of the underlying platform they own, how much they build from scratch, and how much they hand back to a product team versus a customer team.
+
+<Callout type="field">
+The title "Forward Deployed Engineer" does not have an industry-standard definition. Before evaluating a role or building a team around it, read the actual scope of work, not the title.
+</Callout>
+
+---
+
+## Discovery and Evidence: The Engineering Work Nobody Talks About
+
+The part of FDE work that gets underestimated is discovery. It is framed in job postings as "understanding customer requirements" or "scoping engagements," which sounds administrative. It is not.
+
+Discovery is the process of turning an organizational problem into a technical specification that can be built, measured, and handed off. It is engineering work. Done poorly, it produces a demo that nobody adopts. Done well, it produces a scoped system design with clear boundaries, a definition of done, and evidence that the customer's environment can actually support what is being proposed.
+
+What does good technical discovery look like in practice? Consider a hypothetical: an engineering team wants to add LLM-assisted triage to their support workflow. The organizational problem is clear. The technical discovery questions are not. What does the existing ticket data look like, and is it labeled? What latency is acceptable before the model output is irrelevant to the responder? Who reviews model output before it reaches a customer? What happens when the model is wrong, and who is accountable? Is there a feedback loop, or is this a one-way fire-and-forget system?
+
+None of those questions are answered by the model vendor. They are answered by sitting with the customer's engineers, reading their existing systems, and doing the unglamorous work of constraint collection. That is what forward deployed engineers are doing in the discovery phase.
+
+The evidence that comes out of good discovery is a set of documented constraints and a technical scope that is honest about what the customer's environment can support on day one versus what requires infrastructure the customer does not yet have. That scope is what separates a production deployment from a demo that lives in a sandbox for six months.
+
+<Callout type="signal">
+Discovery is not requirements gathering. It is constraint collection, environment assessment, and scope reduction. The output is evidence, not a slide deck.
+</Callout>
+
+The relationship between discovery and the model or platform vendor matters here. An FDE at an AI lab is doing discovery in order to deploy their employer's product. An FDE at a platform company may be doing discovery in order to configure a platform that already exists. The discovery work is structurally similar, but the boundaries of what can be changed are different. The OpenAI listing explicitly names eval-driven feedback into product and model roadmaps as a success metric, which means the FDE is also a feedback channel, not just a deployment vehicle.<Cite sourceId="SRC-OAI-001" />
+
+---
+
+## Production Handoff: Where Most Engagements Fail
+
+Getting to production is not the end of an FDE engagement. It is the test of whether the engagement was designed correctly.
+
+Handoff failure follows a recognizable pattern. The FDE builds something that works while they are present, then leaves, and within a few months the system has drifted, the customer team does not know how to operate it, and nobody has clear ownership. The FDE moved to the next account. The customer is stuck with something they cannot maintain.
+
+This is not a personality failure. It is a design failure. Handoff requires that certain things be true before the FDE leaves.
+
+The customer team must be able to operate the system without the FDE present. That means runbooks, observability, and at least one internal owner who understands the system well enough to make changes. It means the system's failure modes are documented, not just known to the person who built it.
+
+The scope agreed during discovery must match what was actually built. Scope creep during an FDE engagement is common because the customer, now seeing what is possible, starts asking for more. The discipline of holding to the original scope or explicitly renegotiating it in writing is part of the engineering work, not a soft-skill add-on.
+
+The feedback loop back to the product or platform team must be closed. For the OpenAI model, that means eval results and deployment learnings that go back into the product roadmap. For the Palantir model, that means the platform configuration and any custom work is reproducible and documented for future deployments. Either way, the FDE who takes institutional knowledge with them when they leave has not finished the job.
+
+<Callout type="watch">
+A handoff that requires the FDE to remain available is not a handoff. It is a dependency. Define the exit condition before the engagement starts.
+</Callout>
+
+---
+
+## Organizational Fit: What This Role Is Not
+
+FDE is not a personality. "Brilliant generalist who thrives in chaos" describes someone who will have a good first month and an expensive third month. The role requires systems thinking, documentation discipline, and the ability to say no to scope that cannot be supported after the engagement ends.
+
+It is also not interchangeable with sales engineering. A sales engineer's job is to demonstrate that a product can solve a problem. An FDE's job is to confirm that it can, build it, and leave the customer able to operate it. Those are related but distinct success conditions. Conflating them produces roles where nobody is accountable for production outcomes.
+
+And it is not a staff engineer embedded with a customer. A staff engineer's primary accountability is to the engineering organization that employs them. An FDE's primary accountability during an engagement is to the production outcome at the customer site. The reporting structure may be the same, but the accountability gradient points in a different direction.
+
+The clearest version of the role is technical discovery and production enablement. Everything else, the travel, the customer relationship, the breadth of the work, is a consequence of doing those two things well inside a constraint that the FDE cannot fully control.
+
+---
+
+## Recommendation
+
+<Recommendation>
+**Use when:** Your organization is deploying a platform or AI product into customer environments that are heterogeneous, have existing constraints that cannot be predicted in advance, and require someone who can do the technical discovery and production enablement work without routing everything through a professional services team on a six-month engagement model.
+
+**Wait when:** The role is being created to provide polished demos with no production accountability, or when there is no clear handoff plan and no customer-side owner. Building an FDE function without a handoff discipline creates a permanent dependency, not a transferable capability.
+</Recommendation>
+
+The title is useful when the work behind it is defined clearly. What engineering work does an FDE do between discovery and production handoff? They collect constraints, reduce scope to what the customer's environment can actually support, build to that scope, and leave the system in a state that a customer team can operate without them.
+
+That is not a personality. It is a set of engineering practices. The companies that do this well treat discovery, evidence, and handoff as first-class engineering deliverables. The companies that do it poorly treat it as a deployment sprint followed by documentation they meant to write.
+
+If you are evaluating an FDE role or building an FDE function, read the scope of work carefully, define the handoff condition before the engagement starts, and ask who owns it afterward. If the answer is "the demo team," it is not a platform product yet.
