@@ -88,4 +88,5 @@ test("loads launch clusters from editorial/clusters.yml", () => {
   assert.ok(platform);
   assert.equal(platform?.pillar, "what-is-agentic-platform-engineering");
   assert.ok(platform?.articles.includes("PS-000010"));
+  assert.ok(platform?.articles.includes("PS-000011"));
 });

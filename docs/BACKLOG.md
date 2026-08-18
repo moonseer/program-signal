@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 18 August 2026  
-**Phase:** Platform engineering / SRE cluster (`PS-000010` packaged, awaiting merge to `main`). MCP cluster `PS-000008`–`PS-000009` **published**. Build-time search **landed**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Phase:** Platform engineering / SRE cluster: `PS-000010` **published**, `PS-000011` packaged (awaiting merge). MCP cluster `PS-000008`–`PS-000009` **published**. Build-time search **landed**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -52,10 +52,13 @@ Keep this section current. Detail lives in the epics below.
 | MCP operator guide | `PS-000009` reframed as a host-agnostic privileged-workload guide with diagram `PS-D-0005`; Kubernetes is not the default host |
 | Homepage + topics | Magazine homepage, topic cluster pages, list-first articles index with filters |
 | Build-time search | FlexSearch dialog in the header (⌘K); no search API |
+| Article layout | Title, At a Glance, and prose share one content column; tables scroll instead of stacking ([#21](https://github.com/moonseer/program-signal/pull/21)) |
+| Desk revise | Send-back keeps the finished draft on Author failure; house style bans em dashes ([#22](https://github.com/moonseer/program-signal/pull/22)) |
+| Platform SRE start | `PS-000010` published ([#20](https://github.com/moonseer/program-signal/pull/20)) |
 
 ### Do next (recommended order)
 
-1. **Merge `PS-000010`** (What Is Agentic Platform Engineering?) when the content PR is accepted. Then `PS-000011` (observability). Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
+1. **Merge `PS-000011`** (Observability for AI Agents) when the content PR is accepted. Radar automation stays later. Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
 
 ### Deferred (not now)
 
@@ -76,7 +79,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15 S15.01–S15.02 **Done** pending human merge. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 S16.01 **Done**; S16.02 **Done** pending human merge. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1056,7 +1059,7 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 
 ## E16 — Launch cluster: platform engineering / SRE (2)
 
-**Status:** In progress  
+**Status:** Done pending merge of `PS-000011`  
 **Phase:** P2  
 **Priority:** Critical
 
@@ -1069,9 +1072,9 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 ### S16.02 — Observability for AI Agents
 
 - [x] Brief (Marcus)
-- [ ] OpenTelemetry / tracing of multi-step workflows
-- [ ] Research review
-- [ ] Human approval
+- [x] OpenTelemetry / tracing of multi-step workflows
+- [x] Research review
+- [x] Human approval
 
 ---
 
@@ -1876,4 +1879,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: merge `PS-000010`, then observability (`PS-000011`). Kubernetes cluster (`PS-000005`–`000007`) is deferred.
+Recommended next piece of work: merge `PS-000011` (Observability for AI Agents). Kubernetes cluster (`PS-000005`–`000007`) is deferred. Radar automation stays later.

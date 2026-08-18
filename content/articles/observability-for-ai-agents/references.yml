@@ -1,0 +1,7 @@
+references:
+  - source_id: SRC-OTEL-001
+    label: SPECIFICATION
+    note: GenAI spans for inference and execute_tool. Status Development. Content capture is opt-in.
+  - source_id: SRC-OTEL-002
+    label: PRIMARY_SOURCE
+    note: A trace is correlated spans across processes, with context, hierarchy, and status. A chat log is not that.
