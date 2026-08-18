@@ -1,0 +1,200 @@
+---
+id: PS-000009
+title: How to Run MCP Servers as Privileged Workloads
+slug: how-to-run-mcp-servers-as-privileged-workloads
+description: An MCP server is a privileged process. Identity, secrets, network, and audit bound its blast radius — not the prompt, and not the choice of host.
+subtitle: Operator controls that travel with the server, whether it runs on a VM, a container, Kubernetes, or a managed host.
+contentType: operator_guide
+authorPersona: marcus
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-17"
+updatedAt: "2026-08-17"
+lastReviewedAt: "2026-08-17"
+reviewAfter: "2026-10-16"
+category: AI Agents
+tags:
+  - mcp
+  - security
+  - platform-engineering
+concepts:
+  - mcp
+  - workload-identity
+  - blast-radius
+technologyVersions: {}
+difficulty: advanced
+opportunityId: PS-O-0009
+seo:
+  title: How to Run MCP Servers as Privileged Workloads
+  description: Identity, authorization, secrets, audit, and failure domains for MCP servers — host-agnostic operator guidance.
+  primaryQuery: MCP server security privileged workload
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 82
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - mcp-for-platform-engineers
+    - what-is-an-ai-agent-harness
+    - agent-harness-vs-agent-framework-vs-mcp
+  sources:
+    - SRC-MCP-001
+    - SRC-MCP-002
+  diagrams:
+    - PS-D-0005
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| Topic | Operating MCP servers as privileged workloads |
+| Why it matters | Server credentials, not prompts, set blast radius |
+| Audience | Platform engineers, SRE, and security engineers |
+| Maturity | Protocol is implementable; production patterns are still forming |
+| Read time | About 10 minutes |
+
+## Why This Matters
+
+The default MCP server is a process with a tool list and a secret in the environment. That is enough to demo. It is not enough to operate.
+
+When that process can read a database, open a change ticket, or call an internal API, it is a **privileged workload**. The host that runs it — a VM, a container, a Kubernetes cluster, or a managed runtime — is a placement decision. Placement is not a security model.
+
+<Callout type="production">
+If you cannot name the identity the server uses, the network it can reach, the secret it holds, and the audit record a failed tool call leaves, you are not ready to attach it to a production host.
+</Callout>
+
+Maya’s pillar piece, [MCP for Platform Engineers](/articles/mcp-for-platform-engineers), names the protocol. This guide is the operator half: identity, authorization, secrets, network, audit, and how the thing fails.
+
+## A Privileged Workload, Not a Plugin
+
+MCP defines hosts, clients, and servers over JSON-RPC. The **server** is a separate process that exposes tools, resources, and prompts. It often holds credentials the calling model never sees.
+
+Treat that process like any other privileged worker:
+
+| Control | Question |
+|---|---|
+| Identity | Which principal is this server? |
+| Authorization | Which tools and which downstream APIs may it call? |
+| Secrets | Where do those credentials live, and who can rotate them? |
+| Network | What can it reach from this placement? |
+| Audit | Can you reconstruct a tool call after an incident? |
+
+<Figure id="PS-D-0005" caption="PS-D-0005 — Blast radius sits on the server’s credentials and reachability. The host environment is a placement, not the control plane." />
+
+Kubernetes is one legal answer to “where does the process run.” It is not the only one, and it is not in scope as a default here. The same five controls apply on a VM, a container host, or a vendor runtime.
+
+## Identity and Authorization
+
+Do not confuse three identities:
+
+1. **User / initiator** — the person or service that started the agent run.
+2. **Host** — the application that embeds the MCP client and decides which servers to attach.
+3. **Server** — the process that actually holds downstream credentials and executes tools.
+
+If the server token can do more than the host will allow the model to request, the effective policy is the server token.
+
+MCP authorization is **optional**. When you use HTTP-based transports and you do implement authorization, the spec expects OAuth at the transport. When you use **STDIO**, the spec says you should **not** follow that HTTP authorization flow and should take credentials from the environment instead. That is a feature of local wiring. It is also how secrets leak into every child process that inherits the environment.
+
+<Callout type="watch">
+STDIO is convenient. It is also an inheritance path. A server that reads `AWS_SECRET_ACCESS_KEY` from the environment has whatever blast radius that key has, regardless of what the prompt said.
+</Callout>
+
+MCP security guidance forbids **token passthrough**: a server must not accept tokens that were not issued **for that MCP server** and forward them to a downstream API. Passthrough breaks audience checks, audit, and the trust boundary between client, server, and API.
+
+Approve a server only with a named owner and a named principal. Shared “platform MCP” identities are how one compromised tool catalog becomes every team’s incident.
+
+## Secrets and Network
+
+Store server secrets in the secret system you already trust for production workloads. Do not keep long-lived tokens in repo files, chat logs, or unscoped environment blocks copied between hosts.
+
+Rotate on a schedule you can prove. When a tool is retired, retire its credential. A dead tool with a live token is still a live path.
+
+Network is a blast-radius control, not a Kubernetes feature. Wherever the process runs, ask:
+
+- Which destinations can this server reach?
+- Which callers can reach this server?
+- What happens if it is placed in prod with a staging credential, or the reverse?
+
+Security groups, host firewalls, service mesh policy, and Kubernetes `NetworkPolicy` are different mechanisms for the same job. Pick the one that exists on **this** host. Do not wait for a cluster to start bounding egress.
+
+Start read-only. Write tools need an extra approval. Tools that take a URL or a host name need an allow-list, or you have handed the model an SSRF primitive.
+
+## Audit
+
+You need a line you can find at 2 AM:
+
+`request id → host → server identity → tool name → downstream call → result`
+
+If the host and the server do not share a correlation id, you will reconstruct the incident from two log piles and a guess.
+
+Log denials, timeouts, and partial success. A tool that returns “ok” after writing one of three records is a failure mode, not a green span.
+
+<Callout type="production">
+Do not treat MCP JSON-RPC as your audit log. It is a wire protocol. Your platform still owns durable traces.
+</Callout>
+
+The protocol cannot enforce its own security principles. Consent, authorization, and access control are implementor work. If those controls are only in the prompt, they are not controls.
+
+## Failure Modes
+
+These show up before architecture diagrams do.
+
+**Server token outlives host policy.** The host stops offering a tool. The server credential still can.
+
+**Environment inheritance.** STDIO and poorly isolated containers pass parent secrets to the server. The tool allow-list never sees them.
+
+**Token passthrough.** The server forwards a client token downstream. Downstream logs name the wrong caller. Rate limits and audience checks no longer apply to the server.
+
+**Uncorrelated traces.** The host has a run id. The server has a request log. On-call has neither.
+
+**Timeouts with side effects.** The client times out. The downstream write commits. Retry without idempotency keys doubles the change.
+
+**Shared super-server.** One process, many teams, one credential. Isolation is a spreadsheet.
+
+**Host as talisman.** “It runs on Kubernetes” or “it runs in our VPC” used as a substitute for identity and audit.
+
+None of these require a fabricated incident. They are the ordinary shape of privileged processes.
+
+## Approval checklist
+
+Before a production host may attach the server:
+
+| Gate | Pass looks like |
+|---|---|
+| Owner | Named human or team on the pager |
+| Principal | Named identity, not a shared “platform” user |
+| Tools | Allow-list, read-only by default |
+| Secret | Stored in the production secret system, rotation date known |
+| Network | Explicit callers and destinations for this placement |
+| Trace | Shared id from host to downstream, including denials and timeouts |
+| Failure | Documented timeout, retry, and stop-the-run behavior |
+
+If a row is “we will get to it after we pick Kubernetes,” the server is not approved.
+
+## Recommendation
+
+<Recommendation>
+Treat every MCP server as a privileged workload. Bind a named identity, bound network, rotated secret, and a trace you can follow — then pick a host.
+
+**Use when**
+
+- A server will hold credentials to internal APIs, data, or change systems
+- You can name owner, principal, allow-list, and failure behavior
+- You are ready to start read-only and expand on purpose
+
+**Wait when**
+
+- The only control is prompt text
+- STDIO is shipping production secrets through inherited environment
+- You cannot show a denied or timed-out tool call in a trace
+- “We will put it on Kubernetes” is doing the work of identity and audit
+</Recommendation>

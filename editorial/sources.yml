@@ -10,6 +10,17 @@ sources:
       - security
     published_at: "2025-06-18"
     notes: Canonical protocol docs. Not an agent architecture.
+  - source_id: SRC-MCP-002
+    title: MCP security best practices
+    organization: Model Context Protocol
+    url: https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+    type: specification
+    tier: 1
+    topics:
+      - ai-agents
+      - security
+    published_at: "2025-06-18"
+    notes: Token passthrough, confused deputy, and operator-facing MCP security risks. Not a Kubernetes guide.
   - source_id: SRC-K8S-001
     title: Service accounts
     organization: Kubernetes

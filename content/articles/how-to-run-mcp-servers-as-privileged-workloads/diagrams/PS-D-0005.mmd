@@ -1,0 +1,4 @@
+flowchart LR
+  Host[Agent host plus MCP client] -->|JSON-RPC| Server[MCP server credentials and tools]
+  Server --> APIs[Downstream APIs]
+  Controls[Identity secrets network audit]

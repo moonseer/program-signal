@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 17 August 2026  
-**Phase:** Agent-harness cluster (**published** on `main`). MCP pillar `PS-000008` **published**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Phase:** Agent-harness cluster (**published** on `main`). MCP cluster `PS-000008`–`PS-000009` **published**. Build-time search **landed**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -49,17 +49,17 @@ Keep this section current. Detail lives in the epics below.
 | Agent-harness cluster | `PS-000001`–`PS-000004` published ([#5](https://github.com/moonseer/program-signal/pull/5)) |
 | Agent runtime Phase 1 | LangGraph workflow, persona packages, PydanticAI agents (Desk/Author/Evidence), capability routing, dry-run + test-model + live modes, revision cap, Evidence gates ([#7](https://github.com/moonseer/program-signal/pull/7)–[#11](https://github.com/moonseer/program-signal/pull/11)) |
 | MCP cluster start | `PS-000008` published with evidence and diagram `PS-D-0004` ([#7](https://github.com/moonseer/program-signal/pull/7)) |
+| MCP operator guide | `PS-000009` reframed as a host-agnostic privileged-workload guide with diagram `PS-D-0005`; Kubernetes is not the default host |
 | Homepage + topics | Magazine homepage, topic cluster pages, list-first articles index with filters |
 | Build-time search | FlexSearch dialog in the header (⌘K); no search API |
 
 ### Do next (recommended order)
 
-1. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
+1. **Platform engineering / SRE cluster** — `PS-000010` (What Is Agentic Platform Engineering?) then `PS-000011`. Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
 
 ### Deferred (not now)
 
 - **Kubernetes + AI launch cluster** (`PS-000005`–`PS-000007`, E14) — briefs stay in-repo; articles wait until Kubernetes is back in editorial scope.
-- **MCP on Kubernetes operator guide** (`PS-000009`, S15.02) — reframe or hold until a K8s workload story is intentional, not default.
 
 ### Not next
 
@@ -67,7 +67,7 @@ Keep this section current. Detail lives in the epics below.
 - RSS, newsletter vendor, custom domain
 - Public launch / turning off `noindex`
 - Running Radar or Desk as live jobs **before Agent runtime Phase 1 is proven**
-- Kubernetes launch cluster (`PS-000005`–`000007`) or MCP-on-K8s operator guide (`PS-000009`)
+- Kubernetes launch cluster (`PS-000005`–`000007`)
 - Monetization (Hobby is non-commercial)
 
 ### How to see progress in this file
@@ -76,7 +76,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15 S15.01 **Done**. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15 S15.01–S15.02 **Done** pending human merge. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1042,14 +1042,14 @@ Do not generate all 15 from a blank prompt. Each gets a brief first.
 - [x] Research review
 - [x] Human approval
 
-### S15.02 — How to Run MCP Servers Safely on Kubernetes
+### S15.02 — How to Run MCP Servers as Privileged Workloads
 
-**Deferred** until Kubernetes is in editorial scope. Consider reframing as a host-agnostic privileged-workload guide (`PS-000009` brief title may change).
+Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 
 - [x] Brief (Marcus, Operator Guide)
-- [ ] Identity, authz, blast radius, secrets, audit
-- [ ] Failure modes
-- [ ] Research review
+- [x] Identity, authz, blast radius, secrets, audit
+- [x] Failure modes
+- [x] Research review
 - [ ] Human approval
 
 ---
@@ -1875,4 +1875,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: MCP cluster `PS-000009` as a host-agnostic operator guide. Kubernetes cluster (`PS-000005`–`000007`) is deferred.
+Recommended next piece of work: platform engineering / SRE cluster (`PS-000010`). Kubernetes cluster (`PS-000005`–`000007`) is deferred.

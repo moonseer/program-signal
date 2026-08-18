@@ -1,0 +1,69 @@
+article: how-to-run-mcp-servers-as-privileged-workloads
+reviewed: "2026-08-17"
+claims:
+  - id: C001
+    claim: MCP servers are separate processes that expose tools, resources, and prompts and can hold credentials distinct from the calling host.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C002
+    claim: MCP authorization is optional. HTTP-based transports that implement authorization should follow the MCP authorization spec; STDIO transports should not, and should retrieve credentials from the environment.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: MCP Authorization
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization
+        date: "2025-06-18"
+        tier: 1
+  - id: C003
+    claim: MCP servers must not accept tokens that were not issued for the MCP server (token passthrough is an anti-pattern and is forbidden).
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: MCP security best practices — Token Passthrough
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+        date: "2025-06-18"
+        tier: 1
+  - id: C004
+    claim: The MCP protocol cannot enforce its security principles at the protocol level; implementors must add consent, authorization, and access control.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C005
+    claim: Host choice (VM, container, Kubernetes, managed runtime) is a placement decision; identity, network, secrets, and audit are the operator controls that bound blast radius.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+  - id: C006
+    claim: Tools that accept URLs or host names without an allow-list can become SSRF primitives; MCP security guidance covers SSRF against MCP clients.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: MEDIUM
+    sources:
+      - title: MCP security best practices — Server-Side Request Forgery
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+        date: "2025-06-18"
+        tier: 1
