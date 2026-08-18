@@ -1,8 +1,22 @@
-from editorial_runtime.models import EvidenceOutcome, EvidenceReview, PersonaName, WorkflowState
+from pathlib import Path
+
+import pytest
+
+from editorial_runtime.agents.author import author_revision_block
+from editorial_runtime.models import (
+    ArticleBrief,
+    ContentType,
+    EvidenceOutcome,
+    EvidenceReview,
+    PersonaName,
+    WorkflowStage,
+    WorkflowState,
+)
 from editorial_runtime.nodes import route_after_evidence
 from editorial_runtime.sources import load_source_pack
 from editorial_runtime.repo import find_repo_root
-from pathlib import Path
+from editorial_runtime.store import InMemoryRunStore
+from editorial_runtime.workflow import revise_workflow
 
 
 def test_load_source_pack_includes_mcp_spec():
@@ -42,3 +56,118 @@ def test_first_pass_with_changes_routes_to_revision():
         ),
     )
     assert route_after_evidence(state) == "revision"
+
+
+def _brief() -> ArticleBrief:
+    return ArticleBrief(
+        article_id="PS-000010",
+        opportunity_id="PS-O-0010",
+        working_title="What Is Agentic Platform Engineering?",
+        content_type=ContentType.explainer,
+        author_persona=PersonaName.maya,
+        target_reader=["platform engineers"],
+        primary_question="What stays human?",
+        reader_problem="The term is undefined.",
+        central_thesis="Agents may assist. They must not own the control plane.",
+        why_now="Rebranding without a definition.",
+        unique_angle="Which platform jobs stay human.",
+        required_sections=["why this matters", "definition", "recommendation"],
+        required_visuals=["deferred"],
+        target_length=1600,
+        research_review="strongly_recommended",
+    )
+
+
+def test_revision_block_empty_on_first_pass():
+    state = WorkflowState(
+        workflow_id="test",
+        topic="x",
+        assigned_persona=PersonaName.maya,
+        brief=_brief(),
+        draft_mdx="<Figure src='deferred-visual' />",
+        revision_count=0,
+    )
+    assert author_revision_block(state) == ""
+
+
+def test_revision_block_includes_draft_and_human_notes():
+    state = WorkflowState(
+        workflow_id="test",
+        topic="x",
+        assigned_persona=PersonaName.maya,
+        brief=_brief(),
+        draft_mdx="<Figure src='deferred-visual' />\nToo short.",
+        revision_count=1,
+        revision_notes="Remove all Figure tags. Hit 1600 words.",
+        evidence_review=EvidenceReview(
+            editor_status=EvidenceOutcome.hold,
+            confidence=60,
+            summary="Missing figure deferred-visual",
+        ),
+    )
+    block = author_revision_block(state)
+    assert "deferred-visual" in block
+    assert "Remove all Figure tags" in block
+    assert "1600" in block
+    assert "Missing figure" in block
+
+
+def test_revise_workflow_rejects_missing_run_and_empty_notes():
+    store = InMemoryRunStore()
+    with pytest.raises(ValueError, match="No run found"):
+        revise_workflow(
+            workflow_id="missing",
+            runs_dir=Path("/tmp"),
+            notes="rewrite",
+            store=store,
+        )
+
+    state = WorkflowState(
+        workflow_id="run-1",
+        topic="x",
+        assigned_persona=PersonaName.maya,
+        brief=_brief(),
+        draft_mdx="# stub\n",
+        dry_run=True,
+        stage=WorkflowStage.human_gate,
+    )
+    store.save(state)
+    with pytest.raises(ValueError, match="revision notes are required"):
+        revise_workflow(
+            workflow_id="run-1",
+            runs_dir=Path("/tmp"),
+            notes="   ",
+            store=store,
+        )
+
+
+def test_dry_run_revise_returns_to_human_gate(tmp_path: Path):
+    store = InMemoryRunStore()
+    state = WorkflowState(
+        workflow_id="run-2",
+        topic="What Is Agentic Platform Engineering?",
+        assigned_persona=PersonaName.maya,
+        brief=_brief(),
+        draft_mdx="<Figure src='deferred-visual' />\n",
+        dry_run=True,
+        stage=WorkflowStage.human_gate,
+        evidence_review=EvidenceReview(
+            editor_status=EvidenceOutcome.hold,
+            confidence=60,
+            summary="Missing figure deferred-visual",
+        ),
+    )
+    store.save(state)
+    revised = revise_workflow(
+        workflow_id="run-2",
+        runs_dir=tmp_path,
+        notes="Remove all Figure tags. Hit the brief length.",
+        store=store,
+    )
+    assert revised.stage == WorkflowStage.human_gate
+    assert revised.revision_count == 1
+    assert revised.revision_notes is not None
+    assert "Figure" in revised.revision_notes
+    assert revised.draft_path is not None
+    assert Path(revised.draft_path).is_file()
+

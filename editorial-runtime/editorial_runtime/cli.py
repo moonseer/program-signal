@@ -14,7 +14,7 @@ from editorial_runtime.context import assemble_author_context
 from editorial_runtime.models import PersonaName, WorkflowStage
 from editorial_runtime.repo import find_repo_root
 from editorial_runtime.store import open_run_store
-from editorial_runtime.workflow import run_workflow
+from editorial_runtime.workflow import decide_workflow, revise_workflow, run_workflow
 
 
 def _load_env(repo: Path) -> None:
@@ -77,6 +77,23 @@ def main() -> None:
     listing.add_argument("--stage", default=None, help="Filter by stage (e.g. human_gate)")
     listing.add_argument("--limit", type=int, default=20)
 
+    revise = sub.add_parser("revise", help="Rewrite a human-gate run, then Evidence again")
+    revise.add_argument("workflow_id")
+    revise.add_argument(
+        "--note",
+        required=True,
+        help="Human Editor-in-Chief revision notes for the Author Engine",
+    )
+
+    decide = sub.add_parser("decide", help="Accept or reject a human-gate run (does not publish)")
+    decide.add_argument("workflow_id")
+    decide.add_argument("--accept", action="store_true")
+    decide.add_argument("--reject", action="store_true")
+    decide.add_argument("--note", default="")
+
+    desk = sub.add_parser("desk", help="Local Editor-in-Chief review UI (127.0.0.1)")
+    desk.add_argument("--port", type=int, default=8787)
+
     args = parser.parse_args()
     repo = find_repo_root()
     _load_env(repo)
@@ -138,6 +155,46 @@ def main() -> None:
                 indent=2,
             ),
         )
+        return
+
+    if args.command == "revise":
+        store = open_run_store(runs_dir=runs_dir)
+        try:
+            state = revise_workflow(
+                workflow_id=args.workflow_id,
+                runs_dir=runs_dir,
+                notes=args.note,
+                store=store,
+            )
+        except ValueError as exc:
+            raise SystemExit(str(exc)) from exc
+        print(json.dumps(state.model_dump(mode="json"), indent=2, default=str))
+        if state.stage != WorkflowStage.human_gate:
+            raise SystemExit(f"Expected human_gate, got {state.stage}")
+        return
+
+    if args.command == "decide":
+        if args.accept == args.reject:
+            raise SystemExit("Pass exactly one of --accept or --reject")
+        store = open_run_store(runs_dir=runs_dir)
+        try:
+            state = decide_workflow(
+                workflow_id=args.workflow_id,
+                decision="approved" if args.accept else "rejected",
+                runs_dir=runs_dir,
+                notes=args.note,
+                store=store,
+            )
+        except ValueError as exc:
+            raise SystemExit(str(exc)) from exc
+        print(json.dumps(state.model_dump(mode="json"), indent=2, default=str))
+        return
+
+    if args.command == "desk":
+        from editorial_runtime.desk import serve_desk
+
+        store = open_run_store(runs_dir=runs_dir)
+        serve_desk(store=store, runs_dir=runs_dir, port=args.port)
         return
 
     if args.command == "assemble-context":

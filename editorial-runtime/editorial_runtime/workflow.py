@@ -88,3 +88,59 @@ def run_workflow(
     state = _as_state(final)
     run_store.save(state)
     return state
+
+
+def revise_workflow(
+    *,
+    workflow_id: str,
+    runs_dir: Path,
+    notes: str,
+    store: RunStore | None = None,
+) -> WorkflowState:
+    """Human-gate rewrite: Author then Evidence, then back to the human gate."""
+    run_store = store or open_run_store(runs_dir=runs_dir)
+    run_store.setup()
+    state = run_store.get(workflow_id)
+    if state is None:
+        raise ValueError(f"No run found: {workflow_id}")
+    if state.brief is None:
+        raise ValueError(f"Run {workflow_id} has no brief")
+    if not notes.strip():
+        raise ValueError("revision notes are required")
+
+    state.revision_notes = notes.strip()
+    state = nodes.revision(state)
+    run_store.save(state)
+    state = nodes.author_draft(state, runs_dir)
+    run_store.save(state)
+    state = nodes.evidence_review(state)
+    run_store.save(state)
+    state = nodes.human_gate(state)
+    run_store.save(state)
+    return state
+
+
+def decide_workflow(
+    *,
+    workflow_id: str,
+    decision: str,
+    runs_dir: Path,
+    notes: str = "",
+    store: RunStore | None = None,
+) -> WorkflowState:
+    """Record Editor-in-Chief accept or reject. Does not publish."""
+    if decision not in {"approved", "rejected"}:
+        raise ValueError("decision must be approved or rejected")
+    run_store = store or open_run_store(runs_dir=runs_dir)
+    run_store.setup()
+    state = run_store.get(workflow_id)
+    if state is None:
+        raise ValueError(f"No run found: {workflow_id}")
+    if state.stage != WorkflowStage.human_gate:
+        raise ValueError(f"Run {workflow_id} is at {state.stage.value}, not human_gate")
+    state.human_status = decision  # type: ignore[assignment]
+    if notes.strip():
+        state.human_notes = notes.strip()
+    state.touch()
+    run_store.save(state)
+    return state

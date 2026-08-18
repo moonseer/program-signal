@@ -18,6 +18,14 @@ FAKE_CASE = re.compile(
     re.IGNORECASE,
 )
 WRONG_MCP = re.compile(r"multi[-\s]?cluster pod", re.IGNORECASE)
+FRONTMATTER = re.compile(r"^---\n.*?\n---\n", re.DOTALL)
+TAGS = re.compile(r"<[^>]+>")
+
+
+def draft_word_count(draft: str) -> int:
+    text = FRONTMATTER.sub(" ", draft)
+    text = TAGS.sub(" ", text)
+    return len(re.findall(r"\b\w+\b", text))
 
 
 def _mentions_mcp_roles(draft: str) -> bool:
@@ -99,6 +107,20 @@ def apply_evidence_gates(
                 claim_id="C903",
                 status="UNSUPPORTED",
                 note="Anecdote, employer, or percentage without a tier-1 source in the pack.",
+            ),
+        )
+
+    words = draft_word_count(draft_mdx)
+    minimum = int(brief.target_length * 0.6)
+    if words < minimum:
+        defects.append(
+            f"Draft is {words} words; brief target is {brief.target_length} (minimum {minimum}).",
+        )
+        extra_claims.append(
+            ClaimReview(
+                claim_id="C904",
+                status="UNSUPPORTED",
+                note=f"Stub length: {words} words vs target {brief.target_length}.",
             ),
         )
 
