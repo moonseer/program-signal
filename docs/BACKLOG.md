@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 18 August 2026  
-**Phase:** Platform engineering / SRE cluster **published** (`PS-000010`, `PS-000011`). MCP cluster `PS-000008`–`PS-000009` **published**. Site reading experience (diagrams, progress, citations, metadata) in flight. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Phase:** FDE cluster started (`PS-000012` packaged, awaiting merge). Platform engineering / SRE (`PS-000010`, `PS-000011`) and MCP (`PS-000008`–`PS-000009`) **published**. Site reading experience landed ([#24](https://github.com/moonseer/program-signal/pull/24)). Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -56,10 +56,12 @@ Keep this section current. Detail lives in the epics below.
 | Desk revise | Send-back keeps the finished draft on Author failure; house style bans em dashes ([#22](https://github.com/moonseer/program-signal/pull/22)) |
 | Platform SRE start | `PS-000010` published ([#20](https://github.com/moonseer/program-signal/pull/20)) |
 | Platform SRE observability | `PS-000011` published ([#23](https://github.com/moonseer/program-signal/pull/23)) |
+| Site reading experience | Diagram visual language, expand/download, reading progress, JSON-LD/OG, citations, code copy ([#24](https://github.com/moonseer/program-signal/pull/24)) |
+| FDE cluster start | `PS-000012` packaged (this PR); Nia field note; Palantir / OpenAI / Anthropic sources |
 
 ### Do next (recommended order)
 
-1. Land the reading-experience PR: diagram visual language, expand/download, reading progress, JSON-LD/OG, article-end Signal CTA, inline citations, code copy. Then the next brief. Kubernetes cluster (`PS-000005`–`000007`) stays deferred. Radar automation stays later.
+1. Merge the `PS-000012` content PR, then run `PS-000013` (FDE vs Platform Engineer vs Solutions Architect). Kubernetes cluster (`PS-000005`–`000007`) stays deferred. Radar automation stays later.
 
 ### Deferred (not now)
 
@@ -80,7 +82,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 **Done**. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 **Done**. E17 **In progress** (`PS-000012` packaged). E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1088,9 +1090,10 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 ### S17.01 — What Is a Forward Deployed Engineer?
 
 - [x] Brief (Nia)
-- [ ] No fabricated personal war stories; label hypotheticals
-- [ ] Research review (strongly recommended)
-- [ ] Human approval
+- [x] No fabricated personal war stories; label hypotheticals
+- [x] Research review (strongly recommended)
+- [x] Human approval
+- [ ] Content PR merge (this PR)
 
 ### S17.02 — FDE vs Platform Engineer vs Solutions Architect
 

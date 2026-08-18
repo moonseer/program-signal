@@ -1,0 +1,59 @@
+article: what-is-a-forward-deployed-engineer
+reviewed: "2026-08-18"
+claims:
+  - id: C001
+    claim: Public FDE job descriptions from Palantir, OpenAI, and Anthropic disagree on scope. Palantir describes Deltas as deploying existing platforms for one customer. OpenAI describes end-to-end frontier-model deployments with eval feedback into product and model roadmaps. Anthropic describes Applied AI work that ships new applications on its models.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Dev versus Delta
+        org: Palantir
+        url: https://blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87
+        date: "2019-04-08"
+        tier: 1
+      - title: Forward Deployed Engineer (FDE) - SF
+        org: OpenAI
+        url: https://openai.com/careers/forward-deployed-engineer-%28fde%29-sf-san-francisco/
+        tier: 1
+      - title: Forward Deployed Engineer
+        org: Anthropic
+        url: https://job-boards.greenhouse.io/anthropic/jobs/5391021008
+        tier: 1
+  - id: C002
+    claim: Palantir names Forward Deployed Software Engineers Deltas. Deltas sit in Business Development, support one customer with many capabilities, and deploy Palantir platforms. Palantir says this is not consulting. Devs work on one capability shipped to many customers.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Dev versus Delta
+        org: Palantir
+        url: https://blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87
+        date: "2019-04-08"
+        tier: 1
+  - id: C003
+    claim: OpenAI's public FDE listing says FDEs lead end-to-end deployments of frontier models, own discovery through production rollout, measure success by production adoption and eval-driven feedback into product and model roadmaps, and travel up to 50 percent.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Forward Deployed Engineer (FDE) - SF
+        org: OpenAI
+        url: https://openai.com/careers/forward-deployed-engineer-%28fde%29-sf-san-francisco/
+        tier: 1
+  - id: C004
+    claim: Anthropic's public FDE listing places the role on the Applied AI team. FDEs embed with strategic customers, accelerate adoption of existing products, and create new applications on Anthropic models. The listing asks for four or more years in a technical customer-facing role.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Forward Deployed Engineer
+        org: Anthropic
+        url: https://job-boards.greenhouse.io/anthropic/jobs/5391021008
+        tier: 1
+  - id: C005
+    claim: "The useful FDE job is technical discovery and production enablement, not a personality archetype. Hypotheticals in this article are labeled; no client war stories are invented."
+    type: OPINION
+    status: SUPPORTED
+    confidence: HIGH
+    sources: []

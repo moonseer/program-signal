@@ -1,0 +1,10 @@
+references:
+  - source_id: SRC-PAL-001
+    label: PRIMARY_SOURCE
+    note: Palantir Deltas sit in Business Development, support one customer with many capabilities, and deploy Palantir platforms. Distinct from Devs.
+  - source_id: SRC-OAI-001
+    label: PRIMARY_SOURCE
+    note: OpenAI FDEs lead end-to-end frontier-model deployments. Success includes production adoption and eval feedback into product and model roadmaps.
+  - source_id: SRC-ANTH-001
+    label: PRIMARY_SOURCE
+    note: Anthropic FDEs sit on Applied AI, embed with strategic customers, and create new applications on Anthropic models. Job IDs rotate.

@@ -43,8 +43,10 @@ clusters:
       - PS-O-0011
   - id: fde
     name: FDE / Engineering Growth
+    pillar: what-is-a-forward-deployed-engineer
     pillar_opportunity: PS-O-0012
-    articles: []
+    articles:
+      - PS-000012
     opportunities:
       - PS-O-0012
       - PS-O-0013

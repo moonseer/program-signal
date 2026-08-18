@@ -5,7 +5,10 @@ next:
   lab: 1
   opportunity: 16
 source_families:
+  ANTH: 2
   CNCF: 3
   K8S: 3
   MCP: 3
+  OAI: 2
   OTEL: 3
+  PAL: 2
