@@ -17,6 +17,7 @@ import {
 } from "@/lib/content";
 import { extractHeadings } from "@/lib/headings";
 import { difficultyDots, formatDate } from "@/lib/format";
+import { articleMdxOptions } from "@/lib/mdx";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -130,7 +131,11 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           </details>
           <div className="prose-signal">
-            <MDXRemote source={body} components={components} />
+            <MDXRemote
+              source={body}
+              components={components}
+              options={{ mdxOptions: articleMdxOptions }}
+            />
           </div>
         </div>
       </div>
