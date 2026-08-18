@@ -1,5 +1,6 @@
 # Capability-based model routing (not per-persona).
-# Override any alias with PS_MODEL_<ALIAS> env vars, e.g. PS_MODEL_WRITER=anthropic:claude-3-5-sonnet-latest
+# Override any alias with PS_MODEL_<ALIAS> env vars, e.g. PS_MODEL_WRITER=openai:atlas-general
+# When using a LiteLLM proxy, set OPENAI_API_BASE / OPENAI_BASE_URL and OPENAI_API_KEY.
 
 research:
   primary: openai:gpt-4o-mini
