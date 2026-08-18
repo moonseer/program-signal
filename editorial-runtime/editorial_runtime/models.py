@@ -90,6 +90,20 @@ class EvidenceReview(BaseModel):
     summary: str
 
 
+class AuthorDraftOutput(BaseModel):
+    outline: str
+    draft_mdx: str = Field(
+        description="MDX article body. Frontmatter is added by the workflow.",
+    )
+
+
+class ModelUsageRecord(BaseModel):
+    agent: str
+    capability: str
+    model: str
+    workflow_stage: str
+
+
 class WorkflowStage(str, Enum):
     topic = "topic"
     desk = "desk"
@@ -110,12 +124,14 @@ class WorkflowState(BaseModel):
     assigned_persona: PersonaName
     persona_version: str = "1.0.0"
     dry_run: bool = True
+    use_test_model: bool = False
     desk_decision: EditorialDecision | None = None
     brief: ArticleBrief | None = None
     outline: str | None = None
     draft_path: str | None = None
     evidence_review: EvidenceReview | None = None
     human_status: Literal["pending", "approved", "rejected"] = "pending"
+    model_usage: list[ModelUsageRecord] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

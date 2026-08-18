@@ -47,14 +47,15 @@ Keep this section current. Detail lives in the epics below.
 | License | MIT for site software; editorial content all rights reserved |
 | Launch planning | 15 opportunity cards + 15 Desk briefs (`PS-000001`–`PS-000015`) |
 | Agent-harness cluster | `PS-000001`–`PS-000004` published ([#5](https://github.com/moonseer/program-signal/pull/5)) |
-| Agent runtime Phase 1 | LangGraph workflow, persona packages, dry-run CLI, pytest — LLM nodes not wired yet ([#7](https://github.com/moonseer/program-signal/pull/7)) |
+| Agent runtime Phase 1 | LangGraph workflow, persona packages, PydanticAI agents (Desk/Author/Evidence), capability routing, dry-run + test-model + live modes ([#7](https://github.com/moonseer/program-signal/pull/7), E37 LLM slice in progress) |
 | MCP cluster start | `PS-000008` published with evidence and diagram `PS-D-0004` ([#7](https://github.com/moonseer/program-signal/pull/7)) |
 
 ### Do next (recommended order)
 
-1. **Wire LLM nodes into E37** — PydanticAI agents for Desk, Author, and Evidence; LiteLLM routing; PostgreSQL workflow state.
+1. **PostgreSQL workflow state (E37)** — persist runs; replace JSON files under `editorial-runtime/runs/`.
 2. **Homepage + article discovery** — E06 magazine layout, topics index polish, search (E10).
-3. **Next MCP cluster piece** — `PS-000009` remains deferred (Kubernetes not in scope) until reframed as host-agnostic operator guide.
+3. **End-to-end live trial** — `ps-editorial run --live` on a real brief; human gate before any Git commit.
+4. **Next MCP cluster piece** — reframe `PS-000009` as host-agnostic operator guide (Kubernetes deferred).
 
 ### Deferred (not now)
 
@@ -1699,7 +1700,7 @@ Prove Phase 1 before Radar automation: manual topic in → Desk → Author → E
 - [x] Context assembly: base author + editorial standards + persona package + content type + brief + approved evidence
 - [ ] Limit unrestricted web access initially; research requests route to Evidence Editor
 - [x] Drafting loop scaffold: brief → outline → draft → evidence → human gate (Desk outline review and revision loop stubbed)
-- [x] Output: MDX article / outline paths in dry-run
+- [x] Output: MDX article / outline paths; PydanticAI Author agent when `--live` or `--test-model`
 
 ### S37.02 — Persona package system
 
@@ -1707,19 +1708,19 @@ See E39. Persona config example (voice sliders, preferred elements, avoid list) 
 
 ### S37.03 — Desk / Managing Editor agent
 
-- [ ] PydanticAI agent returning typed `EditorialDecision` / `ArticleBrief` — not unstructured paragraphs
-- [ ] Protect mission; optimize reader value; preserve persona differences
-- [ ] Duplicate / commodity / portfolio-balance checks against opportunities, briefs, and published slugs
-- [ ] Assign type, primary persona, optional secondary perspective, visuals
-- [ ] Emit structured decision; create brief only after APPROVE or APPROVE WITH REFRAMING
-- [ ] Cannot mark technical claims verified; cannot override Research Editor; cannot publish
+- [x] PydanticAI agent returning typed `EditorialDecision` / `ArticleBrief` — not unstructured paragraphs
+- [x] Protect mission; optimize reader value; preserve persona differences (instructions in agent module)
+- [ ] Duplicate / commodity / portfolio-balance checks against opportunities, briefs, and published slugs (corpus tools TBD)
+- [x] Assign type, primary persona, optional secondary perspective, visuals (via structured brief)
+- [x] Emit structured decision; create brief only after APPROVE or APPROVE WITH REFRAMING
+- [x] Cannot mark technical claims verified; cannot override Research Editor; cannot publish
 
 ### S37.04 — Evidence Editor agent
 
-- [ ] PydanticAI agent returning typed `EvidenceReview`, `ClaimReview`, `VerificationReport`
-- [ ] Claim extraction; primary-source rule; production sanity and security checklists
-- [ ] Must refuse fabricated citations
-- [ ] Permissions: read sources, write evidence ledger, request corrections — no publish, no policy changes
+- [x] PydanticAI agent returning typed `EvidenceReview`, `ClaimReview`
+- [x] Claim extraction from brief + draft (prompt-based; ledger write TBD)
+- [x] Must refuse fabricated citations (instructions)
+- [x] Permissions: review only — no publish, no policy changes
 
 ### S37.05 — LangGraph workflow orchestration
 
@@ -1730,10 +1731,10 @@ See E39. Persona config example (voice sliders, preferred elements, avoid list) 
 
 ### S37.06 — LiteLLM model routing
 
-- [ ] Capability aliases: `research`, `reasoning`, `writer`, `fast`, `local` — not per-persona model names
-- [ ] Route Radar → research; Desk → reasoning; Author personas → writer/reasoning; metadata → fast
-- [ ] Tag every request: `article_id`, `agent`, `persona`, `workflow_stage`, `content_type`, `model_alias`
-- [ ] Provider independence: swap models without changing editorial architecture
+- [x] Capability aliases: `research`, `reasoning`, `writer`, `fast`, `local` — not per-persona model names
+- [x] Route Desk → reasoning; Evidence → research; Author → writer (via `config/models.yaml` + `PS_MODEL_*` env)
+- [x] Tag every request: `workflow_id`, `agent`, `persona`, `workflow_stage`, `content_type`, `model_alias` (PydanticAI metadata)
+- [ ] LiteLLM proxy as default gateway (optional `OPENAI_API_BASE`; direct provider strings work today)
 
 ### S37.07 — Agent evaluation suite
 

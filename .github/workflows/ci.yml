@@ -35,7 +35,7 @@ jobs:
           python-version: "3.12"
       - name: Editorial runtime tests
         run: |
-          pip install -e "./editorial-runtime[dev]"
+          pip install -e "./editorial-runtime[dev,llm]"
           pytest editorial-runtime/tests -q
 
   deploy:
