@@ -1,14 +1,15 @@
 import Link from "next/link";
-import {
-  contentTypeLabels,
-  getPublishedArticles,
-  personaNames,
-} from "@/lib/content";
-import { formatDate } from "@/lib/format";
+import { ArticleTeaser } from "@/components/ArticleTeaser";
+import { clustersWithArticles, getEditorialClusters } from "@/lib/clusters";
+import { getPublishedArticles } from "@/lib/content";
+import { toArticleCard } from "@/lib/labels";
 
 export default function HomePage() {
   const articles = getPublishedArticles();
   const featured = articles[0];
+  const signal = articles.slice(1, 4);
+  const topicSections = clustersWithArticles(getEditorialClusters(articles));
+  const labs = articles.filter((article) => article.frontmatter.contentType === "lab");
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
@@ -19,55 +20,114 @@ export default function HomePage() {
         Engineering the platforms behind modern software and AI.
       </h1>
       <p className="mt-5 max-w-xl text-lg text-[var(--muted)]">
-        Evidence-led writing on Kubernetes, agent infrastructure, and production
-        operations.
+        Evidence-led writing for platform engineers, SREs, and architects. High
+        signal. Low noise. Evidence always.
       </p>
 
       {featured ? (
         <section className="mt-14 border-t border-[var(--border)] pt-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
-            Featured Signal
+            Featured
           </p>
-          <Link href={`/articles/${featured.frontmatter.slug}`} className="group mt-4 block">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-              {featured.frontmatter.category} · {contentTypeLabels[featured.frontmatter.contentType]}
-            </p>
-            <h2 className="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-3xl leading-tight tracking-[-0.03em] group-hover:text-[var(--accent)] md:text-5xl">
-              {featured.frontmatter.title}
-            </h2>
-            <p className="mt-4 max-w-2xl text-lg text-[var(--muted)]">
-              {featured.frontmatter.subtitle ?? featured.frontmatter.description}
-            </p>
-            <p className="mt-4 font-mono text-[12px] text-[var(--muted)]">
-              {personaNames[featured.frontmatter.authorPersona]} · {featured.readingMinutes} min
-              {featured.frontmatter.publishedAt
-                ? ` · ${formatDate(featured.frontmatter.publishedAt)}`
-                : ""}
-            </p>
-          </Link>
+          <div className="mt-4 max-w-4xl border-l-4 border-[var(--accent)] pl-6">
+            <ArticleTeaser article={toArticleCard(featured)} heading="h2" />
+          </div>
         </section>
       ) : null}
 
-      {articles.length > 1 ? (
+      {signal.length > 0 ? (
         <section className="mt-16">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="font-mono text-[12px] uppercase tracking-[0.16em] text-[var(--muted)]">
+              The Signal
+            </h2>
+            <Link
+              href="/articles"
+              className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]"
+            >
+              All articles
+            </Link>
+          </div>
+          <ol className="mt-6 grid gap-8 md:grid-cols-3">
+            {signal.map((article, index) => (
+              <li key={article.frontmatter.id} className="border-t border-[var(--border)] pt-4">
+                <p className="font-mono text-[11px] text-[var(--muted)]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <div className="mt-2">
+                  <ArticleTeaser article={toArticleCard(article)} dek={false} />
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {topicSections.length > 0 ? (
+        <section className="mt-20">
           <h2 className="font-mono text-[12px] uppercase tracking-[0.16em] text-[var(--muted)]">
-            Latest
+            Topic clusters
           </h2>
-          <ul className="mt-4 divide-y divide-[var(--border)]">
-            {articles.slice(1).map((article) => (
+          <div className="mt-8 space-y-12">
+            {topicSections.map((cluster) => (
+              <div key={cluster.id}>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-[family-name:var(--font-display)] text-3xl tracking-[-0.03em]">
+                    {cluster.name}
+                  </h3>
+                  <Link
+                    href={`/topics/${cluster.id}`}
+                    className="shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]"
+                  >
+                    Cluster
+                  </Link>
+                </div>
+                <ul className="mt-4 divide-y divide-[var(--border)]">
+                  {cluster.publishedArticles.slice(0, 3).map((article) => (
+                    <li key={article.frontmatter.id} className="py-4">
+                      <ArticleTeaser article={toArticleCard(article)} dek={false} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mt-20 border border-[var(--border)] bg-[var(--card)] px-6 py-8">
+        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
+          Labs
+        </p>
+        <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl tracking-[-0.03em]">
+          Engineering reports, not blog posts
+        </h2>
+        {labs.length > 0 ? (
+          <ul className="mt-6 divide-y divide-[var(--border)]">
+            {labs.slice(0, 2).map((article) => (
               <li key={article.frontmatter.id} className="py-4">
-                <Link href={`/articles/${article.frontmatter.slug}`} className="hover:text-[var(--accent)]">
-                  {article.frontmatter.title}
-                </Link>
+                <ArticleTeaser article={toArticleCard(article)} />
               </li>
             ))}
           </ul>
-        </section>
-      ) : null}
+        ) : (
+          <p className="mt-3 max-w-xl text-[var(--muted)]">
+            Original experiments with documented environments, versions, and
+            limitations. The first Lab is planned after the current launch
+            clusters.
+          </p>
+        )}
+        <Link
+          href="/labs"
+          className="mt-4 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]"
+        >
+          Labs index
+        </Link>
+      </section>
 
       <section
         id="subscribe"
-        className="mt-20 border border-[var(--border)] bg-[var(--card)] px-6 py-8"
+        className="mt-12 border border-[var(--border)] px-6 py-8"
       >
         <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-[-0.03em]">
           Get the Signal
