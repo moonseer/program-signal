@@ -33,8 +33,10 @@ clusters:
       - PS-O-0009
   - id: platform-sre
     name: Platform Engineering / SRE
+    pillar: what-is-agentic-platform-engineering
     pillar_opportunity: PS-O-0010
-    articles: []
+    articles:
+      - PS-000010
     opportunities:
       - PS-O-0010
       - PS-O-0011

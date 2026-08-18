@@ -31,8 +31,8 @@ When a story is completed, check its tasks and change the story status. Do not s
 
 ## Now / Next
 
-**Updated:** 17 August 2026  
-**Phase:** Agent-harness cluster (**published** on `main`). MCP cluster `PS-000008`–`PS-000009` **published**. Build-time search **landed**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
+**Updated:** 18 August 2026  
+**Phase:** Platform engineering / SRE cluster (`PS-000010` packaged, awaiting merge to `main`). MCP cluster `PS-000008`–`PS-000009` **published**. Build-time search **landed**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or the next content cluster.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -55,7 +55,7 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **Platform engineering / SRE cluster** — `PS-000010` (What Is Agentic Platform Engineering?) then `PS-000011`. Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
+1. **Merge `PS-000010`** (What Is Agentic Platform Engineering?) when the content PR is accepted. Then `PS-000011` (observability). Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
 
 ### Deferred (not now)
 
@@ -1063,8 +1063,8 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 ### S16.01 — What Is Agentic Platform Engineering?
 
 - [x] Brief (Maya or Elias)
-- [ ] Research review
-- [ ] Human approval
+- [x] Research review
+- [x] Human approval
 
 ### S16.02 — Observability for AI Agents
 
@@ -1876,4 +1876,4 @@ A story is done when:
 
 This section is a pointer. The working snapshot is **[Now / Next](#now--next)** at the top of this file.
 
-Recommended next piece of work: platform engineering / SRE cluster (`PS-000010`). Kubernetes cluster (`PS-000005`–`000007`) is deferred.
+Recommended next piece of work: merge `PS-000010`, then observability (`PS-000011`). Kubernetes cluster (`PS-000005`–`000007`) is deferred.

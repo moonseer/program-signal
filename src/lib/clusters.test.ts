@@ -84,4 +84,8 @@ test("loads launch clusters from editorial/clusters.yml", () => {
   const loaded = loadClusterRecords();
   assert.ok(loaded.some((cluster) => cluster.id === "mcp"));
   assert.ok(loaded.some((cluster) => cluster.id === "agent-harness"));
+  const platform = loaded.find((cluster) => cluster.id === "platform-sre");
+  assert.ok(platform);
+  assert.equal(platform?.pillar, "what-is-agentic-platform-engineering");
+  assert.ok(platform?.articles.includes("PS-000010"));
 });

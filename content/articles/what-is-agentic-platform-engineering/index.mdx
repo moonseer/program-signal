@@ -1,0 +1,177 @@
+---
+id: PS-000010
+title: What Is Agentic Platform Engineering?
+slug: what-is-agentic-platform-engineering
+description: Agents may assist platform products. They must not autonomously own control-plane decisions that define blast radius.
+subtitle: What agents may do inside golden paths and self-service, and which platform jobs stay human.
+contentType: explainer
+authorPersona: maya
+editorialStatus: published
+status: CURRENT
+editorialPriority: high
+publishedAt: "2026-08-18"
+updatedAt: "2026-08-18"
+lastReviewedAt: "2026-08-18"
+reviewAfter: "2026-11-16"
+category: Platform Engineering
+tags:
+  - platform-engineering
+  - golden-paths
+  - control-plane
+  - ai-agents
+concepts:
+  - platform-as-product
+  - golden-paths
+  - control-plane
+technologyVersions: {}
+difficulty: intermediate
+opportunityId: PS-O-0010
+seo:
+  title: What Is Agentic Platform Engineering?
+  description: Agents may assist platform products. They must not autonomously own control-plane decisions that define blast radius.
+  primaryQuery: agentic platform engineering
+  searchIntent: informational
+research:
+  editorStatus: pass
+  confidence: 85
+  evidenceLedger: evidence.yml
+codeVerification:
+  status: unverified
+corrections: []
+relationships:
+  relatedArticles:
+    - mcp-for-platform-engineers
+    - what-is-an-ai-agent-harness
+    - how-to-run-mcp-servers-as-privileged-workloads
+  sources:
+    - SRC-CNCF-001
+    - SRC-CNCF-002
+  diagrams: []
+sponsorship:
+  sponsored: false
+  affiliateLinks: false
+---
+
+## At a Glance
+
+| Attribute | Value |
+|---|---|
+| **Central thesis** | Agents may assist platform products. They must not autonomously own control-plane decisions that define blast radius. |
+| **Primary question** | What do agents change in golden paths, self-service, and control planes, and which platform jobs must stay human? |
+| **Audience** | Platform architects, platform engineers, engineering leaders |
+| **Key distinction** | Agent-assisted product surface vs. agent-owned control-plane decision |
+| **Sources** | CNCF Platforms White Paper; Platform Engineering Maturity Model |
+
+---
+
+## Why This Matters
+
+Platform engineering is being quietly rebranded. Teams that built internal developer platforms two years ago are now being asked to make them "agentic." The pressure comes from above (AI momentum is real), but the definitions are not.
+
+In practice, *agentic platform engineering* currently means one of two things, and neither is a coherent architecture. The first is cosmetic: a chat interface bolted onto the portal, which is an LLM in front of documentation. The second is maximalist: a proposal to rewrite the platform itself as a mesh of autonomous agents that provision, reconfigure, and make access decisions without human review.
+
+Both readings are a problem. The first conflates a UX improvement with a platform shift. The second mistakes the *agent* for the *platform*, and in doing so removes the human judgment that makes control-plane decisions safe to make at all.
+
+Getting the boundary right matters because the platform is where blast radius is defined. A misconfigured golden path, a cluster policy quietly changed, a network segment opened without review: these are not application bugs. They are platform failures that propagate to every team that runs on top of them. If agents are given autonomous authority over those decisions, the platform loses the property that makes it worth building: trust.
+
+---
+
+## Definition: What Is Agentic Platform Engineering, Actually?
+
+Before we can answer what agents change, we need a stable definition of what we are changing.
+
+The CNCF Platforms White Paper defines the goal of platform engineering as creating *platform as a product*: a curated set of capabilities, golden paths, and self-service surfaces that reduce cognitive load for application teams while maintaining organizational standards. Golden paths, in that framing, are templates, documentation, and onboarding workflows. They are product surfaces. They are not autonomous agents, and the white paper does not describe them as such.
+
+The CNCF Platform Engineering Maturity Model extends this: as an organization moves toward higher maturity, golden paths and self-serve templates become more sophisticated, but the model of investment is still a product discipline: understanding users, iterating on surfaces, and measuring adoption. At no stage does the maturity model describe control-plane ownership transferring to an automated agent.
+
+That foundation matters. Agentic platform engineering, properly defined, is the disciplined application of AI-assisted automation to platform product surfaces, without transferring authority over control-plane decisions to those agents.
+
+More precisely: agents may operate *within* a platform product to improve the experience of using that product. They must not *become* the platform's decision-making layer for configuration, policy, and infrastructure topology.
+
+The difference is not philosophical. It is architectural. It determines who, or what, holds accountability when something goes wrong.
+
+---
+
+## What May Be Agent-Assisted
+
+A number of platform engineering jobs are well-suited for agent assistance. The common thread is that they operate on *information* rather than *configuration state*, or that they act *within a bounded, reversible, pre-approved envelope*.
+
+<Callout type="signal">
+Agent assistance is well-placed when the scope is bounded, the action is reversible or pre-approved, and a human remains in the loop for decisions that propagate across the platform.
+</Callout>
+
+**Golden path navigation and onboarding.** The most immediately useful place for agents in a platform product is helping engineers find and traverse golden paths. Answering "which template should I use for a Python service that needs a Postgres sidecar and Vault integration?" is a retrieval and synthesis task. The agent does not change the template. It reduces the cognitive overhead of selecting and understanding it. This is a UX improvement with meaningful leverage (onboarding friction is real), and the blast radius of a wrong answer is an engineer trying a different template, not a misconfigured cluster.
+
+**Documentation and runbook surfacing.** Internal developer platforms accumulate documentation that goes stale and becomes hard to navigate. An agent that synthesizes runbooks, explains error messages in context, or surfaces relevant incident history is operating on read-only information. The control plane is untouched.
+
+**Pull request scaffolding and code generation within guardrails.** If a platform team maintains Terraform modules or Helm charts with defined input contracts, an agent can help application teams generate configuration that fits those contracts. The key word is *fits*: the agent works within parameters that the platform team has already validated. The agent does not modify the module; it generates a caller. A human reviews the output before it reaches production.
+
+**Observability triage and signal summarization.** Summarizing alert context, correlating signals from multiple dashboards, and suggesting investigative steps are agent-appropriate tasks during an incident. The agent assists the human doing the triage. It does not close the alert, modify the alert threshold, or change the routing policy.
+
+**Self-service request drafting.** For access requests, change requests, and quota increases that require human approval, agents can help engineers draft the request in the correct format with the right context. The approval workflow stays human. The agent reduces friction in *entering* the workflow, not in *resolving* it.
+
+<Callout type="production">
+The test for any agent-assisted task: if the agent gets it wrong, what propagates? If the answer is "an engineer tries again," the task is a candidate. If the answer is "a policy change affects every workload in the cluster," it is not.
+</Callout>
+
+---
+
+## What Must Stay Human
+
+Control-plane decisions define blast radius. They are the decisions that, once executed, affect every team and workload that depends on the platform layer in question. These decisions must stay human, not because AI is incapable of generating a plausible recommendation, but because accountability, reversibility, and the organizational trust model of a platform all require a human to own them.
+
+**Cluster and infrastructure topology changes.** Resizing node pools, modifying cluster network configuration, changing storage class defaults: these are decisions that affect all workloads on a cluster. An agent may surface data that informs the decision. It may not make the change autonomously.
+
+**Policy and admission control modification.** OPA/Gatekeeper policies, PSA configurations, RBAC boundaries: these define what is *allowed* to run on the platform. Changing them is a trust-model change. A human with accountability for that trust model must authorize it. An agent that autonomously relaxes a network policy because a service couldn't reach its dependency has just changed the security posture of the platform without anyone being accountable for that decision.
+
+**Golden path definition and deprecation.** The CNCF Platforms White Paper is explicit that golden paths are product surfaces. Product surface decisions (what templates exist, what defaults they encode, when a path is deprecated) are product decisions. They require human judgment about organizational needs, team capability, and the implications of the defaults being set. An agent can analyze usage patterns and flag a path that looks underused. It cannot decide to retire it.
+
+**Incident escalation and severity declaration.** During an incident, an agent may assist with triage. The declaration of severity, the escalation to an on-call engineer or incident commander, and the decision to invoke a runbook that takes production systems out of rotation: those must be human. Automated severity inflation or false escalation creates its own failure mode: alert fatigue, misallocated response capacity, and erosion of trust in the incident response system.
+
+**Access and secret management decisions.** Granting elevated access, rotating secrets in production, approving cross-team service account permissions: these are decisions with audit and compliance implications. A human must hold them. An agent that can autonomously grant itself or another workload broader access breaks the principle of least privilege at the architectural level.
+
+<Callout type="watch">
+The most dangerous agent pattern in a platform context is one that *appears* advisory but *executes* configuration changes. Verify whether the agent's output feeds a human review step or goes directly to an apply.
+</Callout>
+
+---
+
+## The Structural Principle
+
+The distinction between agent-assisted and agent-owned maps cleanly onto a control plane / data plane separation, a boundary that platform architects already use.
+
+The *data plane* in a platform context is where consumption happens: engineers using golden paths, services running on infrastructure, dashboards being read. Agent assistance on the data plane improves consumption. The scope of a mistake is bounded.
+
+The *control plane* is where configuration is defined, policies are set, and the rules that govern the data plane are written. Agent authority here is unbounded in propagation. A change at the control plane ripples to everything beneath it.
+
+Agents belong in the data plane or in the advisory layer below the control plane. They do not belong as autonomous actors *in* the control plane.
+
+This is not a permanent ceiling on what agents may eventually do as tool reliability, observability, and rollback mechanisms mature. It is the correct boundary for current capabilities and current organizational trust models.
+
+---
+
+<Recommendation>
+<Callout type="field">
+The question is not "should we make our platform agentic?" The question is "which platform jobs benefit from AI assistance, and which jobs require human accountability by design?"
+</Callout>
+
+**Use agent assistance when:**
+
+- The task operates on read-only information (documentation, runbooks, observability signals)
+- The agent output feeds a human review step before any state change
+- The scope is bounded: a wrong answer is recoverable at the application or user level
+- The agent works within pre-approved template or module contracts that the platform team owns
+- The task reduces onboarding or self-service friction without touching configuration state
+
+**Wait, or do not proceed, when:**
+
+- The agent would autonomously modify cluster configuration, admission policies, or network topology
+- There is no human approval step before the agent's output becomes applied state
+- Golden path definitions or deprecations would be determined without product and human review
+- The agent has write access to secret stores, RBAC definitions, or policy engines without an explicit human authorization gate
+- Accountability for a wrong decision cannot be assigned to a named human
+</Recommendation>
+
+The platform's value is trust. Golden paths are trusted because a human made intentional product decisions about what they encode. Control planes are trustworthy because humans with accountability own the decisions made there. Agents can make platform products easier to use. They cannot substitute for the human judgment that makes the platform safe to build on.
+
+The rebranding pressure will continue. The architecture should not change in response to it.

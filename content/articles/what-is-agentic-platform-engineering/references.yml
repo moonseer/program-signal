@@ -1,0 +1,7 @@
+references:
+  - source_id: SRC-CNCF-001
+    label: PRIMARY_SOURCE
+    note: Platform as a product. Golden paths are templates, documentation, and onboarding workflows.
+  - source_id: SRC-CNCF-002
+    label: PRIMARY_SOURCE
+    note: Golden paths and self-serve templates as product investment. Does not assign control-plane ownership to agents.
