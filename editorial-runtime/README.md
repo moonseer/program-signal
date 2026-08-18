@@ -8,7 +8,7 @@ Canonical spec: [`docs/PLATFORM-SIGNAL-AGENT-AND-PERSONA-ARCHITECTURE.md`](../do
 
 - One **Author Engine** loads persona packages from [`agents/author/`](../agents/author/) — not four separate agent runtimes.
 - **LangGraph** orchestrates explicit stages with conditional Evidence routing.
-- **PydanticAI** agents for Desk, Author, and Evidence return typed outputs (`EditorialDecision`, `ArticleBrief`, `AuthorDraftOutput`, `EvidenceReview`).
+- **PydanticAI** agents: Desk and Evidence return typed outputs; Author returns MDX prose (not a JSON article object).
 - **Capability routing** via `config/models.yaml` and `PS_MODEL_*` env overrides (`research`, `reasoning`, `writer`, `fast`, `local`).
 - **Human approval** is a hard stop before publish. Review locally with `ps-editorial desk` (127.0.0.1 only). Accept/reject does not publish.
 - **Dry-run** (default), **`--test-model`** (pydantic-ai test model, no keys), or **`--live`** (real providers).

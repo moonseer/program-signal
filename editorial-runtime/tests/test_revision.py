@@ -2,7 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from editorial_runtime.agents.author import author_revision_block
+from editorial_runtime.agents.author import (
+    author_revision_block,
+    story_constraints_block,
+    unwrap_mdx,
+)
 from editorial_runtime.models import (
     ArticleBrief,
     ContentType,
@@ -170,4 +174,19 @@ def test_dry_run_revise_returns_to_human_gate(tmp_path: Path):
     assert "Figure" in revised.revision_notes
     assert revised.draft_path is not None
     assert Path(revised.draft_path).is_file()
+
+
+def test_unwrap_mdx_strips_fences_and_leaves_plain_prose():
+    fenced = "```mdx\n## Why This Matters\n\nBody.\n```"
+    assert unwrap_mdx(fenced) == "## Why This Matters\n\nBody."
+    assert unwrap_mdx("## Why This Matters") == "## Why This Matters"
+
+
+def test_story_constraints_name_the_reader_problem():
+    block = story_constraints_block(_brief())
+    assert "The term is undefined." in block
+    assert "Hold this thesis" in block
+    assert "Agents may assist" in block
+    assert "Cite approved sources only" in block
+
 
