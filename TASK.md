@@ -2,20 +2,20 @@
 
 ## In progress — 2026-08-20
 
-- **E21 Backups and content ownership** — BACKUP.md, archive/restore scripts, mirror + archive workflows. Open PR. Operator still needs independent mirror secrets.
+- None (P2 launch inventory closed). Operator follow-up: `BACKUP_MIRROR_*` secrets + first live mirror push.
 
 ## Up next
 
-- Phase 3 / E22 domain + SEO (keep `noindex` until ready)
-- Operator: set `BACKUP_MIRROR_*` and run first live mirror push
+- E22 Domain, SEO, and production hardening (custom domain; keep `noindex` until ready)
+- Radar automation stays later
 
 ## Done recently
 
+- E21 backups and content ownership ([#34](https://github.com/moonseer/program-signal/pull/34))
 - E20 public policies ([#33](https://github.com/moonseer/program-signal/pull/33))
-- E19 S19.04 Research coverage ([#32](https://github.com/moonseer/program-signal/pull/32))
-- E19 S19.03 Voice differentiation ([#31](https://github.com/moonseer/program-signal/pull/31))
+- E19 research coverage ([#32](https://github.com/moonseer/program-signal/pull/32))
 
 ## Deferred
 
 - Kubernetes launch cluster PS-000005–000007
-- Radar automation / turning off `noindex`
+- Turning off `noindex` / public launch until E22 decisions land
