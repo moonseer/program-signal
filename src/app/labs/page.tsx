@@ -1,4 +1,11 @@
-export const metadata = { title: "Labs" };
+import { pageMetadata } from "@/lib/page-metadata";
+
+export const metadata = pageMetadata({
+  title: "Labs",
+  description:
+    "Original Platform Signal experiments with documented environments, versions, and limitations.",
+  path: "/labs",
+});
 
 export default function LabsPage() {
   return (

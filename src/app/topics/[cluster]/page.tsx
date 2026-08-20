@@ -4,6 +4,7 @@ import { ArticleTeaser } from "@/components/ArticleTeaser";
 import { getClusterById, loadClusterRecords } from "@/lib/clusters";
 import { getPublishedArticles } from "@/lib/content";
 import { toArticleCard } from "@/lib/labels";
+import { pageMetadata } from "@/lib/page-metadata";
 
 type Props = { params: Promise<{ cluster: string }> };
 
@@ -16,7 +17,12 @@ export const dynamic = "force-static";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { cluster: id } = await params;
   const cluster = getClusterById(id);
-  return { title: cluster?.name ?? "Topic" };
+  if (!cluster) return { title: "Topic" };
+  return pageMetadata({
+    title: cluster.name,
+    description: `Platform Signal articles in the ${cluster.name} topic cluster.`,
+    path: `/topics/${cluster.id}`,
+  });
 }
 
 export default async function TopicClusterPage({ params }: Props) {
@@ -51,7 +57,7 @@ export default async function TopicClusterPage({ params }: Props) {
             )
             .map((article) => (
               <li key={article.frontmatter.id} className="py-6">
-                <ArticleTeaser article={toArticleCard(article)} />
+                <ArticleTeaser article={toArticleCard(article)} heading="h2" />
               </li>
             ))}
         </ul>

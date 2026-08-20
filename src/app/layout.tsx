@@ -5,19 +5,21 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { organizationJsonLd } from "@/lib/json-ld";
 import { getSearchCorpus } from "@/lib/search-corpus";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 const newsreader = Newsreader({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -25,6 +27,7 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -35,7 +38,7 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   robots: { index: false, follow: false },
-  alternates: { canonical: "/" },
+  alternates: { canonical: absoluteUrl("/") },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -75,9 +78,14 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col antialiased">
+        <a href="#main-content" className="skip-to-content">
+          Skip to content
+        </a>
         <JsonLd data={organizationJsonLd()} />
         <SiteHeader searchCorpus={searchCorpus} />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

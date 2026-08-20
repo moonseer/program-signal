@@ -4,6 +4,17 @@ import { SubscribeCta } from "@/components/SubscribeCta";
 import { clustersWithArticles, getEditorialClusters } from "@/lib/clusters";
 import { getPublishedArticles } from "@/lib/content";
 import { toArticleCard } from "@/lib/labels";
+import { pageMetadata } from "@/lib/page-metadata";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
+
+export const metadata = {
+  ...pageMetadata({
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    path: "/",
+  }),
+  title: { absolute: SITE_NAME },
+};
 
 export default function HomePage() {
   const articles = getPublishedArticles();
@@ -56,7 +67,11 @@ export default function HomePage() {
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <div className="mt-2">
-                  <ArticleTeaser article={toArticleCard(article)} dek={false} />
+                  <ArticleTeaser
+                    article={toArticleCard(article)}
+                    dek={false}
+                    heading="h3"
+                  />
                 </div>
               </li>
             ))}
@@ -86,7 +101,11 @@ export default function HomePage() {
                 <ul className="mt-4 divide-y divide-[var(--border)]">
                   {cluster.publishedArticles.slice(0, 3).map((article) => (
                     <li key={article.frontmatter.id} className="py-4">
-                      <ArticleTeaser article={toArticleCard(article)} dek={false} />
+                      <ArticleTeaser
+                        article={toArticleCard(article)}
+                        dek={false}
+                        heading="h4"
+                      />
                     </li>
                   ))}
                 </ul>
@@ -107,7 +126,7 @@ export default function HomePage() {
           <ul className="mt-6 divide-y divide-[var(--border)]">
             {labs.slice(0, 2).map((article) => (
               <li key={article.frontmatter.id} className="py-4">
-                <ArticleTeaser article={toArticleCard(article)} />
+                <ArticleTeaser article={toArticleCard(article)} heading="h3" />
               </li>
             ))}
           </ul>

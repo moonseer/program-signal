@@ -1,8 +1,11 @@
-export const metadata = {
-  title: "Content Rights Policy",
+import { pageMetadata } from "@/lib/page-metadata";
+
+export const metadata = pageMetadata({
+  title: 'Content Rights Policy',
   description:
-    "Prefer original diagrams. Attribute third-party assets. Keep AI-generated provenance honest.",
-};
+    'Prefer original diagrams and attribute third-party assets. Rules for code, research figures, and AI-generated media.',
+  path: '/content-rights-policy',
+});
 
 export default function ContentRightsPolicyPage() {
   return (

@@ -2,10 +2,14 @@ import { ArticlesIndex } from "@/components/ArticlesIndex";
 import { getEditorialClusters } from "@/lib/clusters";
 import { getPublishedArticles } from "@/lib/content";
 import { toArticleCard } from "@/lib/labels";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Articles",
-};
+  description:
+    "List-first index of Platform Signal articles. Filter by topic, persona, type, and difficulty.",
+  path: "/articles",
+});
 
 export default function ArticlesPage() {
   const articles = getPublishedArticles();

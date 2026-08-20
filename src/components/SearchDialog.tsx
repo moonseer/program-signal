@@ -7,6 +7,7 @@ import { searchArticles, type SearchDocument } from "@/lib/search";
 export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const hits = useMemo(() => searchArticles(corpus, query), [corpus, query]);
@@ -21,6 +22,7 @@ export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
     dialogRef.current?.close();
     setOpen(false);
     setQuery("");
+    window.setTimeout(() => triggerRef.current?.focus(), 0);
   }
 
   useEffect(() => {
@@ -38,11 +40,13 @@ export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={show}
         className="min-h-11 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted)] hover:text-[var(--accent)]"
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-controls="site-search-dialog"
       >
         Search
         <span className="ml-2 hidden text-[10px] tracking-[0.08em] lg:inline">
@@ -50,12 +54,14 @@ export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
         </span>
       </button>
       <dialog
+        id="site-search-dialog"
         ref={dialogRef}
         className="search-dialog w-[min(36rem,calc(100vw-2rem))] border border-[var(--border)] bg-[var(--card)] p-0 text-[var(--fg)] shadow-lg"
         aria-label="Search articles"
         onClose={() => {
           setOpen(false);
           setQuery("");
+          window.setTimeout(() => triggerRef.current?.focus(), 0);
         }}
       >
         <form
@@ -106,7 +112,12 @@ export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
         </div>
         <div className="flex items-center justify-between border-t border-[var(--border)] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
           <span>Published articles</span>
-          <button type="button" onClick={hide} className="min-h-11 text-[var(--accent)]">
+          <button
+            type="button"
+            onClick={hide}
+            className="min-h-11 text-[var(--accent)]"
+            aria-label="Close search"
+          >
             Close
           </button>
         </div>

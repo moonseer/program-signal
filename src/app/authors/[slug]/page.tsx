@@ -8,6 +8,7 @@ import {
   personaSlugs,
   type ArticleFrontmatter,
 } from "@/lib/content";
+import { pageMetadata } from "@/lib/page-metadata";
 
 const copy: Record<
   ArticleFrontmatter["authorPersona"],
@@ -57,7 +58,11 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const persona = bySlug[slug];
   if (!persona) return { title: "Author" };
-  return { title: personaNames[persona] };
+  return pageMetadata({
+    title: personaNames[persona],
+    description: copy[persona].perspective,
+    path: `/authors/${slug}`,
+  });
 }
 
 export default async function AuthorPage({ params }: Props) {

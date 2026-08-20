@@ -1,4 +1,11 @@
-export const metadata = { title: "AI and Editorial Process" };
+import { pageMetadata } from "@/lib/page-metadata";
+
+export const metadata = pageMetadata({
+  title: "AI and Editorial Process",
+  description:
+    "How Platform Signal uses AI-assisted research and drafting while keeping human publication accountability and evidence rules.",
+  path: "/ai-and-editorial-process",
+});
 
 export default function AiEditorialProcessPage() {
   return (

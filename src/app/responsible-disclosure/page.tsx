@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = {
-  title: "Responsible Disclosure",
+
+export const metadata = pageMetadata({
+  title: 'Responsible Disclosure',
   description:
-    "How to report security issues to Platform Signal, and how we handle vulnerabilities found in research.",
-};
+    'How to report security issues to Platform Signal, and how we handle vulnerabilities found in research.',
+  path: '/responsible-disclosure',
+});
 
 export default function ResponsibleDisclosurePage() {
   return (

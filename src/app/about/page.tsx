@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = { title: "About" };
+export const metadata = pageMetadata({
+  title: "About",
+  description:
+    "Platform Signal is an evidence-led technical publication on production AI, platform engineering, SRE, and agent infrastructure. Personas are editorial voices; a human editor publishes.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

@@ -1,4 +1,11 @@
-export const metadata = { title: "Field Notes" };
+import { pageMetadata } from "@/lib/page-metadata";
+
+export const metadata = pageMetadata({
+  title: "Field Notes",
+  description:
+    "Practical implementation notes from the Nia and Marcus editorial voices.",
+  path: "/field-notes",
+});
 
 export default function FieldNotesPage() {
   return (

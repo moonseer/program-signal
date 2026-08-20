@@ -117,7 +117,7 @@ export function ArticlesIndex({
         <ul className="mt-10 divide-y divide-[var(--border)]">
           {filtered.map((article) => (
             <li key={article.id} className="py-6">
-              <ArticleTeaser article={article} />
+              <ArticleTeaser article={article} heading="h2" />
             </li>
           ))}
         </ul>

@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/format";
 
 type ArticleTeaserProps = {
   article: ArticleCard;
-  heading?: "h2" | "h3";
+  heading?: "h2" | "h3" | "h4";
   dek?: boolean;
 };
 

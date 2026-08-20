@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = {
-  title: "Corrections",
+
+export const metadata = pageMetadata({
+  title: 'Corrections',
   description:
-    "How Platform Signal handles errors, how to report them, and the public list of material corrections.",
-};
+    'How Platform Signal handles errors, how to report them, and the public list of material corrections.',
+  path: '/corrections',
+});
 
 export default function CorrectionsPage() {
   return (
