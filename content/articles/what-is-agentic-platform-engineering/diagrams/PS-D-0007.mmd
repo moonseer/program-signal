@@ -1,0 +1,12 @@
+flowchart LR
+  subgraph assisted [Agent-assisted surfaces]
+    A[Docs Q and A]
+    B[Ticket triage]
+    C[Golden-path suggestions]
+  end
+  subgraph human [Human-owned control plane]
+    D[Policy]
+    E[Topology]
+    F[Access and blast radius]
+  end
+  assisted -->|"assist inside envelope"| human

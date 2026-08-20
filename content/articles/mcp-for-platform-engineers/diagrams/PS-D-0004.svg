@@ -19,9 +19,9 @@
   <text class="sublabel" x="140" y="208" text-anchor="middle">invokes tools</text>
   <text class="edge-label" x="340" y="132" text-anchor="middle">JSON-RPC</text>
   <text class="label-focus" x="590" y="80" text-anchor="middle">MCP server</text>
-  <text class="sublabel" x="590" y="100" text-anchor="middle">separate process · tools + credentials</text>
+  <text class="sublabel" x="590" y="100" text-anchor="middle">separate process Â· tools + credentials</text>
   <text class="label" x="590" y="200" text-anchor="middle">Platform operates</text>
   <text class="sublabel" x="590" y="220" text-anchor="middle">lifecycle, allow-list, reachability, audit</text>
   <text class="label" x="590" y="312" text-anchor="middle">Not MCP</text>
-  <text class="sublabel" x="590" y="330" text-anchor="middle">model · harness · policy</text>
+  <text class="sublabel" x="590" y="330" text-anchor="middle">model Â· harness Â· policy</text>
 </svg>

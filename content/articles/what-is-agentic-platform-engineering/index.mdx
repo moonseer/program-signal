@@ -10,8 +10,8 @@ editorialStatus: published
 status: CURRENT
 editorialPriority: high
 publishedAt: "2026-08-18"
-updatedAt: "2026-08-18"
-lastReviewedAt: "2026-08-18"
+updatedAt: "2026-08-20"
+lastReviewedAt: "2026-08-20"
 reviewAfter: "2026-11-16"
 category: Platform Engineering
 tags:
@@ -47,7 +47,8 @@ relationships:
   sources:
     - SRC-CNCF-001
     - SRC-CNCF-002
-  diagrams: []
+  diagrams:
+    - PS-D-0007
 sponsorship:
   sponsored: false
   affiliateLinks: false
@@ -88,6 +89,8 @@ The CNCF Platform Engineering Maturity Model extends this: as an organization mo
 That foundation matters. Agentic platform engineering, properly defined, is the disciplined application of AI-assisted automation to platform product surfaces, without transferring authority over control-plane decisions to those agents.
 
 More precisely: agents may operate *within* a platform product to improve the experience of using that product. They must not *become* the platform's decision-making layer for configuration, policy, and infrastructure topology.
+
+<Figure id="PS-D-0007" caption="PS-D-0007. Agents may assist inside product surfaces. Control-plane decisions that define blast radius stay human." />
 
 The difference is not philosophical. It is architectural. It determines who, or what, holds accountability when something goes wrong.
 

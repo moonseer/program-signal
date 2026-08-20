@@ -30,5 +30,5 @@
   <text class="sublabel" x="132" y="292" text-anchor="middle">child of inference</text>
   <text class="label" x="132" y="386" text-anchor="middle">Downstream API</text>
   <text class="label" x="504" y="376" text-anchor="middle">Span attributes</text>
-  <text class="sublabel" x="504" y="394" text-anchor="middle">identity · execution ID · tokens / cost</text>
+  <text class="sublabel" x="504" y="394" text-anchor="middle">identity Â· execution ID Â· tokens / cost</text>
 </svg>

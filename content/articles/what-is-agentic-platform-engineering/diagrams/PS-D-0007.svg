@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" role="img" aria-labelledby="d7-title d7-desc">
+  <title id="d7-title">Agent-assisted surfaces vs human-owned control plane</title>
+  <desc id="d7-desc">Left column lists agent-assisted product surfaces: docs Q and A, ticket triage, and golden-path suggestions. Right column lists human-owned control-plane decisions: policy, topology, access, and blast radius. The boundary is assist inside the envelope, not autonomous ownership of the control plane.</desc>
+  <defs>
+    <marker id="d7-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="node" x="24" y="40" width="300" height="240" rx="8" />
+  <rect class="node node-focus" x="436" y="40" width="300" height="240" rx="8" />
+  <path class="connector" marker-end="url(#d7-arrow)" d="M324 160 L436 160" />
+  <text class="edge-label" x="380" y="148" text-anchor="middle">assist</text>
+  <text class="edge-label" x="380" y="166" text-anchor="middle">inside</text>
+  <text class="label" x="174" y="76" text-anchor="middle">Agent-assisted surfaces</text>
+  <text class="sublabel" x="174" y="120" text-anchor="middle">Docs Q and A</text>
+  <text class="sublabel" x="174" y="148" text-anchor="middle">Ticket triage</text>
+  <text class="sublabel" x="174" y="176" text-anchor="middle">Golden-path suggestions</text>
+  <text class="sublabel" x="174" y="220" text-anchor="middle">Bounded, reversible help</text>
+  <text class="label-focus" x="586" y="76" text-anchor="middle">Human-owned control plane</text>
+  <text class="sublabel" x="586" y="120" text-anchor="middle">Policy</text>
+  <text class="sublabel" x="586" y="148" text-anchor="middle">Topology</text>
+  <text class="sublabel" x="586" y="176" text-anchor="middle">Access decisions</text>
+  <text class="sublabel" x="586" y="220" text-anchor="middle">Blast radius definition</text>
+</svg>
