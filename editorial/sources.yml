@@ -145,5 +145,26 @@ sources:
       - security
     published_at: "2025-08-26"
     notes: Official Cloudflare Blog. MCP Server Portals in Open Beta as part of Cloudflare One. Centralizes MCP connections for policy, logging, and a single portal endpoint. Changelog dates the release 2025-08-26. Product name is Portal, not Gateway. Dated vendor announcement, not a frozen category definition.
+  - source_id: SRC-CNCF-003
+    title: CNCF and SlashData Q1 2026 Technology Radar
+    organization: CNCF
+    url: https://www.cncf.io/announcements/2026/03/24/cncf-and-slashdata-report-finds-platform-engineering-tools-maturing-as-organizations-prepare-for-ai-driven-infrastructure/
+    type: official_docs
+    tier: 1
+    topics:
+      - platform-engineering
+    published_at: "2026-03-24"
+    notes: Official CNCF announcement, 2026-03-24. Q1 2026 Technology Radar with SlashData. Survey of 400-plus developers in Q4 2025. Among respondents, 28 percent report a dedicated platform team, 41 percent a multi-team IDP model, 35 percent a hybrid platform for AI workloads. Helm, Backstage, and kro placed in Adopt for application delivery. This is a dated survey of tooling maturity, not a blast-radius study of unattended agent tool access. Do not treat it as the universal state of the industry.
+  - source_id: SRC-PUPPET-001
+    title: "State of DevOps Report: Platform Engineering Edition 2026"
+    organization: Perforce / Puppet
+    url: https://www.perforce.com/press-releases/state-of-platform-engineering-2026
+    type: official_docs
+    tier: 1
+    topics:
+      - platform-engineering
+      - ai-agents
+    published_at: "2026-07-08"
+    notes: Official Perforce press release, 2026-07-08, announcing the State of DevOps Report Platform Engineering Edition 2026, a subset of the annual State of DevOps Report. Survey of 820 technology professionals worldwide. Report landing also at https://www.puppet.com/resources/2026-state-of-platform-engineering. Findings as stated for this sample, not the universal industry. 73 percent of mature platform engineering organizations say platform maturity was a critical or significant factor in AI success, compared with 44 percent of less mature organizations. 66 percent of organizations are using AI in infrastructure and configuration workflows including provisioning, drift detection, and compliance management. 31 percent report fully autonomous AI; 44 percent of IDP-mature organizations run AI workflows fully autonomously, compared with 26 percent still using AI experimentally. Organizations with formal governance report 94 percent trust in AI, compared with 51 percent relying on ad hoc approaches. 79 percent of platform-mature organizations report strong governance automation maturity, compared with 14 percent of immature organizations. 81 percent of mature organizations express high confidence in AI outputs in critical workflows, versus 48 percent of less mature organizations. Organizations with fully standardized IDPs reach 92 percent confidence in AI outputs. 52 percent of organizations have fully automated audit trails. Vendor-sponsored survey. It measures AI in infrastructure, autonomy, platform maturity, and governance. It does not measure MCP tool access or blast radius of unattended agent calls.
 
 

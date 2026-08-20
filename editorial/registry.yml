@@ -8,10 +8,11 @@ source_families:
   ANTH: 2
   AWS: 2
   CF: 2
-  CNCF: 3
+  CNCF: 4
   DOCKER: 2
   K8S: 4
   MCP: 3
   OAI: 2
   OTEL: 3
   PAL: 2
+  PUPPET: 2
