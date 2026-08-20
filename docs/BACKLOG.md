@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** The Signal cluster complete (`PS-000014`, `PS-000015` packaged, this PR). FDE (`PS-000012`, `PS-000013`), platform engineering / SRE (`PS-000010`, `PS-000011`), and MCP (`PS-000008`–`PS-000009`) **published**. Site remains `noindex`. **Kubernetes is not in scope** for runtime or remaining launch content.
+**Phase:** Launch inventory complete for non-Kubernetes clusters. **E19 production quality bar** in progress (cluster linking first). Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -60,11 +60,12 @@ Keep this section current. Detail lives in the epics below.
 | FDE cluster start | `PS-000012` published ([#25](https://github.com/moonseer/program-signal/pull/25)) |
 | FDE comparison | `PS-000013` published ([#26](https://github.com/moonseer/program-signal/pull/26)) |
 | The Signal start | `PS-000014` published ([#27](https://github.com/moonseer/program-signal/pull/27)); Elias; Docker 2025-07-09 and Cloudflare 2025-08-26 |
-| The Signal close | `PS-000015` packaged (this PR); Elias; Puppet/Perforce 2026 Platform Engineering Edition (820 respondents) + CNCF/SlashData Q1 2026 Radar; governance thesis |
+| The Signal close | `PS-000015` published ([#28](https://github.com/moonseer/program-signal/pull/28)); Elias; Puppet/Perforce 2026 Platform Engineering Edition + CNCF/SlashData Q1 2026 Radar; governance thesis |
 
 ### Do next (recommended order)
 
-1. After `PS-000015` lands, production quality bar (E19) and Radar automation stay later. Kubernetes cluster (`PS-000005`–`000007`) stays deferred.
+1. **E19** launch production quality bar: finish S19.01 cluster linking, then visuals, voice, research coverage.
+2. E20 public policies before turning off `noindex`. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
 
@@ -85,7 +86,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15 **Done**. E16 **Done**. E17 **Done**. E18 **In progress** (`PS-000015` packaged). E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E18 **Done**. E19 **In progress**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1110,7 +1111,7 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 
 ## E18 — Launch cluster: The Signal / current analysis (2)
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P2  
 **Priority:** High
 
@@ -1127,13 +1128,13 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 - [x] Brief (Elias, Maya secondary)
 - [x] Research review (strongly recommended; EiC override of Evidence HOLD on title framing)
 - [x] Human approval
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#28](https://github.com/moonseer/program-signal/pull/28))
 
 ---
 
 ## E19 — Launch production quality bar
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** Critical
 
@@ -1141,9 +1142,10 @@ Applies to every launch article.
 
 ### S19.01 — Cluster linking
 
-- [ ] From every launch article, 2–4 related launch articles
-- [ ] Homepage clusters match real slugs
-- [ ] No dead related links
+- [x] From every launch article, 2–4 related launch articles
+- [x] Homepage clusters match real slugs
+- [x] No dead related links
+- [ ] Content PR merge (this PR)
 
 ### S19.02 — Visual completeness
 
