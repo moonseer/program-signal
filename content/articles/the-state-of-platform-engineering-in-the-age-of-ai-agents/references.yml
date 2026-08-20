@@ -1,0 +1,19 @@
+references:
+  - source_id: SRC-CNCF-001
+    label: PRIMARY_SOURCE
+    note: Platform as a product. Golden paths are templates, documentation, and onboarding workflows.
+  - source_id: SRC-CNCF-002
+    label: PRIMARY_SOURCE
+    note: Investment as product and golden-path templates as self-serve surfaces. Does not assign control-plane ownership to agents.
+  - source_id: SRC-CNCF-003
+    label: RESEARCH
+    note: Q1 2026 Technology Radar with SlashData. Q4 2025 survey of 400-plus developers. Tooling maturity, not blast-radius study.
+  - source_id: SRC-MCP-001
+    label: SPECIFICATION
+    note: MCP is a protocol for tool invocation and context sharing. Spec version 2025-06-18.
+  - source_id: SRC-MCP-002
+    label: SPECIFICATION
+    note: Token passthrough, confused deputy, and operator-facing MCP security risks.
+  - source_id: SRC-PUPPET-001
+    label: RESEARCH
+    note: Perforce press 2026-07-08. Platform Engineering Edition 2026 survey of 820 professionals. Vendor-sponsored. Governance and autonomy findings for that sample.

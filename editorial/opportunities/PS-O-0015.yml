@@ -1,7 +1,7 @@
 opportunity_id: PS-O-0015
 topic: The State of Platform Engineering in the Age of AI Agents
 classification: EMERGING
-lifecycle: BRIEF
+lifecycle: PUBLISHED
 opportunity_score: 81
 commodity_risk: HIGH
 horizon: NOW
@@ -15,7 +15,7 @@ search_signals: Queries for platform engineering 2026, AI agents and platform en
 technical_signals: IDP agents, MCP, GPU platforms, platform ROI debates, golden-path coverage vs agent coverage.
 competition: Annual platform-engineering reports that treat AI as a portal widget.
 content_gap: A current analysis that names what actually changed for platform teams, with uncertainty labeled.
-unique_angle: Agents change the blast radius of self-service. That is the state change, not another catalog of tools.
+unique_angle: Governance automation separates safe AI infrastructure from fragile AI infrastructure. Most organizations do not have it.
 evidence_starting_points:
   - CNCF platform engineering materials
   - Public platform-engineering surveys

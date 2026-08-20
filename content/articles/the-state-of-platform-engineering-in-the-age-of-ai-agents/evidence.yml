@@ -1,0 +1,77 @@
+article: the-state-of-platform-engineering-in-the-age-of-ai-agents
+reviewed: "2026-08-20"
+claims:
+  - id: C001
+    claim: Among more than 400 developers surveyed for the CNCF and SlashData Q1 2026 Technology Radar (Q4 2025 fieldwork), 35 percent reported a hybrid platform for AI workloads, 28 percent a dedicated platform team, and 41 percent a multi-team IDP model. Helm, Backstage, and kro landed in Adopt for application delivery.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: CNCF and SlashData Q1 2026 Technology Radar
+        org: CNCF
+        url: https://www.cncf.io/announcements/2026/03/24/cncf-and-slashdata-report-finds-platform-engineering-tools-maturing-as-organizations-prepare-for-ai-driven-infrastructure/
+        date: "2026-03-24"
+        tier: 1
+  - id: C002
+    claim: In the Perforce/Puppet State of DevOps Report Platform Engineering Edition 2026 (820 technology professionals, press dated 2026-07-08), 79 percent of platform-mature organizations reported strong governance automation maturity versus 14 percent of immature organizations. 52 percent of organizations reported fully automated audit trails. Organizations with formal governance reported substantially higher trust in AI outputs than those relying on ad hoc approaches.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: State of DevOps Report Platform Engineering Edition 2026
+        org: Perforce / Puppet
+        url: https://www.perforce.com/press-releases/state-of-platform-engineering-2026
+        date: "2026-07-08"
+        tier: 1
+  - id: C003
+    claim: The CNCF Platforms White Paper and Platform Engineering Maturity Model define platforms as products with golden paths as templates, documentation, and onboarding workflows. Neither assigns control-plane ownership to autonomous agents.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: CNCF Platforms White Paper
+        org: CNCF TAG App Delivery
+        url: https://tag-app-delivery.cncf.io/whitepapers/platforms/
+        tier: 1
+      - title: Platform Engineering Maturity Model
+        org: CNCF TAG App Delivery
+        url: https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/
+        tier: 1
+  - id: C004
+    claim: MCP is a JSON-RPC host-client-server protocol. Security best practices document token passthrough and confused deputy as operator-facing risks.
+    type: FACT
+    status: VERIFIED
+    confidence: HIGH
+    sources:
+      - title: Model Context Protocol specification
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        date: "2025-06-18"
+        tier: 1
+      - title: MCP security best practices
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+        date: "2025-06-18"
+        tier: 1
+  - id: C005
+    claim: Governance automation separates safe AI infrastructure from fragile AI infrastructure. Most organizations in the available survey samples are closer to the fragile end than the safe end.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: MEDIUM
+    sources:
+      - title: State of DevOps Report Platform Engineering Edition 2026
+        org: Perforce / Puppet
+        url: https://www.perforce.com/press-releases/state-of-platform-engineering-2026
+        date: "2026-07-08"
+        tier: 1
+  - id: C006
+    claim: In an unattended agent runtime, blast-radius constraints that bound a human operator in time do not apply in the same way. This is a structural observation about access models, not a surveyed incident finding.
+    type: ANALYSIS
+    status: SUPPORTED
+    confidence: MEDIUM
+    sources:
+      - title: MCP security best practices
+        org: Model Context Protocol
+        url: https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+        date: "2025-06-18"
+        tier: 1
