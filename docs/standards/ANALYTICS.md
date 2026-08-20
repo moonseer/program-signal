@@ -8,25 +8,40 @@ North star: **Monthly Engaged Technical Readers** (not pageviews alone).
 
 ---
 
+## Cost (Hobby)
+
+| Feature | Hobby | If you exceed |
+|---|---|---|
+| Web Analytics page views | **Free**, 50k events / month | Collection pauses (no invoice) |
+| Speed Insights | **Free**, 10k events / month, 1 project | Collection pauses |
+| Vercel **custom events** | **Pro only** | N/A on Hobby |
+| GA4 | Free (Google) | Within Google’s free quotas |
+
+Named engagement events in this codebase therefore go to **GA4**, not Vercel `track()`.
+
+---
+
 ## Properties
 
 | Property | Role | Status |
 |---|---|---|
-| **Vercel Web Analytics** | Page views + custom events (light) | Enabled in app via `@vercel/analytics` — turn on in the Vercel project dashboard if not already |
-| **Vercel Speed Insights** | Web vitals sample | Enabled via `@vercel/speed-insights` (Hobby ~10k data points / project) |
-| **GA4** | Deeper engagement + custom events | Optional: set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel env |
-| **Google Search Console** | Queries, impressions, CTR | Operator: add `platformsignal.dev` after public launch / when turning off `noindex` |
+| **Vercel Web Analytics** | Page views only (light) | `<Analytics />` in layout — enable in the Vercel project dashboard |
+| **Vercel Speed Insights** | Web vitals sample | `<SpeedInsights />` (Hobby ~10k / project) |
+| **GA4** | Engagement + **custom events** | Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` |
+| **Google Search Console** | Queries, impressions, CTR | Operator: after public launch / when turning off `noindex` |
 
 ---
 
 ## Environment
 
 ```bash
-# Optional — omit until you create a GA4 property
+# Required for named custom events (copy, diagram, search, …)
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
 No secrets belong in the client bundle beyond the public measurement ID.
+
+Without this env var, page views still work via Vercel Analytics; custom events are no-ops.
 
 ---
 
@@ -60,7 +75,7 @@ Documented for the success dashboard; revisit quarterly.
 Spreadsheet or Looker Studio joining:
 
 1. Search Console (queries + landing pages)
-2. GA4 or Vercel Analytics (engaged sessions + named events)
+2. GA4 (engaged sessions + named events) and/or Vercel page views
 
 Do **not** optimize for pageviews alone.
 
@@ -69,6 +84,6 @@ Do **not** optimize for pageviews alone.
 ## Operator checklist
 
 1. Vercel → Project → Analytics → Enable Web Analytics (and Speed Insights if desired)
-2. Create GA4 property for `platformsignal.dev` when ready; add env var; redeploy
+2. Create GA4 property for `platformsignal.dev`; set `NEXT_PUBLIC_GA_MEASUREMENT_ID`; redeploy
 3. After turning off `noindex`: Search Console property + submit `https://platformsignal.dev/sitemap.xml`
-4. Watch Hobby Fast Data Transfer and Analytics event caps (50k Web Analytics events / month)
+4. Watch Hobby caps: 50k Web Analytics events / month; 10k Speed Insights events / month

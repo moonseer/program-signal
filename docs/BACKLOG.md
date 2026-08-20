@@ -1355,11 +1355,11 @@ The full weekly Signal product matures in P4. Launch needs capture + identity.
 
 ### S24.01 — Properties
 
-- [x] GA4 wiring (optional via `NEXT_PUBLIC_GA_MEASUREMENT_ID`; operator creates property)
+- [x] GA4 wiring for **custom events** (set `NEXT_PUBLIC_GA_MEASUREMENT_ID`; Vercel custom events are Pro-only)
 - [ ] Search Console (operator; after public launch / `noindex` off)
-- [x] Vercel Web Analytics (light) via `@vercel/analytics` — enable in Vercel dashboard
+- [x] Vercel Web Analytics **page views** via `@vercel/analytics` — enable in Vercel dashboard (Hobby 50k/mo free)
 - [x] Optional Speed Insights via `@vercel/speed-insights` (Hobby 10k events — one project)
-- [x] Documented in `docs/standards/ANALYTICS.md`
+- [x] Documented in `docs/standards/ANALYTICS.md` (Hobby cost model clarified)
 
 ### S24.02 — Event design (implement incrementally)
 

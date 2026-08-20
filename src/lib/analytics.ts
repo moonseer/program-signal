@@ -1,5 +1,3 @@
-import { track } from "@vercel/analytics";
-
 /** Named events from E24. Prefer these over ad-hoc strings. */
 export type AnalyticsEvent =
   | "newsletter_signup"
@@ -22,22 +20,19 @@ declare global {
 }
 
 /**
- * Dual-write to Vercel Analytics (always when the package is loaded) and GA4
- * when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured and gtag is present.
+ * Custom engagement events go to GA4 only.
+ *
+ * Vercel Web Analytics on Hobby includes page views (via `<Analytics />`) but
+ * custom events are a Pro feature. Do not call Vercel `track()` on Hobby.
+ * Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` to capture named events.
  */
 export function trackEvent(name: AnalyticsEvent, properties?: EventProps) {
-  try {
-    track(name, properties);
-  } catch {
-    // Analytics must never break the reading experience.
-  }
-
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
     return;
   }
   try {
     window.gtag("event", name, properties);
   } catch {
-    // ignore
+    // Analytics must never break the reading experience.
   }
 }
