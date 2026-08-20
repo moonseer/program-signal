@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** **E22 Done** (domain + SEO/a11y). Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** **E24** analytics in progress. E23 newsletter deferred. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -41,6 +41,7 @@ Keep this section current. Detail lives in the epics below.
 | Area | What landed |
 |---|---|
 | Constitution | Editorial standards, AI process, human approval gate, persona disclosure |
+| Domain + SEO | E22 `platformsignal.dev`, sitemap/robots, canonicals, a11y ([#36](https://github.com/moonseer/program-signal/pull/36)–[#38](https://github.com/moonseer/program-signal/pull/38)) |
 | Public policies | E20 corrections, sponsorship, vendor, disclosure, content rights, monetization ([#33](https://github.com/moonseer/program-signal/pull/33)) |
 | Backups | E21 3-2-1 docs, archive/restore scripts, mirror workflows ([#34](https://github.com/moonseer/program-signal/pull/34)) |
 | Launch quality | E19 cluster linking, visual completeness, voice differentiation, research coverage ([#29](https://github.com/moonseer/program-signal/pull/29)–[#32](https://github.com/moonseer/program-signal/pull/32)) |
@@ -67,8 +68,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Next product slice: **E23** newsletter (when ready). Keep `noindex` until intentional public launch + Search Console.
-2. Operator: E21 `BACKUP_MIRROR_*` secrets; monitor Fast Data Transfer. Radar stays later.
+1. Land **E24** analytics (this PR). Keep `noindex` until intentional public launch + Search Console.
+2. **E23 newsletter deferred**. Operator: E21 `BACKUP_MIRROR_*` when ready. Then E25 distribution or public launch when ready.
 
 ### Deferred (not now)
 
@@ -77,7 +78,8 @@ Keep this section current. Detail lives in the epics below.
 ### Not next
 
 - Illustrated persona portraits, topic accent colors, or long-article comfort testing
-- RSS, newsletter vendor
+- RSS
+- **E23 newsletter** (deferred; revisit after analytics / public launch decision)
 - Public launch / turning off `noindex`
 - Running Radar or Desk as live jobs **before Agent runtime Phase 1 is proven**
 - Kubernetes launch cluster (`PS-000005`–`000007`)
@@ -91,7 +93,7 @@ Keep this section current. Detail lives in the epics below.
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
 | P2 Launch inventory | E13–E21 | E13 **Done**. E15–E21 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
-| P3–P5 | E22–E38 | E22 **Done** (GSC / public indexation still operator). Rest not started, except deferred items. |
+| P3–P5 | E22–E38 | E22 **Done**. E23 **deferred**. E24 **In progress**. Rest not started, except deferred items. |
 
 ---
 
@@ -1318,9 +1320,9 @@ Applies to every launch article.
 
 ## E23 — Newsletter as a product (launch slice)
 
-**Status:** Not started  
+**Status:** Deferred  
 **Phase:** P3  
-**Priority:** High
+**Priority:** High (deferred by choice 2026-08-20 — revisit after E24 / public launch)
 
 The full weekly Signal product matures in P4. Launch needs capture + identity.
 
@@ -1347,28 +1349,29 @@ The full weekly Signal product matures in P4. Launch needs capture + identity.
 
 ## E24 — Analytics model
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P3  
 **Priority:** High
 
 ### S24.01 — Properties
 
-- [ ] GA4
-- [ ] Search Console
-- [ ] Vercel Web Analytics (light)
-- [ ] Optional Speed Insights (10k events Hobby — one project)
+- [x] GA4 wiring (optional via `NEXT_PUBLIC_GA_MEASUREMENT_ID`; operator creates property)
+- [ ] Search Console (operator; after public launch / `noindex` off)
+- [x] Vercel Web Analytics (light) via `@vercel/analytics` — enable in Vercel dashboard
+- [x] Optional Speed Insights via `@vercel/speed-insights` (Hobby 10k events — one project)
+- [x] Documented in `docs/standards/ANALYTICS.md`
 
 ### S24.02 — Event design (implement incrementally)
 
 Do not block launch on all of these.
 
-- [ ] `newsletter_signup`
-- [ ] `copy_code`
-- [ ] `diagram_expand` / `diagram_download`
-- [ ] `source_click`
-- [ ] `related_article_click`
-- [ ] `search_used`
-- [ ] `quick_read_selected` / `deep_dive_selected`
+- [ ] `newsletter_signup` (deferred with E23; CTA click tracked as `newsletter_cta_click`)
+- [x] `copy_code`
+- [x] `diagram_expand` / `diagram_download`
+- [x] `source_click`
+- [x] `related_article_click`
+- [x] `search_used`
+- [x] `quick_read_selected` / `deep_dive_selected`
 
 ### S24.03 — Success dashboard (manual is fine)
 
@@ -1381,8 +1384,9 @@ Document the 12-month hypotheses (not guarantees):
 
 North star: Monthly Engaged Technical Readers.
 
-- [ ] Spreadsheet or Looker Studio connecting GSC + GA4
-- [ ] Do not optimize for pageviews alone
+- [x] Hypotheses documented in `docs/standards/ANALYTICS.md` (spreadsheet / Looker Studio is operator)
+- [x] Do not optimize for pageviews alone
+- [ ] Content PR merge (this PR)
 
 ---
 

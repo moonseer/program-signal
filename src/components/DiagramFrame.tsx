@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export function DiagramFrame({ id, svg }: { id: string; svg: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -9,6 +10,7 @@ export function DiagramFrame({ id, svg }: { id: string; svg: string }) {
   function expand() {
     dialogRef.current?.showModal();
     setOpen(true);
+    trackEvent("diagram_expand", { diagram_id: id });
   }
 
   function collapse() {
@@ -17,6 +19,7 @@ export function DiagramFrame({ id, svg }: { id: string; svg: string }) {
   }
 
   function download() {
+    trackEvent("diagram_download", { diagram_id: id });
     const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");

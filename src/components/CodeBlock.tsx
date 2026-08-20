@@ -7,6 +7,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 function textOf(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -35,6 +36,7 @@ export function CodeBlock({
   async function copy() {
     await navigator.clipboard.writeText(source);
     setCopied(true);
+    trackEvent("copy_code", { language: language ?? "unknown" });
     window.setTimeout(() => setCopied(false), 1600);
   }
 

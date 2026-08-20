@@ -1,4 +1,5 @@
 import { referenceAnchorId } from "@/lib/citations";
+import { TrackedExternalLink } from "@/components/TrackedLink";
 import type { PublicReference, SourceRecord } from "@/lib/schemas";
 
 const labels: Record<PublicReference["label"], string> = {
@@ -24,18 +25,23 @@ export function SourceList({
       <ol className="mt-6 space-y-5">
         {references.map(({ entry, source }, index) => (
           <li
-              key={source.source_id}
-              id={referenceAnchorId(source.source_id)}
-              className="scroll-mt-6 text-sm leading-6"
-            >
+            key={source.source_id}
+            id={referenceAnchorId(source.source_id)}
+            className="scroll-mt-6 text-sm leading-6"
+          >
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
               {index + 1} · {labels[entry.label]}
             </p>
             <p className="mt-1">
               {source.url ? (
-                <a href={source.url} rel="noreferrer">
+                <TrackedExternalLink
+                  href={source.url}
+                  rel="noreferrer"
+                  event="source_click"
+                  eventProps={{ source_id: source.source_id }}
+                >
                   {source.title}
-                </a>
+                </TrackedExternalLink>
               ) : (
                 source.title
               )}

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import { getArticleBySlug } from "@/lib/content";
 
 export function RelatedArticles({ slugs }: { slugs: string[] }) {
@@ -22,12 +22,14 @@ export function RelatedArticles({ slugs }: { slugs: string[] }) {
       <ul className="mt-4 divide-y divide-[var(--border)]">
         {articles.map((article) => (
           <li key={article.frontmatter.id} className="py-3">
-            <Link
+            <TrackedLink
               href={`/articles/${article.frontmatter.slug}`}
               className="hover:text-[var(--accent)]"
+              event="related_article_click"
+              eventProps={{ slug: article.frontmatter.slug }}
             >
               {article.frontmatter.title}
-            </Link>
+            </TrackedLink>
             <p className="mt-1 text-sm text-[var(--muted)]">
               {article.frontmatter.description}
             </p>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { SearchDialog } from "@/components/SearchDialog";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { TrackedLink } from "@/components/TrackedLink";
 import type { SearchDocument } from "@/lib/search";
 
 const nav = [
@@ -33,12 +34,14 @@ export function SiteHeader({ searchCorpus }: { searchCorpus: SearchDocument[] })
         <div className="flex items-center gap-4">
           <SearchDialog corpus={searchCorpus} />
           <ThemeToggle />
-          <Link
+          <TrackedLink
             href="/#subscribe"
             className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)] sm:inline"
+            event="newsletter_cta_click"
+            eventProps={{ location: "header" }}
           >
             Subscribe
-          </Link>
+          </TrackedLink>
           <button
             type="button"
             className="min-h-11 min-w-11 font-mono text-[11px] uppercase tracking-[0.16em] md:hidden"
@@ -65,13 +68,15 @@ export function SiteHeader({ searchCorpus }: { searchCorpus: SearchDocument[] })
               {item.label}
             </Link>
           ))}
-          <Link
+          <TrackedLink
             href="/#subscribe"
             className="flex min-h-11 items-center font-mono text-[12px] uppercase tracking-[0.16em] text-[var(--accent)]"
+            event="newsletter_cta_click"
+            eventProps={{ location: "mobile_nav" }}
             onClick={() => setOpen(false)}
           >
             Subscribe
-          </Link>
+          </TrackedLink>
         </nav>
       ) : null}
     </header>

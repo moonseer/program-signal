@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { searchArticles, type SearchDocument } from "@/lib/search";
 
 export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
@@ -11,6 +12,18 @@ export function SearchDialog({ corpus }: { corpus: SearchDocument[] }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const hits = useMemo(() => searchArticles(corpus, query), [corpus, query]);
+  const lastTrackedQuery = useRef("");
+
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (trimmed.length < 2 || hits.length === 0) return;
+    if (lastTrackedQuery.current === trimmed) return;
+    lastTrackedQuery.current = trimmed;
+    trackEvent("search_used", {
+      query_length: trimmed.length,
+      hit_count: hits.length,
+    });
+  }, [query, hits.length]);
 
   function show() {
     dialogRef.current?.showModal();

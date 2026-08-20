@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 
 export function SubscribeCta({
   id,
@@ -23,14 +23,19 @@ export function SubscribeCta({
         Get the Signal
       </h2>
       <p className="mt-2 max-w-xl text-[var(--muted)]">
-        One useful engineering brief every week. Newsletter capture ships in a
-        later phase.
+        One useful engineering brief every week. Email capture is deferred (E23);
+        the CTA is wired for analytics while the provider is pending.
       </p>
       {compact ? (
         <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.16em]">
-          <Link href="/#subscribe" className="text-[var(--accent)]">
+          <TrackedLink
+            href="/#subscribe"
+            className="text-[var(--accent)]"
+            event="newsletter_cta_click"
+            eventProps={{ location: "article_end" }}
+          >
             Homepage signup
-          </Link>
+          </TrackedLink>
         </p>
       ) : null}
     </section>

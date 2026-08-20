@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { IBM_Plex_Mono, Newsreader, Source_Serif_4 } from "next/font/google";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -87,6 +90,9 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        <Analytics />
+        <SpeedInsights />
+        <GoogleAnalytics />
       </body>
     </html>
   );
