@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** Launch inventory complete. **E19 Done**. **E20 public policies** in this PR. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** Launch inventory complete. **E19–E20 Done**. **E21 backups** in this PR. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -41,6 +41,7 @@ Keep this section current. Detail lives in the epics below.
 | Area | What landed |
 |---|---|
 | Constitution | Editorial standards, AI process, human approval gate, persona disclosure |
+| Public policies | E20 corrections, sponsorship, vendor, disclosure, content rights, monetization ([#33](https://github.com/moonseer/program-signal/pull/33)) |
 | Launch quality | E19 cluster linking, visual completeness, voice differentiation, research coverage ([#29](https://github.com/moonseer/program-signal/pull/29)–[#32](https://github.com/moonseer/program-signal/pull/32)) |
 | Agents | Radar, Desk, and Evidence Editor specs in-repo. Implementation architecture defined (Author Engine + persona packages, LangGraph workflow). None can publish. |
 | Engine | Next.js site, CI validate-then-deploy, Vercel Hobby, `main` requires a PR + passing `validate` |
@@ -65,8 +66,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Land **E20** public policies (this PR), then start **E21** backups before turning off `noindex`.
-2. Radar automation and Kubernetes stay later.
+1. Land **E21** backups (this PR). Operator: create independent mirror remote and set `BACKUP_MIRROR_*` secrets (see `docs/standards/BACKUP.md`).
+2. Phase 3 (domain / `noindex`) stays later. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
 
@@ -87,7 +88,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E19 **Done**. E20 **In progress**. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E20 **Done**. E21 **In progress**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -962,7 +963,7 @@ Implement routes (full policy text can be completed in P2 if needed, but stubs s
 - Each required type has Research Editor review and human approval
 - Clusters interlink; no orphan launch posts
 - Policy pages are real, not lorem
-- Backup/mirror plan is documented and the first mirror exists
+- Backup/mirror plan is documented (`docs/standards/BACKUP.md`); first third-copy archive + restore test done; independent secondary mirror goes live after `BACKUP_MIRROR_*` secrets
 
 Do not generate all 15 from a blank prompt. Each gets a brief first.
 
@@ -1178,7 +1179,7 @@ Applies to every launch article.
 
 ## E20 — Remaining public policies (before public launch)
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P2 (handbook Priority 2; required before *public* launch)  
 **Priority:** High
 
@@ -1228,24 +1229,25 @@ Applies to every launch article.
 - [x] FTC-style disclosure examples on file
 - [x] Explicit: no monetization until Vercel Pro (or other commercial-capable host) and legal review
 - [x] Linked from sponsorship policy and editorial standards
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#33](https://github.com/moonseer/program-signal/pull/33))
 
 ---
 
 ## E21 — Backups and content ownership
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2  
 **Priority:** High
 
 ### S21.01 — 3-2-1 for the corpus
 
-- [ ] Primary: GitHub
-- [ ] Secondary: scheduled mirror (GitLab / Forgejo / independent remote)
-- [ ] Third: monthly compressed archive (git history, MDX, images, diagrams, ledgers, policies, config)
-- [ ] Quarterly restore test: clone → install → build → render → verify assets
-- [ ] Document in `docs/standards/BACKUP.md`
-- [ ] Newsletter subscriber export lives with the email vendor, with periodic export if the vendor allows
+- [x] Primary: GitHub (`moonseer/program-signal`)
+- [x] Secondary: scheduled mirror workflow (`.github/workflows/backup-mirror.yml`); **operator:** create independent remote + `BACKUP_MIRROR_*` secrets per `docs/standards/BACKUP.md` (first live push pending secrets)
+- [x] Third: monthly compressed archive scripts + workflow; first local archive produced 2026-08-20 (`./scripts/create-backup-archive.sh`; store off GitHub)
+- [x] Quarterly restore test: `./scripts/restore-test.sh` passed 2026-08-20 (working tree and git bundle → install → validate → build → asset check)
+- [x] Document in `docs/standards/BACKUP.md`
+- [x] Newsletter subscriber export: documented as N/A until a vendor exists; then periodic export with third-copy archives
+- [ ] Content PR merge (this PR)
 
 ---
 

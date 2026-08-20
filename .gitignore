@@ -38,6 +38,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local / CI backup archives (third copy; do not commit)
+/backups/
+
 # local junk
 docs/*.zip
 
