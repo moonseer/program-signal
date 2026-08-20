@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** Launch inventory complete for non-Kubernetes clusters. **E19 production quality bar** in progress (cluster linking first). Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** Launch inventory complete. **E19 production quality bar** finishing (S19.04 research coverage). Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -64,8 +64,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **E19** launch production quality bar: S19.03 voice pass in this PR; then research coverage (S19.04).
-2. E20 public policies before turning off `noindex`. Radar automation and Kubernetes stay later.
+1. After **E19** lands (S19.04 research coverage in this PR), start **E20** public policies before turning off `noindex`.
+2. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
 
@@ -86,7 +86,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E18 **Done**. E19 **In progress**. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E18 **Done**. E19 **In progress** (S19.04). E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1134,7 +1134,7 @@ Reframed off Kubernetes. Host-agnostic operator guide (`PS-000009`).
 
 ## E19 — Launch production quality bar
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P2  
 **Priority:** Critical
 
@@ -1163,13 +1163,15 @@ Applies to every launch article.
 - [x] Nia pieces start from the problem, not the stack (012 hiring ambiguity; 013 ownership failure modes before titles)
 - [x] No persona claims fake employers, degrees, or “years at Google” (scan clean across launch set)
 - [x] House style: removed residual em dashes from published article bodies
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#31](https://github.com/moonseer/program-signal/pull/31))
 
 ### S19.04 — Research coverage
 
-- [ ] 100% Research Editor review on Deep Dive, Operator Guide, Lab
-- [ ] Strongly recommended types actually reviewed for launch
-- [ ] Evidence ledgers stored with articles
+- [x] 100% Research Editor review on Deep Dive, Operator Guide, Lab (004, 009, 011: all `pass` with evidence.yml)
+- [x] Strongly recommended types actually reviewed for launch (all 12 published pieces reviewed; PS-000015 EiC override recorded as `pass_with_changes`)
+- [x] Evidence ledgers stored with articles (every published article has evidence.yml + references.yml)
+- [x] Validator: published articles cannot ship on research `hold`/`fail`; ledgers cannot contain UNSUPPORTED/INCORRECT
+- [ ] Content PR merge (this PR)
 
 ---
 
