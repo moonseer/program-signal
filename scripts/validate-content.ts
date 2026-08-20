@@ -57,11 +57,32 @@ function validateArticles() {
       continue;
     }
     const article = result.data;
+    const published = article.editorialStatus === "published";
+    const researchRequired =
+      REQUIRED_RESEARCH_TYPES.includes(article.contentType) || published;
+    const researchStatus = article.research?.editorStatus;
+    const acceptStatuses = new Set(["pass", "pass_with_changes"]);
+
+    if (researchRequired && !researchStatus) {
+      error(`${slug}: ${article.contentType} requires research.editorStatus`);
+    }
+    if (
+      published &&
+      researchStatus &&
+      !acceptStatuses.has(researchStatus)
+    ) {
+      error(
+        `${slug}: published articles require research.editorStatus of pass or pass_with_changes (got ${researchStatus})`,
+      );
+    }
     if (
       REQUIRED_RESEARCH_TYPES.includes(article.contentType) &&
-      !article.research?.editorStatus
+      researchStatus &&
+      !acceptStatuses.has(researchStatus)
     ) {
-      error(`${slug}: ${article.contentType} requires research.editorStatus`);
+      error(
+        `${slug}: ${article.contentType} requires research.editorStatus of pass or pass_with_changes (got ${researchStatus})`,
+      );
     }
     if (article.sponsorship.sponsored && !article.sponsorship) {
       error(`${slug}: sponsored content missing disclosure fields`);
@@ -86,9 +107,21 @@ function validateArticles() {
       if (!ledger.success) {
         error(`${slug}/evidence.yml: ${ledger.error.message}`);
       } else {
+        if (published && ledger.data.claims.length < 1) {
+          error(`${slug}/evidence.yml: published evidence ledger needs at least one claim`);
+        }
+        if (published) {
+          for (const claim of ledger.data.claims) {
+            if (claim.status === "UNSUPPORTED" || claim.status === "INCORRECT") {
+              error(
+                `${slug}/evidence.yml: claim ${claim.id} has status ${claim.status}`,
+              );
+            }
+          }
+        }
         ok(`${slug}/evidence.yml`);
       }
-    } else if (REQUIRED_RESEARCH_TYPES.includes(article.contentType)) {
+    } else if (researchRequired) {
       error(`${slug}: ${article.contentType} requires evidence.yml`);
     }
     const referencesFile = path.join(articlesDir, slug, "references.yml");
@@ -99,6 +132,8 @@ function validateArticles() {
       } else {
         ok(`${slug}/references.yml`);
       }
+    } else if (published) {
+      error(`${slug}: published articles require references.yml`);
     }
     ok(`${article.id} ${slug}`);
   }
