@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = { title: "Editorial Standards" };
 
 export default function EditorialStandardsPage() {
@@ -26,6 +28,17 @@ export default function EditorialStandardsPage() {
           Named editorial voices are personas, not real-world individuals. AI may
           assist research and drafting. A human editor retains publication
           accountability. No agent publishes.
+        </p>
+        <p>
+          <Link href="/corrections">Corrections</Link>
+          {" · "}
+          <Link href="/sponsorship-policy">Sponsorship</Link>
+          {" · "}
+          <Link href="/vendor-interaction-policy">Vendor interaction</Link>
+          {" · "}
+          <Link href="/responsible-disclosure">Responsible disclosure</Link>
+          {" · "}
+          <Link href="/content-rights-policy">Content rights</Link>
         </p>
         <p>
           Full constitution:{" "}
