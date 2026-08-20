@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { getEditorialClusters } from "@/lib/clusters";
 import { getPublishedArticles } from "@/lib/content";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = { title: "Topics" };
+export const metadata = pageMetadata({
+  title: "Topics",
+  description:
+    "Launch topic clusters for platform engineers, agent infrastructure, MCP, SRE, and forward deployed engineering.",
+  path: "/topics",
+});
 
 export default function TopicsPage() {
   const clusters = getEditorialClusters(getPublishedArticles());
@@ -29,9 +35,6 @@ export default function TopicsPage() {
               {cluster.publishedArticles.length === 0
                 ? "No published articles yet"
                 : `${cluster.publishedArticles.length} published`}
-              {cluster.pillarArticle
-                ? ` · pillar: ${cluster.pillarArticle.frontmatter.title}`
-                : ""}
             </p>
           </li>
         ))}

@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = {
-  title: "Sponsorship Policy",
+
+export const metadata = pageMetadata({
+  title: 'Sponsorship Policy',
   description:
-    "Editorial conclusions cannot be purchased. No paid sponsorships on Vercel Hobby.",
-};
+    'Editorial conclusions cannot be purchased. No paid sponsorships on Vercel Hobby.',
+  path: '/sponsorship-policy',
+});
 
 export default function SponsorshipPolicyPage() {
   return (

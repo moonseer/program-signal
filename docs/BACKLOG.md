@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** Launch inventory complete. **E19–E21 Done**. Custom domain **platformsignal.dev** attached. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** **E22** domain + SEO/a11y hardening in progress. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -67,8 +67,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **E22** domain/SEO hardening: canonical URL now `https://platformsignal.dev`; keep `noindex` until Search Console + intentional public launch.
-2. Operator: finish E21 secondary mirror secrets when ready. Radar automation and Kubernetes stay later.
+1. Land **E22** SEO/a11y PR; keep `noindex` until intentional public launch + Search Console.
+2. Operator: finish E21 secondary mirror secrets when ready. E23 newsletter and Radar stay later.
 
 ### Deferred (not now)
 
@@ -1280,38 +1280,39 @@ Applies to every launch article.
 - [x] `www` vs apex redirect chosen (`www` → apex `https://platformsignal.dev`)
 - [x] Domain attached to Vercel project `program-signal`
 - [x] Site `SITE_URL` / `metadataBase` resolve to `https://platformsignal.dev` on production
-- [ ] Preview URLs remain noindex (global `noindex` still on; keep until public launch)
+- [x] Preview URLs remain noindex (global `noindex` still on; keep until public launch)
 
 ### S22.02 — SEO basics
 
-- [ ] Unique titles/descriptions from frontmatter
-- [ ] Canonical tags
-- [ ] Heading hierarchy
-- [ ] Image alt text
-- [ ] Performance: LCP, CLS, no layout-shifting webfonts
-- [ ] Self-hosted or `next/font` to avoid extra origin cost
+- [x] Unique titles/descriptions from frontmatter (articles) and pageMetadata (indexes/policies)
+- [x] Canonical tags (absolute per route; home + articles + static pages)
+- [x] Heading hierarchy (list teasers under page `h1` as `h2`; nested homepage sections adjusted)
+- [x] Image alt text (diagram `alt_text` + SVG labels; no raster heroes)
+- [x] Performance: LCP/CLS, no layout-shifting webfonts (`next/font` + `adjustFontFallback` + `display: swap`)
+- [x] Self-hosted or `next/font` to avoid extra origin cost
 
 ### S22.03 — Indexation
 
-- [ ] Google Search Console property
-- [ ] Sitemap submit
-- [ ] Bing optional
-- [ ] Confirm no accidental `noindex` on production
+- [ ] Google Search Console property (operator)
+- [x] Sitemap route (`/sitemap.xml`) ready; submit after public launch
+- [ ] Bing optional (operator)
+- [x] Production still intentionally `noindex` (do not remove until public launch)
 
 ### S22.04 — Accessibility pass
 
-- [ ] Keyboard nav, search dialog focus trap
-- [ ] Contrast in light and dark
-- [ ] Callouts not color-only
-- [ ] Reduced motion
-- [ ] Code blocks and skip-to-content
+- [x] Keyboard nav, search dialog focus trap (native `<dialog>` + restore focus to trigger)
+- [x] Contrast in light and dark (tokenized theme; callouts labeled in text)
+- [x] Callouts not color-only
+- [x] Reduced motion
+- [x] Code blocks and skip-to-content (`aria-live` copy status; skip link → `#main-content`)
 
 ### S22.05 — Performance budget (Hobby)
 
-- [ ] Article JS kept small; avoid unnecessary client components
-- [ ] Diagrams as SVG, not giant PNG
-- [ ] Few `next/image` transformations
-- [ ] Monitor Fast Data Transfer in Vercel dashboard
+- [x] Article JS kept small; avoid unnecessary client components (existing client islands only)
+- [x] Diagrams as SVG, not giant PNG
+- [x] Few `next/image` transformations (none)
+- [ ] Monitor Fast Data Transfer in Vercel dashboard (operator)
+- [ ] Content PR merge (this PR)
 
 ---
 

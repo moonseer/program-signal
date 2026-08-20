@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = {
-  title: "Vendor Interaction Policy",
+
+export const metadata = pageMetadata({
+  title: 'Vendor Interaction Policy',
   description:
-    "Vendors are sources, not clients. Factual checks are allowed; editorial approval is not.",
-};
+    'Vendors are sources, not clients. Allowed briefings and factual checks; forbidden conclusion shopping.',
+  path: '/vendor-interaction-policy',
+});
 
 export default function VendorInteractionPolicyPage() {
   return (

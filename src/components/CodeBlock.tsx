@@ -42,11 +42,20 @@ export function CodeBlock({
     <div className="code-block">
       <div className="code-block-bar">
         <span>{language ? language : "Code"}</span>
-        <button type="button" onClick={copy}>
+        <button
+          type="button"
+          onClick={copy}
+          aria-label={copied ? "Copied to clipboard" : "Copy code to clipboard"}
+        >
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre {...props}>{children}</pre>
+      <span className="sr-only" aria-live="polite">
+        {copied ? "Code copied to clipboard." : ""}
+      </span>
+      <pre tabIndex={0} {...props}>
+        {children}
+      </pre>
     </div>
   );
 }

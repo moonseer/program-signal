@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = { title: "Editorial Standards" };
+
+export const metadata = pageMetadata({
+  title: 'Editorial Standards',
+  description:
+    'Evidence rules for Platform Signal: material claims need sources, opinion is labeled, and no agent publishes.',
+  path: '/editorial-standards',
+});
 
 export default function EditorialStandardsPage() {
   return (
