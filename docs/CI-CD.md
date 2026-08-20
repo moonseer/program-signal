@@ -276,7 +276,7 @@ Setup sequence when we start coding:
 5. Add `ci.yml`.
 6. Push a branch, confirm validate runs, confirm a **preview** URL appears only after green.
 7. Merge to `main`, confirm **production** updates only after green.
-8. Attach the custom domain later (Phase 3). Until then, the Vercel production URL is fine.
+8. Custom domain: **`https://platformsignal.dev`** (apex canonical; `www` redirects). Keep production `noindex` until intentional public launch.
 
 Do not commit `.env`, newsletter API keys, or the Vercel token.
 
