@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** Launch inventory complete. **E19–E21 Done**. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** Launch inventory complete. **E19–E21 Done**. Custom domain **platformsignal.dev** attached. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -42,6 +42,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|
 | Constitution | Editorial standards, AI process, human approval gate, persona disclosure |
 | Public policies | E20 corrections, sponsorship, vendor, disclosure, content rights, monetization ([#33](https://github.com/moonseer/program-signal/pull/33)) |
+| Backups | E21 3-2-1 docs, archive/restore scripts, mirror workflows ([#34](https://github.com/moonseer/program-signal/pull/34)) |
 | Launch quality | E19 cluster linking, visual completeness, voice differentiation, research coverage ([#29](https://github.com/moonseer/program-signal/pull/29)–[#32](https://github.com/moonseer/program-signal/pull/32)) |
 | Agents | Radar, Desk, and Evidence Editor specs in-repo. Implementation architecture defined (Author Engine + persona packages, LangGraph workflow). None can publish. |
 | Engine | Next.js site, CI validate-then-deploy, Vercel Hobby, `main` requires a PR + passing `validate` |
@@ -66,8 +67,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Operator: create independent mirror remote and set `BACKUP_MIRROR_*` secrets (see `docs/standards/BACKUP.md`), then run **Backup mirror** once.
-2. Phase 3 starts with **E22** (domain / SEO) when ready; keep `noindex` until then. Radar automation and Kubernetes stay later.
+1. **E22** domain/SEO hardening: canonical URL now `https://platformsignal.dev`; keep `noindex` until Search Console + intentional public launch.
+2. Operator: finish E21 secondary mirror secrets when ready. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
 
@@ -76,7 +77,7 @@ Keep this section current. Detail lives in the epics below.
 ### Not next
 
 - Illustrated persona portraits, topic accent colors, or long-article comfort testing
-- RSS, newsletter vendor, custom domain
+- RSS, newsletter vendor
 - Public launch / turning off `noindex`
 - Running Radar or Desk as live jobs **before Agent runtime Phase 1 is proven**
 - Kubernetes launch cluster (`PS-000005`–`000007`)
@@ -90,7 +91,7 @@ Keep this section current. Detail lives in the epics below.
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
 | P2 Launch inventory | E13–E21 | E13 **Done**. E15–E21 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
-| P3–P5 | E22–E38 | Not started, except deferred items. |
+| P3–P5 | E22–E38 | E22 **In progress** (domain attached). Rest not started, except deferred items. |
 
 ---
 
@@ -574,7 +575,7 @@ Follow `docs/CI-CD.md`. Do **not** use Vercel’s default “deploy on every git
 - [x] Create Vercel Hobby project and `vercel link`
 - [x] `vercel.json`: `git.deploymentEnabled: false`
 - [x] GitHub secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
-- [x] Production URL is the Vercel project URL until the custom domain (P3)
+- [x] Production URL is the Vercel project URL until the custom domain (P3); custom domain now `https://platformsignal.dev`
 - [x] Environment: none required for a static site at this stage
 - [x] Confirm build stays well under 45 minutes
 - [x] Document Hobby commercial-use limit in README
@@ -1268,16 +1269,18 @@ Applies to every launch article.
 
 ## E22 — Domain, SEO, and production hardening
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P3  
 **Priority:** Critical
 
 ### S22.01 — Custom domain
 
-- [ ] DNS to Vercel
-- [ ] HTTPS
-- [ ] `www` vs apex redirect chosen
-- [ ] Preview URLs remain noindex
+- [x] DNS to Vercel (`platformsignal.dev`, nameservers `ns1/ns2.vercel-dns.com`)
+- [x] HTTPS (Vercel edge; HSTS present)
+- [x] `www` vs apex redirect chosen (`www` → apex `https://platformsignal.dev`)
+- [x] Domain attached to Vercel project `program-signal`
+- [x] Site `SITE_URL` / `metadataBase` resolve to `https://platformsignal.dev` on production
+- [ ] Preview URLs remain noindex (global `noindex` still on; keep until public launch)
 
 ### S22.02 — SEO basics
 
