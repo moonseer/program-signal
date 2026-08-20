@@ -2,19 +2,18 @@
 
 ## In progress — 2026-08-20
 
-- None. E24 analytics closed ([#39](https://github.com/moonseer/program-signal/pull/39)).
+- **E25 Launch distribution** — playbook + 10-day sequence for the 12 published articles.
 
 ## Up next
 
-- E25 Launch distribution
-- Or public launch: turn off `noindex` + Search Console
-- Operator: enable Vercel Web Analytics; optional `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-- Operator: `BACKUP_MIRROR_*` secrets
+- Founder executes `docs/editorial/LAUNCH-WEEK-PLAN.md`
+- Public launch decision: `noindex` off + Search Console
+- Operator: Vercel Web Analytics / optional GA4; `BACKUP_MIRROR_*`
 
 ## Done recently
 
-- E24 analytics ([#39](https://github.com/moonseer/program-signal/pull/39))
-- E22 SEO / domain ([#36](https://github.com/moonseer/program-signal/pull/36)–[#38](https://github.com/moonseer/program-signal/pull/38))
+- E24 analytics ([#39](https://github.com/moonseer/program-signal/pull/39), [#40](https://github.com/moonseer/program-signal/pull/40))
+- E22 domain + SEO ([#36](https://github.com/moonseer/program-signal/pull/36)–[#38](https://github.com/moonseer/program-signal/pull/38))
 
 ## Deferred
 
