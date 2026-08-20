@@ -89,6 +89,8 @@ Allowed with disclosure: briefings, demos, time-limited licenses, documentation 
 
 Not allowed: paying for a conclusion, undisclosed affiliate steering, vendor-written “independent” analysis.
 
+Detail: [`SPONSORSHIP-POLICY.md`](./SPONSORSHIP-POLICY.md), [`VENDOR-INTERACTION-POLICY.md`](./VENDOR-INTERACTION-POLICY.md), [`MONETIZATION-PRINCIPLES.md`](./MONETIZATION-PRINCIPLES.md).
+
 ---
 
 ## 6. Corrections
@@ -103,6 +105,8 @@ Technical publishing will be wrong sometimes. Credibility comes from handling er
 | Retraction | Core conclusions unreliable | Required; rare |
 
 Material errors are corrected transparently rather than silently. Corrections are recorded in article frontmatter.
+
+Detail: [`CORRECTIONS-POLICY.md`](./CORRECTIONS-POLICY.md). Public log: [`/corrections`](/corrections).
 
 ---
 

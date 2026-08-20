@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** Launch inventory complete. **E19 production quality bar** finishing (S19.04 research coverage). Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** Launch inventory complete. **E19 Done**. **E20 public policies** in this PR. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -41,6 +41,7 @@ Keep this section current. Detail lives in the epics below.
 | Area | What landed |
 |---|---|
 | Constitution | Editorial standards, AI process, human approval gate, persona disclosure |
+| Launch quality | E19 cluster linking, visual completeness, voice differentiation, research coverage ([#29](https://github.com/moonseer/program-signal/pull/29)–[#32](https://github.com/moonseer/program-signal/pull/32)) |
 | Agents | Radar, Desk, and Evidence Editor specs in-repo. Implementation architecture defined (Author Engine + persona packages, LangGraph workflow). None can publish. |
 | Engine | Next.js site, CI validate-then-deploy, Vercel Hobby, `main` requires a PR + passing `validate` |
 | Schemas | Articles, opportunities, briefs, evidence ledger, public references, ID registry |
@@ -64,7 +65,7 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. After **E19** lands (S19.04 research coverage in this PR), start **E20** public policies before turning off `noindex`.
+1. Land **E20** public policies (this PR), then start **E21** backups before turning off `noindex`.
 2. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
@@ -86,7 +87,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E18 **Done**. E19 **In progress** (S19.04). E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E19 **Done**. E20 **In progress**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1171,59 +1172,63 @@ Applies to every launch article.
 - [x] Strongly recommended types actually reviewed for launch (all 12 published pieces reviewed; PS-000015 EiC override recorded as `pass_with_changes`)
 - [x] Evidence ledgers stored with articles (every published article has evidence.yml + references.yml)
 - [x] Validator: published articles cannot ship on research `hold`/`fail`; ledgers cannot contain UNSUPPORTED/INCORRECT
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#32](https://github.com/moonseer/program-signal/pull/32))
 
 ---
 
 ## E20 — Remaining public policies (before public launch)
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P2 (handbook Priority 2; required before *public* launch)  
 **Priority:** High
 
 ### S20.01 — Corrections policy
 
-- [ ] `docs/editorial/CORRECTIONS-POLICY.md`
-- [ ] Minor vs clarification vs material vs retraction
-- [ ] How readers report errors
-- [ ] `/corrections` and `/corrections` policy copy
+- [x] `docs/editorial/CORRECTIONS-POLICY.md`
+- [x] Minor vs clarification vs material vs retraction
+- [x] How readers report errors
+- [x] `/corrections` and `/corrections` policy copy
 
 ### S20.02 — Sponsorship policy
 
-- [ ] `docs/editorial/SPONSORSHIP-POLICY.md`
-- [ ] Non-negotiables: no sold rankings, no hidden native ads, no vendor-written “independent” analysis
-- [ ] Public `/sponsorship-policy`
-- [ ] **Note:** do not run paid sponsorships on Vercel Hobby (commercial use). Policy can exist before revenue.
+- [x] `docs/editorial/SPONSORSHIP-POLICY.md`
+- [x] Non-negotiables: no sold rankings, no hidden native ads, no vendor-written “independent” analysis
+- [x] Public `/sponsorship-policy`
+- [x] **Note:** do not run paid sponsorships on Vercel Hobby (commercial use). Policy can exist before revenue.
 
 ### S20.03 — Vendor interaction policy
 
-- [ ] `docs/editorial/VENDOR-INTERACTION-POLICY.md`
-- [ ] Allowed: briefings, demos, time-limited licenses, docs, interviews — with disclosure
-- [ ] Forbidden: promised coverage, conclusion, or full pre-publication approval
-- [ ] Factual-check vs editorial-review distinction
-- [ ] Gift threshold (safest: avoid material gifts)
+- [x] `docs/editorial/VENDOR-INTERACTION-POLICY.md`
+- [x] Allowed: briefings, demos, time-limited licenses, docs, interviews — with disclosure
+- [x] Forbidden: promised coverage, conclusion, or full pre-publication approval
+- [x] Factual-check vs editorial-review distinction
+- [x] Gift threshold (safest: avoid material gifts)
+- [x] Public `/vendor-interaction-policy`
 
 ### S20.04 — Responsible disclosure
 
-- [ ] `docs/editorial/RESPONSIBLE-DISCLOSURE.md`
-- [ ] Public `/responsible-disclosure` with contact, optional encryption, safe harbor for reports *to* Platform Signal
-- [ ] Internal workflow: validate privately → notify vendor → coordinate → then publish
-- [ ] No working exploit details in public articles
+- [x] `docs/editorial/RESPONSIBLE-DISCLOSURE.md`
+- [x] Public `/responsible-disclosure` with contact, optional encryption, safe harbor for reports *to* Platform Signal
+- [x] Internal workflow: validate privately → notify vendor → coordinate → then publish
+- [x] No working exploit details in public articles
 
 ### S20.05 — Content rights policy
 
-- [ ] `docs/editorial/CONTENT-RIGHTS-POLICY.md`
-- [ ] Third-party asset metadata: source, creator, license, permission_basis, attribution, used_in
-- [ ] Prefer original diagrams
-- [ ] Code license/attribution rules
-- [ ] Research figure rules
-- [ ] AI-generated asset provenance
+- [x] `docs/editorial/CONTENT-RIGHTS-POLICY.md`
+- [x] Third-party asset metadata: source, creator, license, permission_basis, attribution, used_in
+- [x] Prefer original diagrams
+- [x] Code license/attribution rules
+- [x] Research figure rules
+- [x] AI-generated asset provenance
+- [x] Public `/content-rights-policy`
 
 ### S20.06 — Monetization principles (policy only)
 
-- [ ] Allowed future models listed (newsletter sponsor, site sponsor, affiliate, workshops, premium research, etc.)
-- [ ] FTC-style disclosure examples on file
-- [ ] Explicit: no monetization until Vercel Pro (or other commercial-capable host) and legal review
+- [x] Allowed future models listed (newsletter sponsor, site sponsor, affiliate, workshops, premium research, etc.)
+- [x] FTC-style disclosure examples on file
+- [x] Explicit: no monetization until Vercel Pro (or other commercial-capable host) and legal review
+- [x] Linked from sponsorship policy and editorial standards
+- [ ] Content PR merge (this PR)
 
 ---
 

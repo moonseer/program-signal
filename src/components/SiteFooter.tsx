@@ -29,12 +29,24 @@ export function SiteFooter() {
           >
             Corrections
           </Link>
+          <Link
+            href="/sponsorship-policy"
+            className="text-[var(--fg)] underline-offset-4 hover:underline"
+          >
+            Sponsorship
+          </Link>
+          <Link
+            href="/responsible-disclosure"
+            className="text-[var(--fg)] underline-offset-4 hover:underline"
+          >
+            Security
+          </Link>
         </nav>
       </div>
       <p className="mx-auto max-w-6xl px-6 pb-8 text-sm text-[var(--muted)]">
         Named editorial voices are personas, not real-world individuals. Research
         and drafting may use AI-assisted tools; a human editor retains publication
-        accountability.
+        accountability. No paid sponsorships while hosted on Vercel Hobby.
       </p>
     </footer>
   );

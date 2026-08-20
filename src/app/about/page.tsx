@@ -28,6 +28,12 @@ export default function AboutPage() {
           <Link href="/editorial-standards">Editorial standards</Link>
           {" · "}
           <Link href="/ai-and-editorial-process">AI and editorial process</Link>
+          {" · "}
+          <Link href="/corrections">Corrections</Link>
+          {" · "}
+          <Link href="/sponsorship-policy">Sponsorship</Link>
+          {" · "}
+          <Link href="/responsible-disclosure">Responsible disclosure</Link>
         </p>
       </div>
     </div>
