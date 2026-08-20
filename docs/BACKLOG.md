@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** **E24** analytics in progress. E23 newsletter deferred. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** **E24 Done** (analytics). E23 newsletter deferred. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -68,8 +68,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Land **E24** analytics (this PR). Keep `noindex` until intentional public launch + Search Console.
-2. **E23 newsletter deferred**. Operator: E21 `BACKUP_MIRROR_*` when ready. Then E25 distribution or public launch when ready.
+1. Next: **E25** launch distribution, or public launch (`noindex` off + Search Console) when ready.
+2. **E23 newsletter deferred**. Operator: enable Vercel Web Analytics; optional GA4 ID; E21 `BACKUP_MIRROR_*`.
 
 ### Deferred (not now)
 
@@ -93,7 +93,7 @@ Keep this section current. Detail lives in the epics below.
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
 | P2 Launch inventory | E13–E21 | E13 **Done**. E15–E21 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
-| P3–P5 | E22–E38 | E22 **Done**. E23 **deferred**. E24 **In progress**. Rest not started, except deferred items. |
+| P3–P5 | E22–E38 | E22–E24 **Done** (E23 deferred). Rest not started, except deferred items. |
 
 ---
 
@@ -1349,7 +1349,7 @@ The full weekly Signal product matures in P4. Launch needs capture + identity.
 
 ## E24 — Analytics model
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P3  
 **Priority:** High
 
@@ -1386,7 +1386,7 @@ North star: Monthly Engaged Technical Readers.
 
 - [x] Hypotheses documented in `docs/standards/ANALYTICS.md` (spreadsheet / Looker Studio is operator)
 - [x] Do not optimize for pageviews alone
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#39](https://github.com/moonseer/program-signal/pull/39))
 
 ---
 
