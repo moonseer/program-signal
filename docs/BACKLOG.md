@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** Launch inventory complete. **E19–E20 Done**. **E21 backups** in this PR. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** Launch inventory complete. **E19–E21 Done**. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -66,8 +66,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Land **E21** backups (this PR). Operator: create independent mirror remote and set `BACKUP_MIRROR_*` secrets (see `docs/standards/BACKUP.md`).
-2. Phase 3 (domain / `noindex`) stays later. Radar automation and Kubernetes stay later.
+1. Operator: create independent mirror remote and set `BACKUP_MIRROR_*` secrets (see `docs/standards/BACKUP.md`), then run **Backup mirror** once.
+2. Phase 3 starts with **E22** (domain / SEO) when ready; keep `noindex` until then. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
 
@@ -88,7 +88,7 @@ Keep this section current. Detail lives in the epics below.
 |---|---|---|
 | P0 Foundation | E01–E05 | E01–E03 **Done**. E04–E05 leftovers are optional design and CODEOWNERS. |
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
-| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E20 **Done**. E21 **In progress**. E14 **deferred** (Kubernetes not in scope). |
+| P2 Launch inventory | E13–E21 | E13 **Done**. E15–E21 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
 | P3–P5 | E22–E38 | Not started, except deferred items. |
 
@@ -1235,7 +1235,7 @@ Applies to every launch article.
 
 ## E21 — Backups and content ownership
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P2  
 **Priority:** High
 
@@ -1247,7 +1247,7 @@ Applies to every launch article.
 - [x] Quarterly restore test: `./scripts/restore-test.sh` passed 2026-08-20 (working tree and git bundle → install → validate → build → asset check)
 - [x] Document in `docs/standards/BACKUP.md`
 - [x] Newsletter subscriber export: documented as N/A until a vendor exists; then periodic export with third-copy archives
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#34](https://github.com/moonseer/program-signal/pull/34))
 
 ---
 
