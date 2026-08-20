@@ -24,7 +24,7 @@
   <text class="sublabel" x="581" y="236" text-anchor="middle">blast radius lives here</text>
   <text class="sublabel" x="581" y="254" text-anchor="middle">not in the prompt</text>
   <text class="label" x="137" y="300" text-anchor="middle">Operator controls</text>
-  <text class="sublabel" x="137" y="322" text-anchor="middle">identity · secrets</text>
-  <text class="sublabel" x="137" y="340" text-anchor="middle">network · audit</text>
+  <text class="sublabel" x="137" y="322" text-anchor="middle">identity Â· secrets</text>
+  <text class="sublabel" x="137" y="340" text-anchor="middle">network Â· audit</text>
   <text class="sublabel" x="137" y="358" text-anchor="middle">host = placement</text>
 </svg>

@@ -64,7 +64,7 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **E19** launch production quality bar: finish S19.01 cluster linking, then visuals, voice, research coverage.
+1. **E19** launch production quality bar: S19.02 visual completeness in this PR; then voice pass (S19.03) and research coverage (S19.04).
 2. E20 public policies before turning off `noindex`. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
@@ -1145,14 +1145,15 @@ Applies to every launch article.
 - [x] From every launch article, 2–4 related launch articles
 - [x] Homepage clusters match real slugs
 - [x] No dead related links
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#29](https://github.com/moonseer/program-signal/pull/29))
 
 ### S19.02 — Visual completeness
 
-- [ ] Every Deep Dive / architecture piece has at least one original diagram
-- [ ] Operator pieces have code or manifests where they claim commands
-- [ ] Alt text on diagrams
-- [ ] Light and dark checked
+- [x] Every Deep Dive / architecture piece has at least one original diagram
+- [x] Operator pieces have code or manifests where they claim commands (009/011 claim controls and span attributes in prose/tables, not runnable shell; no missing command blocks)
+- [x] Alt text on diagrams (yml `alt_text` + SVG title/desc; Figure surfaces `alt_text` via `sr-only`)
+- [x] Light and dark checked (diagram CSS uses `currentColor` / `--accent` node language; SVGs re-encoded UTF-8)
+- [ ] Content PR merge (this PR)
 
 ### S19.03 — Voice differentiation pass
 
