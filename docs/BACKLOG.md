@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** **E22** domain + SEO/a11y hardening in progress. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** **E22 Done** (domain + SEO/a11y). Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -67,8 +67,8 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Land **E22** SEO/a11y PR; keep `noindex` until intentional public launch + Search Console.
-2. Operator: finish E21 secondary mirror secrets when ready. E23 newsletter and Radar stay later.
+1. Next product slice: **E23** newsletter (when ready). Keep `noindex` until intentional public launch + Search Console.
+2. Operator: E21 `BACKUP_MIRROR_*` secrets; monitor Fast Data Transfer. Radar stays later.
 
 ### Deferred (not now)
 
@@ -91,7 +91,7 @@ Keep this section current. Detail lives in the epics below.
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
 | P2 Launch inventory | E13–E21 | E13 **Done**. E15–E21 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
-| P3–P5 | E22–E38 | E22 **In progress** (domain attached). Rest not started, except deferred items. |
+| P3–P5 | E22–E38 | E22 **Done** (GSC / public indexation still operator). Rest not started, except deferred items. |
 
 ---
 
@@ -1269,7 +1269,7 @@ Applies to every launch article.
 
 ## E22 — Domain, SEO, and production hardening
 
-**Status:** In progress  
+**Status:** Done  
 **Phase:** P3  
 **Priority:** Critical
 
@@ -1312,7 +1312,7 @@ Applies to every launch article.
 - [x] Diagrams as SVG, not giant PNG
 - [x] Few `next/image` transformations (none)
 - [ ] Monitor Fast Data Transfer in Vercel dashboard (operator)
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#37](https://github.com/moonseer/program-signal/pull/37))
 
 ---
 
