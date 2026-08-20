@@ -98,37 +98,33 @@ The Perforce and Puppet State of DevOps Report Platform Engineering Edition 2026
 
 ## What Changed Technically
 
-The structural change is not that AI is running on Kubernetes. Batch workloads and inference servers are operational problems with known shapes. The structural change is that agents now consume platform capabilities as tools, and the Model Context Protocol (MCP) is becoming one of the primary surfaces for that consumption.
+The structural change is not that AI is running on Kubernetes. The change is that agents now consume platform capabilities as tools, and MCP is becoming one of the primary surfaces for that consumption.
 
-MCP is a JSON-RPC protocol for connecting AI clients to servers that expose tools and resources. The specification defines a host-client-server model.<Cite sourceId="SRC-MCP-001" /> Critically, it also defines security risks that are new to most platform teams: token passthrough (where credentials from one context flow to another without explicit authorization) and confused deputy attacks (where a server is manipulated into using its own authority on behalf of a caller that should not have it).<Cite sourceId="SRC-MCP-002" />
+MCP is a JSON-RPC protocol for connecting AI clients to servers that expose tools and resources. The specification defines a host-client-server model.<Cite sourceId="SRC-MCP-001" /> It also defines operator-facing risks that are new to most platform teams: token passthrough and confused deputy attacks.<Cite sourceId="SRC-MCP-002" /> Platform teams inheriting MCP servers inherit those risk surfaces whether or not they designed the protocol layer.
 
-These are not abstract concerns. They are the direct consequence of building a tool-access layer that was designed for developer ergonomics first and for least-privilege enforcement as a later concern. The MCP security best practices documentation is explicit about this. Platform teams inheriting MCP servers are inheriting those risk surfaces whether or not they were involved in the design.
+In traditional IDP design, blast radius is bounded by what a human engineer can do while they are operating. In an unattended agent runtime, that bound disappears. An agent with credentials to provisioning, secrets, and deployment is not operating under the same constraints as a developer waiting on a CLI.
 
-The important reframe: in traditional IDP design, the blast radius of a bad actor or a buggy workflow is bounded by what a human engineer could do in the time they were operating. In an unattended agent runtime, that bound disappears. An agent that holds credentials to a provisioning API and a secret store and a deployment pipeline is not operating under the same blast-radius constraints as a developer running a CLI command and waiting for output.
-
-This is the change that most state-of-platform-engineering roundups are not naming.
+This is the change most state-of-platform-engineering roundups are not naming.
 
 ---
 
 ## Who Should Care
 
-**Platform architects** designing the capability surface for AI workloads need to treat tool-access as a distinct layer with its own trust model. The golden path for an agent runtime is not the same document as the golden path for a developer workflow. They require separate authorization boundaries, separate audit surfaces, and separate incident scope definitions.
+**Platform architects** need to treat tool-access as a distinct trust model. The golden path for an agent runtime is not the same document as the golden path for a developer workflow.
 
-**Engineering leaders** deciding on AI infrastructure investments should ask whether their governance model was designed for autonomous action or adapted from a model designed for human action. The Puppet/Perforce survey finding, that organizations with formal governance report substantially higher trust in AI outputs compared with organizations relying on ad hoc approaches, is consistent with the inference that governance design affects operational outcomes.<Cite sourceId="SRC-PUPPET-001" /> The exact numbers should be read as directional given the survey's sponsorship, but the direction matches the structural argument.
+**Engineering leaders** should ask whether their governance model was designed for autonomous action or adapted from a model designed for human action. The Puppet/Perforce finding that formal governance correlates with higher trust in AI outputs is directional for that sample, and it matches the structural argument.<Cite sourceId="SRC-PUPPET-001" />
 
-**Staff engineers** embedded in platform teams are often the ones who will be asked to "just hook the agent up" to existing APIs. That is where token passthrough and confused deputy problems enter the system. Knowing the MCP security model before the first production deployment is not optional preparation.
+**Staff engineers** are often the ones asked to "just hook the agent up." That is where token passthrough and confused deputy problems enter. Read the MCP security model before the first production attachment.
 
 ---
 
 ## What We Are Watching Next
 
-**Governance automation as a first-class platform primitive.** Right now, governance automation for AI workloads is being built ad hoc inside organizations that are ahead of the curve, or not built at all in organizations that are not. The pattern has not stabilized into a reference architecture or a widely adopted open-source component. When it does, it will likely look like policy-as-code applied at the tool-invocation layer, not the deployment layer.
+**Governance automation as a platform primitive.** Today it is built ad hoc or not at all. When the pattern stabilizes, it will likely look like policy-as-code at the tool-invocation layer, not only at deploy time.
 
-**MCP authorization maturity.** The MCP specification is at an early stage of defining authorization semantics. How the community resolves token passthrough and confused deputy at scale will determine how safe it is to build production agent runtimes on top of the protocol. Watch the specification changelog and the working group discussions more closely than vendor announcements about "MCP support."
+**MCP authorization maturity.** How the community resolves token passthrough and confused deputy will determine how safe production agent runtimes are on top of the protocol. Watch the specification changelog more closely than vendor "MCP support" announcements.
 
-**The gap between IDP maturity surveys and blast-radius reality.** The surveys available right now measure adoption and tooling maturity reasonably well. None of them measure what happens when an unattended agent makes a bad call against a production system. That measurement gap is itself a signal: the industry has not yet agreed on what "safe AI infrastructure" means operationally, which means the definitions are still being written.
-
-**Organizational structure catching up to technical change.** The CNCF Q1 2026 Radar finding that 35 percent of respondents reported a hybrid platform for AI workloads is directionally useful, but "hybrid" is doing a lot of work in that number.<Cite sourceId="SRC-CNCF-003" /> The interesting question is whether platform teams own the governance layer of those hybrid platforms or whether it was inherited from a machine learning team, a security team, or nobody in particular.
+**Ownership of hybrid AI platforms.** The CNCF Q1 2026 Radar finding that 35 percent of respondents reported a hybrid platform for AI workloads is directionally useful, but "hybrid" does a lot of work in that number.<Cite sourceId="SRC-CNCF-003" /> The open question is whether platform teams own the governance layer, or whether it was inherited from an ML team, a security team, or nobody in particular.
 
 ---
 

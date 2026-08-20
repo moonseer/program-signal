@@ -10,8 +10,8 @@ editorialStatus: published
 status: CURRENT
 editorialPriority: high
 publishedAt: "2026-08-18"
-updatedAt: "2026-08-18"
-lastReviewedAt: "2026-08-18"
+updatedAt: "2026-08-20"
+lastReviewedAt: "2026-08-20"
 reviewAfter: "2026-09-17"
 category: AI Agents
 tags:
@@ -94,17 +94,11 @@ These are dated vendor announcements, not a frozen category definition. They rep
 
 ## What Changed Technically
 
-To understand why gateway products are appearing now, you need to understand what MCP actually changed.
+The Model Context Protocol specifies a JSON-RPC exchange between hosts, clients, and servers. It is a protocol for tool invocation and context sharing, not an agent architecture and not a harness.<Cite sourceId="SRC-MCP-001" />
 
-The Model Context Protocol specifies a JSON-RPC message exchange between hosts, clients, and servers. It is a protocol for tool invocation and context sharing, not an agent architecture and not a harness. The specification defines how a client calls a server, how servers advertise capabilities, and how messages are structured.<Cite sourceId="SRC-MCP-001" />
+What the protocol does not define is enforcement. MCP security guidance names real risks: token passthrough and confused deputy problems.<Cite sourceId="SRC-MCP-002" /> Before MCP, tool-calling security lived inside each integration. Composability is the feature. It is also why the security surface expands: any client that speaks MCP can reach any server that speaks MCP, within whatever trust controls you have in place.
 
-What the protocol does not define is enforcement. The MCP security best practices documentation names real risks: token passthrough, confused deputy problems, and operator-facing security gaps. A client receiving a token and forwarding it to a server it did not originate with is a passthrough risk. A server acting on requests without verifying the principal is a confused deputy risk. These are not theoretical. They are structural properties of a delegated invocation protocol.<Cite sourceId="SRC-MCP-002" />
-
-Before MCP, most tool-calling in agent systems was bespoke per integration. Security lived inside each application, and the attack surface was bounded by the number of integrations you had built. MCP changes that by standardizing the protocol and making servers composable. Composability is the feature. It is also why the security surface expands: any client that speaks MCP can now potentially reach any server that speaks MCP, within whatever trust controls you have in place.
-
-A gateway's appeal is direct: put a single enforcement point in front of all server connections, and you centralize the policy surface. Signature verification, secret scrubbing, call logging, and access control become one problem instead of many.
-
-That logic is sound as far as it goes.
+A gateway's appeal is direct: one enforcement point for signature verification, secret scrubbing, call logging, and access control. That logic is sound as far as it goes.
 
 ---
 

@@ -10,8 +10,8 @@ editorialStatus: published
 status: CURRENT
 editorialPriority: high
 publishedAt: "2026-08-17"
-updatedAt: "2026-08-17"
-lastReviewedAt: "2026-08-17"
+updatedAt: "2026-08-20"
+lastReviewedAt: "2026-08-20"
 reviewAfter: "2026-11-15"
 category: AI Agents
 tags:
@@ -27,7 +27,7 @@ difficulty: intermediate
 opportunityId: PS-O-0008
 seo:
   title: MCP for Platform Engineers
-  description: What Model Context Protocol means as a workload platform teams operate — not as an agent architecture.
+  description: What Model Context Protocol means as a workload platform teams operate, not as an agent architecture.
   primaryQuery: MCP for platform engineers
   searchIntent: informational
 research:
@@ -72,7 +72,7 @@ Platform engineers are being asked to **host**, **approve**, and **observe** MCP
 - Which credential does each server hold?
 - What happens when a tool call fails or over-reaches?
 
-MCP answers how tools are described and invoked over JSON-RPC. It does not answer those operations questions. Your platform does — or nobody does.
+MCP answers how tools are described and invoked over JSON-RPC. It does not answer those operations questions. Your platform does, or nobody does.
 
 <Callout type="signal">
 Platform Signal treats MCP as a **tool-access protocol**, not an agent harness and not a substitute for platform policy. See [What Is an AI Agent Harness?](/articles/what-is-an-ai-agent-harness) for where the harness sits relative to the protocol.
@@ -107,11 +107,11 @@ The MCP specification states that the protocol **cannot enforce** its security p
 
 When MCP enters your environment, expect to own at least five operational surfaces:
 
-1. **Server lifecycle** — How MCP servers are built, versioned, deployed, and retired in your host environment (VM, container, or managed service — the protocol is host-agnostic).
-2. **Credentials** — Each server typically holds credentials distinct from the calling model. Those credentials define real blast radius.
-3. **Reachability** — Which hosts may call which servers, over which network paths, from which environments (dev/stage/prod).
-4. **Allow-lists** — Which tools exist, which parameters are permitted, and who approves expansions.
-5. **Audit and traces** — Correlating a user request → host → MCP call → downstream API change.
+1. **Server lifecycle:** How MCP servers are built, versioned, deployed, and retired in your host environment (VM, container, or managed service; the protocol is host-agnostic).
+2. **Credentials:** Each server typically holds credentials distinct from the calling model. Those credentials define real blast radius.
+3. **Reachability:** Which hosts may call which servers, over which network paths, from which environments (dev/stage/prod).
+4. **Allow-lists:** Which tools exist, which parameters are permitted, and who approves expansions.
+5. **Audit and traces:** Correlating a user request → host → MCP call → downstream API change.
 
 None of those are defined by MCP messages. They are platform decisions you document and enforce outside the JSON-RPC payload.
 
@@ -122,7 +122,7 @@ Confusing host identity with server identity is a common early failure mode.
 - The **host** (your agent application) decides which servers to attach and when to invoke tools.
 - Each **server** may run as a separate process with its own service account, API token, or cloud role.
 
-If the server credential can do more than the host will allow the model to request, the effective policy is the server token — not the prompt.
+If the server credential can do more than the host will allow the model to request, the effective policy is the server token, not the prompt.
 
 ## Production Considerations
 
@@ -134,7 +134,7 @@ Before approving an MCP server for a production host, require: named owner, name
 
 **Blast radius** is bounded by server credentials and network policy, not by model politeness. Start with read-only tools; expand deliberately.
 
-**Observability** should tie MCP tool calls into the same traces you use for the agent harness — request id, tool name, latency, error, and downstream idempotency keys where applicable.
+**Observability** should tie MCP tool calls into the same traces you use for the agent harness: request id, tool name, latency, error, and downstream idempotency keys where applicable.
 
 **Multi-tenant hosts** need isolation between tenants’ server catalogs and secrets. Sharing one super-powered MCP server across teams is a policy shortcut that does not scale.
 
@@ -163,7 +163,7 @@ Treat MCP as a protocol your platform **operates**, not as an architecture you p
 
 **Wait when**
 
-- The team has no privileged tools yet — protocol choice is premature
+- The team has no privileged tools yet: protocol choice is premature
 - A vendor equates “MCP compatible” with “production agent platform” without naming identity and policy
 - You have not assigned an owner for server credentials and audit
 </Recommendation>

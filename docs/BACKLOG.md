@@ -64,7 +64,7 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. **E19** launch production quality bar: S19.02 visual completeness in this PR; then voice pass (S19.03) and research coverage (S19.04).
+1. **E19** launch production quality bar: S19.03 voice pass in this PR; then research coverage (S19.04).
 2. E20 public policies before turning off `noindex`. Radar automation and Kubernetes stay later.
 
 ### Deferred (not now)
@@ -1153,15 +1153,17 @@ Applies to every launch article.
 - [x] Operator pieces have code or manifests where they claim commands (009/011 claim controls and span attributes in prose/tables, not runnable shell; no missing command blocks)
 - [x] Alt text on diagrams (yml `alt_text` + SVG title/desc; Figure surfaces `alt_text` via `sr-only`)
 - [x] Light and dark checked (diagram CSS uses `currentColor` / `--accent` node language; SVGs re-encoded UTF-8)
-- [ ] Content PR merge (this PR)
+- [x] Content PR merge ([#30](https://github.com/moonseer/program-signal/pull/30))
 
 ### S19.03 — Voice differentiation pass
 
-- [ ] Maya pieces sound architectural, not operational
-- [ ] Marcus pieces foreground failure/observability/recovery
-- [ ] Elias pieces are shorter and timely
-- [ ] Nia pieces start from the problem, not the stack
-- [ ] No persona claims fake employers, degrees, or “years at Google”
+- [x] Maya pieces sound architectural, not operational (001–004, 008, 010: boundaries, layers, matrices; no fake ops war stories)
+- [x] Marcus pieces foreground failure/observability/recovery (009 privileged-workload failure modes; 011 chat-log vs traces and failure taxonomy)
+- [x] Elias pieces are shorter and timely (014/015 Signal structure; trimmed to Signal length; dated sources)
+- [x] Nia pieces start from the problem, not the stack (012 hiring ambiguity; 013 ownership failure modes before titles)
+- [x] No persona claims fake employers, degrees, or “years at Google” (scan clean across launch set)
+- [x] House style: removed residual em dashes from published article bodies
+- [ ] Content PR merge (this PR)
 
 ### S19.04 — Research coverage
 
