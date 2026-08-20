@@ -963,7 +963,7 @@ Implement routes (full policy text can be completed in P2 if needed, but stubs s
 - Each required type has Research Editor review and human approval
 - Clusters interlink; no orphan launch posts
 - Policy pages are real, not lorem
-- Backup/mirror plan is documented and the first mirror exists
+- Backup/mirror plan is documented (`docs/standards/BACKUP.md`); first third-copy archive + restore test done; independent secondary mirror goes live after `BACKUP_MIRROR_*` secrets
 
 Do not generate all 15 from a blank prompt. Each gets a brief first.
 
