@@ -1,0 +1,55 @@
+name: Backup mirror
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check mirror secrets
+        id: secrets
+        env:
+          BACKUP_MIRROR_URL: ${{ secrets.BACKUP_MIRROR_URL }}
+          BACKUP_MIRROR_TOKEN: ${{ secrets.BACKUP_MIRROR_TOKEN }}
+        run: |
+          if [ -z "$BACKUP_MIRROR_URL" ] || [ -z "$BACKUP_MIRROR_TOKEN" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "BACKUP_MIRROR_URL / BACKUP_MIRROR_TOKEN not set; skipping secondary mirror."
+            echo "See docs/standards/BACKUP.md for one-time setup."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Mirror push
+        if: steps.secrets.outputs.configured == 'true'
+        env:
+          BACKUP_MIRROR_URL: ${{ secrets.BACKUP_MIRROR_URL }}
+          BACKUP_MIRROR_TOKEN: ${{ secrets.BACKUP_MIRROR_TOKEN }}
+          BACKUP_MIRROR_USERNAME: ${{ secrets.BACKUP_MIRROR_USERNAME }}
+          SOURCE_URL: https://github.com/${{ github.repository }}.git
+        run: |
+          set -euo pipefail
+          USERNAME="${BACKUP_MIRROR_USERNAME:-oauth2}"
+          # Inject token for push without printing it.
+          AUTH_URL="$(python3 - <<'PY'
+          import os, urllib.parse
+          raw = os.environ["BACKUP_MIRROR_URL"].strip()
+          user = os.environ.get("BACKUP_MIRROR_USERNAME") or "oauth2"
+          token = os.environ["BACKUP_MIRROR_TOKEN"]
+          parts = urllib.parse.urlsplit(raw)
+          netloc = f"{urllib.parse.quote(user, safe='')}:{urllib.parse.quote(token, safe='')}@{parts.hostname}"
+          if parts.port:
+              netloc += f":{parts.port}"
+          print(urllib.parse.urlunsplit((parts.scheme, netloc, parts.path, parts.query, parts.fragment)))
+          PY
+          )"
+          git clone --mirror "$SOURCE_URL" mirror.git
+          cd mirror.git
+          git push --mirror "$AUTH_URL"
+          echo "Secondary mirror push completed."
