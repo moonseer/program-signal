@@ -32,7 +32,7 @@ When a story is completed, check its tasks and change the story status. Do not s
 ## Now / Next
 
 **Updated:** 20 August 2026  
-**Phase:** **E24 Done** (analytics). E23 newsletter deferred. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
+**Phase:** **E25** launch distribution in progress. E23 newsletter deferred. Custom domain **platformsignal.dev**. Site remains `noindex`. **Kubernetes is not in scope**.
 
 Keep this section current. Detail lives in the epics below.
 
@@ -68,7 +68,7 @@ Keep this section current. Detail lives in the epics below.
 
 ### Do next (recommended order)
 
-1. Next: **E25** launch distribution, or public launch (`noindex` off + Search Console) when ready.
+1. Land **E25** launch distribution (this PR). Keep `noindex` until intentional public launch + Search Console.
 2. **E23 newsletter deferred**. Operator: enable Vercel Web Analytics; optional GA4 ID; E21 `BACKUP_MIRROR_*`.
 
 ### Deferred (not now)
@@ -93,7 +93,7 @@ Keep this section current. Detail lives in the epics below.
 | P1 Publishing system | E06–E12 | E06 **In progress**. E11 search **Done**. E07, E08, E09, E10 **In progress**. |
 | P2 Launch inventory | E13–E21 | E13 **Done**. E15–E21 **Done**. E14 **deferred** (Kubernetes not in scope). |
 | P-ind. Agent enablement | E37–E39 | E37/E39 **In progress** (Phase 1 scaffold landed). |
-| P3–P5 | E22–E38 | E22–E24 **Done** (E23 deferred). Rest not started, except deferred items. |
+| P3–P5 | E22–E38 | E22–E24 **Done** (E23 deferred). E25 **In progress**. Rest not started, except deferred items. |
 
 ---
 
@@ -1392,7 +1392,7 @@ North star: Monthly Engaged Technical Readers.
 
 ## E25 — Launch distribution
 
-**Status:** Not started  
+**Status:** In progress  
 **Phase:** P3  
 **Priority:** Medium
 
@@ -1400,16 +1400,18 @@ North star: Monthly Engaged Technical Readers.
 
 Write `docs/agents/DISTRIBUTION-EDITOR.md`.
 
-- [ ] Channel-specific outputs: LinkedIn, HN, Reddit, newsletter, short social
-- [ ] Never one generic blurb pasted everywhere
-- [ ] HN reserved for original technical work/Labs more than explainers
-- [ ] Reddit: useful framing, no drive-by spam
+- [x] Channel-specific outputs: LinkedIn, HN, Reddit, newsletter, short social
+- [x] Never one generic blurb pasted everywhere
+- [x] HN reserved for original technical work/Labs more than explainers
+- [x] Reddit: useful framing, no drive-by spam
 
 ### S25.02 — Launch week plan
 
-- [ ] Sequence the 15 (not all 15 links in one day)
-- [ ] Founder LinkedIn: one takeaway + one diagram
-- [ ] Capture reader questions as Radar opportunity cards in `editorial/opportunities/`
+- [x] Sequence the published launch set (12 articles; Kubernetes deferred) in `docs/editorial/LAUNCH-WEEK-PLAN.md`
+- [x] Founder LinkedIn: one takeaway + one diagram (checklist in plan)
+- [x] Capture reader questions as Radar opportunity cards in `editorial/opportunities/`
+- [ ] Content PR merge (this PR)
+- [ ] Founder executes the calendar (operator; not blocked on code)
 
 ---
 
