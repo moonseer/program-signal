@@ -2,7 +2,7 @@
 id: PS-000009
 title: How to Run MCP Servers as Privileged Workloads
 slug: how-to-run-mcp-servers-as-privileged-workloads
-description: An MCP server is a privileged process. Identity, secrets, network, and audit bound its blast radius — not the prompt, and not the choice of host.
+description: An MCP server is a privileged process. Identity, secrets, network, and audit bound its blast radius, not the prompt, and not the choice of host.
 subtitle: Operator controls that travel with the server, whether it runs on a VM, a container, Kubernetes, or a managed host.
 contentType: operator_guide
 authorPersona: marcus
@@ -10,8 +10,8 @@ editorialStatus: published
 status: CURRENT
 editorialPriority: high
 publishedAt: "2026-08-17"
-updatedAt: "2026-08-17"
-lastReviewedAt: "2026-08-17"
+updatedAt: "2026-08-20"
+lastReviewedAt: "2026-08-20"
 reviewAfter: "2026-10-16"
 category: AI Agents
 tags:
@@ -27,7 +27,7 @@ difficulty: advanced
 opportunityId: PS-O-0009
 seo:
   title: How to Run MCP Servers as Privileged Workloads
-  description: Identity, authorization, secrets, audit, and failure domains for MCP servers — host-agnostic operator guidance.
+  description: "Identity, authorization, secrets, audit, and failure domains for MCP servers: host-agnostic operator guidance."
   primaryQuery: MCP server security privileged workload
   searchIntent: informational
 research:
@@ -67,7 +67,7 @@ sponsorship:
 
 The default MCP server is a process with a tool list and a secret in the environment. That is enough to demo. It is not enough to operate.
 
-When that process can read a database, open a change ticket, or call an internal API, it is a **privileged workload**. The host that runs it — a VM, a container, a Kubernetes cluster, or a managed runtime — is a placement decision. Placement is not a security model.
+When that process can read a database, open a change ticket, or call an internal API, it is a **privileged workload**. The host that runs it (a VM, a container, a Kubernetes cluster, or a managed runtime) is a placement decision. Placement is not a security model.
 
 <Callout type="production">
 If you cannot name the identity the server uses, the network it can reach, the secret it holds, and the audit record a failed tool call leaves, you are not ready to attach it to a production host.
@@ -97,9 +97,9 @@ Kubernetes is one legal answer to “where does the process run.” It is not th
 
 Do not confuse three identities:
 
-1. **User / initiator** — the person or service that started the agent run.
-2. **Host** — the application that embeds the MCP client and decides which servers to attach.
-3. **Server** — the process that actually holds downstream credentials and executes tools.
+1. **User / initiator:** the person or service that started the agent run.
+2. **Host:** the application that embeds the MCP client and decides which servers to attach.
+3. **Server:** the process that actually holds downstream credentials and executes tools.
 
 If the server token can do more than the host will allow the model to request, the effective policy is the server token.
 
@@ -184,7 +184,7 @@ If a row is “we will get to it after we pick Kubernetes,” the server is not 
 ## Recommendation
 
 <Recommendation>
-Treat every MCP server as a privileged workload. Bind a named identity, bound network, rotated secret, and a trace you can follow — then pick a host.
+Treat every MCP server as a privileged workload. Bind a named identity, bound network, rotated secret, and a trace you can follow, then pick a host.
 
 **Use when**
 
