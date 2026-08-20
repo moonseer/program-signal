@@ -13,6 +13,8 @@
     "test": "tsx --test src/lib/*.test.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "flexsearch": "^0.8.212",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",

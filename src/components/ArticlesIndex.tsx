@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ArticleTeaser } from "@/components/ArticleTeaser";
+import { trackEvent } from "@/lib/analytics";
 import {
   contentTypeLabels,
   personaNames,
@@ -85,7 +86,19 @@ export function ArticlesIndex({
           <select
             className="min-h-11 border border-[var(--border)] bg-[var(--card)] px-2"
             value={contentType}
-            onChange={(event) => setContentType(event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+              setContentType(value);
+              if (value === "deep_dive" || value === "lab") {
+                trackEvent("deep_dive_selected", { content_type: value });
+              } else if (
+                value === "field_note" ||
+                value === "the_signal" ||
+                value === "explainer"
+              ) {
+                trackEvent("quick_read_selected", { content_type: value });
+              }
+            }}
           >
             <option value="all">All</option>
             {types.map((value) => (
