@@ -98,4 +98,5 @@ test("loads launch clusters from editorial/clusters.yml", () => {
   assert.ok(signal);
   assert.equal(signal?.pillar, "why-everyone-suddenly-wants-an-mcp-gateway");
   assert.ok(signal?.articles.includes("PS-000014"));
+  assert.ok(signal?.articles.includes("PS-000015"));
 });
